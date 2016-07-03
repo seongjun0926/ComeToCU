@@ -1,0 +1,272 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="Util.DB"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="/Reply/ajax.js"></script>
+<script type="text/javascript">
+	//WB_ID에 맞는 댓글을 보여주기 위해 윈도우가 로드되면서 WB_ID의 값을 가져와서 진행
+
+	var WB_ID = document.getElementById("WB_ID")
+
+	window.onload = function() {
+
+		var Like_Count = document.getElementById.Like_Count;
+
+		loadLikeNum();// 좋아요 수 불러오기 함수
+		loadLikeCheck();
+		loadCommentList();
+	}
+
+	function changeImageSize(pWidth) {
+		var r, re;
+		testImg = new Image();
+
+		re = "/UpLoad/ComeToCU_UpLoad"; // 이부분이 이미지가 저장된 폴더입니다.
+		for (var i = 0; i < document.images.length; i++) {
+			r = (document.images[i].src).search(re);
+			if (r > -1 && document.images[i].src != "") {
+				testImg.src = document.images[i].src;
+				if (testImg.width > pWidth) {
+					document.images[i].width = pWidth;
+					document.images[i].height = testImg.height * pWidth
+							/ testImg.width;
+				}
+			}
+		}
+	}
+</script>
+
+<title>자유 게시판 글 보기</title>
+</head>
+<body style="background-color: #f7f7f7">
+	<br>
+	<br>
+	<br>
+
+	<!-- 색깔 넣어주면댐 -->
+	<div id="header" class="container">
+
+
+		<!-- 상단 네비게이션 바 -->
+		<jsp:include page="/NavBar.jsp" flush="false" />
+
+		<!-- 세션으로 로그인이 되어있는지 안되어있는지 확인. 나중에 페이지 하나 새로 만들어서 include하고 싶은데 할줄몰라서 그냥 이렇게함. -->
+		<%
+			String Get_ID = (String) session.getAttribute("Get_ID");
+			String CD_ID = request.getParameter("CD_ID");
+
+			if ((Get_ID == null || Get_ID == "") && CD_ID.equals("20") == false) {
+				//로그인을 안했고, CD_ID가 20이 아니다(true) T&T 라면 로그인 ㄱ
+				//로그인을 안했고, CD_ID가 20이다 -> false
+		%>
+
+		<script>
+			alert("로그인이 필요합니다.")
+			window
+					.open('/Log/Login_Ready.jsp', 'blank',
+							'width=350,height=150');
+		</script>
+		<%
+			} else {
+				String URI = request.getRequestURL().toString();
+				if (request.getQueryString() != null)
+					URI = URI + "?" + request.getQueryString();
+				session.setAttribute("URI", URI);
+				//전 페이지로 돌아가기위한 URI 받음. getRequestURL은 get방식을 가져오기 못하기때문에 getQueryString()을 통해 ~.jsp? 이후 부분을 다 가져옴
+
+				String CS_ID = request.getParameter("CS_ID");
+				String WB_ID = request.getParameter("WB_ID");
+				System.out.println("Show_Detail_Board.jsp " + "WB_ID=" + WB_ID + "CD_ID : " + CD_ID + " CS_ID : "
+						+ CS_ID + " URI : " + URI);
+				String CD_Contents = null;
+				String CD_Notice = null;
+		%>
+
+
+
+
+
+
+
+
+		<%
+			Connection conn = null;
+				Statement stmt = null;
+				Statement stmt_reply = null;
+				ResultSet rs = null;
+				ResultSet rs_reply = null;
+				PreparedStatement pstmt = null;
+				try {
+					conn = DB.getConnection();
+					conn.setAutoCommit(false);
+					stmt = conn.createStatement();
+					rs = stmt.executeQuery(
+							"select CD_Contents,CD_Notice from category_detail where CD_ID=" + CD_ID + ";");
+					if (rs.next()) {
+						CD_Contents = rs.getString("CD_Contents");
+						CD_Notice = rs.getString("CD_Notice");
+						rs.close();
+					}
+		%>
+	</div>
+	<div>
+		<!-- 색깔 넣어주면댐  -->
+		<div class="container">
+			<input type="hidden" id="WB_ID" name="WB_ID" value="<%=WB_ID%>" />
+			<div class="panel" style="border: 1px solid #bce8f1">
+				<div class="panel-heading">
+					<div class="panel-title text-center"
+						style="font-weight: bold; color: #31708f;"><%=CD_Contents%></div>
+				</div>
+
+				<div class="alert alert-success text-center" role="alert"
+					style="background-color: #c9dee3">
+					<%=CD_Notice%>
+				</div>
+
+				<div class="panel-body"
+					style="padding-top: 0px; padding-left: 0px; padding-right: 0px; padding-bottom: 0px;">
+
+
+					<!-- 서브보드 포함 -->
+					<jsp:include page="/Board/Sub_Board.jsp" flush="false" />
+
+
+					<div class="col-md-10 col-xs-12">
+						<%
+							rs = stmt.executeQuery("select * from write_board where WB_ID='" + WB_ID + "';");
+
+									while (rs.next()) {
+										String ID = rs.getString("WB_ID");
+										String Header = rs.getString("WB_Header");
+										String Contents = rs.getString("WB_Contents");
+										String Creator = rs.getString("WB_Creator");
+										String Time = rs.getString("WB_Time");
+										String Like_Num = rs.getString("WB_Like_Num");
+										String Compare_CD_ID = rs.getString("CD_ID");
+										String View_CNT = rs.getString("View_CNT");
+						%>
+
+
+						<div class="panel" style="border: 1px solid gray;">
+							<div class="panel-heading">
+								<div class="row">
+									<p class="panel-title text-center"
+										style="font-size: 20px; font-weghit: bold"><%=Header%></p>
+
+									<hr>
+								</div>
+								<div class="row">
+
+									<div class="text-right">
+										<img src="/img/creator.png" />
+										<%
+											if (Compare_CD_ID.equals("2")) {
+										%><span class="label label-default">익명</span>
+										<%
+											} else {
+										%>
+
+										<span class="label label-default"><%=Creator%></span>&nbsp;&nbsp;
+										<%
+											}
+										%><img src="/img/date.png" /> <span
+											class="label label-default"><%=Time%></span>&nbsp;&nbsp; <img
+											src="/img/see.png" /> <span class="label label-default"><%=View_CNT%></span>
+									</div>
+									<hr>
+								</div>
+							</div>
+
+							<div class="panel-body">
+
+								<div class="row">
+									<div class="container" style="font-size: 17px;">
+										<%=Contents%>
+
+									</div>
+									<hr>
+								</div>
+								<div class="text-center">
+									<h1>마음에 들어요 !!!</h1>
+
+									<jsp:include page="/Like/Like_Method.jsp" flush="false">
+										<jsp:param value="<%=WB_ID%>" name="WB_ID" />
+									</jsp:include>
+
+								</div>
+
+							</div>
+
+
+
+
+							<div class="panel-footer">
+								<jsp:include page="/Reply/commentclient.jsp" flush="false">
+									<jsp:param value="<%=CD_ID%>" name="CD_ID" />
+									<jsp:param value="<%=CS_ID%>" name="CS_ID" />
+								</jsp:include>
+							</div>
+						</div>
+
+
+
+
+
+
+
+
+
+						<%
+							}
+									pstmt = conn.prepareStatement(
+											"update write_board set View_CNT=View_CNT+1 where WB_ID='" + WB_ID + "';");
+									pstmt.executeUpdate();
+									conn.commit();
+								} catch (
+
+								SQLException e) {
+									e.printStackTrace();
+								} finally {
+									if (pstmt != null)
+										pstmt.close();
+									if (rs != null)
+										rs.close();
+									if (stmt != null)
+										stmt.close();
+									if (conn != null)
+										conn.close();
+								}
+						%>
+					</div>
+				</div>
+			</div>
+		</div>
+		<%
+			}
+		%>
+		<script>
+			changeImageSize("600");
+		</script>
+
+	</div>
+
+
+
+	<jsp:include page="/footer.jsp" flush="false" />
+</body>
+</html>
