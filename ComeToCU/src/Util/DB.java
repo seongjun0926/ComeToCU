@@ -15,9 +15,9 @@ public class DB {
 	
 	public static Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/seongjun0926",
-				"seongjun0926",
-				"tjdwns3721"
+				"~~~~~~~~",
+				"~~~~~",
+				"~~~~~~~~~"
 			);
 		
 	}
