@@ -98,10 +98,10 @@ var WB_ID = document.getElementById("WB_ID")
 
 		if (comment.Like_Check == 0) {
 			var html = '<div>'
-					+ '<button id="Like_BTN" onclick="Like();" type="button" class="btn btn-info btn-lg">'
+					+ '<button id="Like_BTN" onclick="Like();" type="button" class="btn btn-default btn-lg">'
 					+ '<span class="glyphicon glyphicon-thumbs-up"></span>'
 					+ '</button>'
-					+ '<span id="Like_Num" class="label label-info"></span>'
+					+ '<span id="Like_Num" class="label label-default"></span>'
 					+ '</div>'
 
 		} else {
@@ -109,7 +109,7 @@ var WB_ID = document.getElementById("WB_ID")
 					+ '<button id="Like_BTN" onclick="DisLike();" type="button" class="btn btn-default btn-lg">'
 					+ '<span class="glyphicon glyphicon-thumbs-up"></span>'
 					+ '</button>'
-					+ '<span id="Like_Num" class="label label-info"></span>'
+					+ '<span id="Like_Num" class="label label-default"></span>'
 					+ '</div>'
 		}
 
@@ -164,7 +164,7 @@ var WB_ID = document.getElementById("WB_ID")
 	function DisLike() {
 		document.getElementById('Like_BTN').setAttribute('onclick', 'Like();');
 		document.getElementById('Like_BTN').setAttribute('class',
-				'btn btn-info btn-lg')
+				'btn btn-default btn-lg')
 		Like_Count = document.getElementById('Like_Count').value;
 
 		var param = "WB_ID=" + encodeURIComponent(WB_ID) + "&" + "Like_Count="
@@ -206,9 +206,9 @@ var WB_ID = document.getElementById("WB_ID")
 <style type="text/css">
 
 .like{
-background-color:#5bc0de !important;
-color:white !important;
-border-radius: 50% !important;
+background-color:white !important;
+color: black !important;
+
 }
 
 }
@@ -218,7 +218,7 @@ border-radius: 50% !important;
 	<%String WB_ID=request.getParameter("WB_ID"); %>
 	
 	
-	<div id="commentCheck"></div><br>
+	<div id="commentCheck"></div>
 	<input class="like btn" type="button" name="Like_Count" id="Like_Count" value="" disabled="true" />
 	<!-- <input type="button" name="Like_Count" id="Like_Count" value="" /> -->
 

@@ -49,7 +49,19 @@
 		}
 	}
 </script>
+<style type="text/css">
 
+.alert{
+background-color: white !important;
+color: #123478 !important;
+}
+.panel-title{
+background-color : white 1important;
+color : #123478 !important;
+}
+
+
+</style>
 <title>자유 게시판 글 보기</title>
 </head>
 <body style="background-color: #f7f7f7">
@@ -127,13 +139,13 @@
 		<!-- 색깔 넣어주면댐  -->
 		<div class="container">
 			<input type="hidden" id="WB_ID" name="WB_ID" value="<%=WB_ID%>" />
-			<div class="panel" style="border: 1px solid #bce8f1">
+			<div class="panel" style="border: 4px solid #EAEAEA">
 				<div class="panel-heading">
 					<div class="panel-title text-center"
-						style="font-weight: bold; color: #31708f;"><%=CD_Contents%></div>
+						style="font-weight: bold; color: #002266;"><%=CD_Contents%></div>
 				</div>
 
-				<div class="alert alert-success text-center" role="alert"
+				<div class="alert  text-center" role="alert"
 					style="background-color: #c9dee3">
 					<%=CD_Notice%>
 				</div>
@@ -162,13 +174,13 @@
 						%>
 
 
-						<div class="panel" style="border: 1px solid gray;">
+						<div class="panel" style="border: 2px solid #EAEAEA;">
 							<div class="panel-heading">
 								<div class="row">
 									<p class="panel-title text-center"
 										style="font-size: 20px; font-weghit: bold"><%=Header%></p>
 
-									<hr>
+									<hr style="border: solid 1.5px #EAEAEA;">
 								</div>
 								<div class="row">
 
@@ -202,7 +214,7 @@
 									<hr>
 								</div>
 								<div class="text-center">
-									<h1>마음에 들어요 !!!</h1>
+									<h6>좋아요</h6>
 
 									<jsp:include page="/Like/Like_Method.jsp" flush="false">
 										<jsp:param value="<%=WB_ID%>" name="WB_ID" />

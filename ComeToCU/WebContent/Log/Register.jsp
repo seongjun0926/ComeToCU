@@ -12,7 +12,15 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<style type="text/css">
 
+.panel-heading{
+background-color: black !important;
+color: #123478 !important;
+}
+
+
+</style>
 <title>회원 가입</title>
 
 <script type="text/javascript" src="/Log/httpRequest.js"></script>
@@ -111,7 +119,7 @@ function checkPwd() {
 		if(pw1==null||pw1=="")
 			{
 			if(pw2==null||pw2==""){
-				document.getElementById('checkPwd').style.color = "green";
+				document.getElementById('checkPwd').style.color = "black";
 				document.getElementById('checkPwd').innerHTML = "암호를 입력해주세요.";
 			}
 			
@@ -157,7 +165,7 @@ function trim(str) {
 	<form name="Register_Member" action="/Log/Register_DB.jsp"
 		method="Post">
 		<div class="container">
-			<div class="panel panel-info">
+			<div class="panel panel-default">
 				<div class="panel-heading text-center">회원 가입</div>
 				<table class="table">
 					<tr>
@@ -211,7 +219,7 @@ function trim(str) {
 			</div>
 			<div class="text-center">
 				<div class="btn-group " role="group">
-					<button type="button" class="btn btn-primary" onclick="return Check();">등록</button>
+					<button type="button" class="btn btn-default" onclick="return Check();" >등록</button>
 				</div>
 			</div>
 		</div>

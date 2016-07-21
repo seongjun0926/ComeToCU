@@ -27,7 +27,7 @@ a.three{
 }
 
 a.three:hover, a.three:active {
-   color:#83cd8f;
+   color:#123478;
 }
 </style>
 
@@ -47,9 +47,9 @@ a.three:hover, a.three:active {
 		System.out.println("Preview_Board.jsp CD_ID : " + CD_ID + " CS_ID: " + CS_ID);
 
 		if (CD_ID.equals("20")) {
-			Color = "#83cd8f";
+			Color = "#1F50B5";
 		} else {
-			Color = "#bce8f1";
+			Color = "#EAEAEA";
 		}
 	%>
 

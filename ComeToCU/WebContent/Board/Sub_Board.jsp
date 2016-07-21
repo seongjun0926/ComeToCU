@@ -8,25 +8,27 @@
 <head>
 
 <style type="text/css">
-a.one{
-   background-color: #89b7c2;
-   color:white;
-   
+.list-group-item {
+    margin-bottom: -1.5px !important;
+    border: 2px solid #ddd !important;
 }
 a.two{
-  background-color:#76b191;
-   color:white;
-}
-a.one:hover, a.one:active {
   background-color:white;
-   border:2px solid #d9edf7;
-   color:#7aaec7;
+   color:black;
+}
+.list-group-item-default:hover{
+
+ margin-bottom: 0px !important;
+  background-color: white;
+   border:1px solid #0D3FA5 !important;
+   color: #00096F;
 }
 a.two:hover{
-   background-color:white;
-   border:2px solid #83cd8f;
-   color:#83cd8f;
+   background-color: white;
+   border:2px solid #0D3FA5;
+   color: #00096F;
    }
+
 </style>
 
 </head>

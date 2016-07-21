@@ -18,18 +18,19 @@
 <title>대구가톨릭대학교 커뮤니티 사이트</title>
 
 </head>
-<body style="background-color:#f7f7f7; color:#347ab7">
+<body style="background-color:#F6F6F6; color:#002266">
 	<br>
 	<br>
 	<br>
-	<div style="background-color: white;">
+	<div style="background-color: #F6F6F6;">
 		<!-- 색깔 넣어주면댐 -->
 		<div id="header" class="container">
 
 			<!-- 상단 네비게이션 바 -->
+			
 			<jsp:include page="/NavBar.jsp" flush="false" />
-
-
+             
+<br>
 			<div class="row">
 				<!-- 학교 로고가 들어갈 자리 -->
 
@@ -38,20 +39,16 @@
 
 			</div>
 		</div>
-		<hr style="border: 1px solid #d9edf7;">
+		
 	</div>
 
 	<div>
 		<!-- 색깔 넣어주면댐  -->
 		<div class="container">
-			<br> <br>
+			
 			<!-- 검색창 -->
 
-			<jsp:include page="/Search/Search_Bar.jsp" flush="false">
-				<jsp:param name="CS_ID" value="1" />
-				<jsp:param name="CD_ID" value="19" />
-			</jsp:include>
-			<br> <br>
+			<br>
 			<div class="row">
 				
 					<jsp:include page="/Preview_Board/Preview_Board.jsp" flush="false">

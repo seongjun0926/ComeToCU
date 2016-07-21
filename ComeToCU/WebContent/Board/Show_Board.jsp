@@ -25,14 +25,33 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js">
+</script>
+
+<style type="text/css">
+
+.alert{
+background-color: white !important;
+color: black !important;
+}
+a.list-group-item{
+ background-color: white !important;
+ color:black !important;
+}
+a.list-group-item:hover{
+   background-color: white !important;
+   border:2px solid #0D3FA5 !important;
+   color: #00096F !important;
+}
+
+</style>
 
 <title>자유 게시판</title>
 
 
 
 </head>
-<body style="background-color:#f7f7f7">
+<body style="background-color: #f7f7f7">
 	<%
 		request.setCharacterEncoding("utf-8");
 	%>
@@ -147,14 +166,15 @@
 		<div class="container">
 
 			<!-- 게시판 header부분, 머리부분, 틀을 구성 -->
-			<div class="panel" style="border: 1px solid #bce8f1">
+			<div class="panel" style="border: 2px solid #EAEAEA">
 				<div class="panel-heading">
 					<div class="panel-title text-center"
-						style="font-weight: bold; color: #31708f;"><%=CD_Contents%></div>
+						style="font-weight: bold; color: #002266;"><%=CD_Contents%></div>
 				</div>
 
-				<div class="alert alert-success text-center" role="alert"
-					style="background-color: #c9dee3">
+				<div class="alert  text-center" role="alert"
+					style="background-color: #002266">
+
 					<%=CD_Notice%>
 				</div>
 				<div class="panel-body">
@@ -168,22 +188,22 @@
 									<td>
 										<div class="row visible-md visible-lg">
 											<div class="col-xs-1 text-center">
-												<font color="#89b7c2"><b>번호</b></font>
+												<font color="#0D3FA5"><b>번호</b></font>
 											</div>
 											<div class="col-xs-6 text-left">
-												<font color="#89b7c2"><b>제목</b></font>
+												<font color="#0D3FA5"><b>제목</b></font>
 											</div>
 											<div class="col-xs-1 text-center">
-												<font color="#89b7c2"><b>따봉</b></font>
+												<font color="#0D3FA5"><b>따봉</b></font>
 											</div>
 											<div class="col-xs-1 text-center">
-												<font color="#89b7c2"><b>작성자</b></font>
+												<font color="#0D3FA5"><b>작성자</b></font>
 											</div>
 											<div class="col-xs-2 text-center">
-												<font color="#89b7c2"><b>날짜</b></font>
+												<font color="#0D3FA5"><b>날짜</b></font>
 											</div>
 											<div class="col-xs-1 text-center">
-												<font color="#89b7c2"><b>조회수 </b></font>
+												<font color="#0D3FA5"><b>조회수 </b></font>
 											</div>
 										</div>
 									</td>
@@ -205,13 +225,13 @@
 
 								</tr>
 								<tr class="visible-sm visible-xs">
-								<td style="border: 0px">
-									<div class="list-group">
-										<a href="/Write_Board/Write_Board.jsp"
-											class="list-group-item list-group-item-success">-글 쓰기</a>
-									</div>
-								</td>
-							</tr>
+									<td style="border: 0px">
+										<div class="list-group">
+											<a href="/Write_Board/Write_Board.jsp"
+												class="list-group-item list-group-item-success">-글 쓰기</a>
+										</div>
+									</td>
+								</tr>
 							</thead>
 							<%
 								} else {
@@ -343,10 +363,10 @@
 												<input type="hidden" name="WB_ID" value="<%=ID%>">
 												<div class="row">
 													<div class="col-xs-1 text-center">
-														<font color="black"><%=ID%></font>
+														<font color="#353535"><%=ID%></font>
 													</div>
 													<div class="col-xs-6 text-left">
-														<font color="black"><%=Header%></font> [<%=R_total%>]
+														<font color="#353535"><%=Header%></font> [<%=R_total%>]
 														<%
 															Compare_Date = Date.substring(0, 10);
 																			Compare_WB_Time = WB_Time.substring(0, 10);
@@ -359,27 +379,27 @@
 													</div>
 
 													<div class="col-xs-1 text-center">
-														<font color="black"><%=Like_Num%></font>
+														<font color="#353535"><%=Like_Num%></font>
 													</div>
 													<%
 														if (Compare_CD_ID.equals("2")) {
 													%><div class="col-xs-1 text-center">
-														<font color="black">익명</font>
+														<font color="#353535">익명</font>
 													</div>
 													<%
 														} else {
 													%>
 													<div class="col-xs-1 text-center">
-														<font color="black"><%=WB_Creator%></font>
+														<font color="#353535"><%=WB_Creator%></font>
 													</div>
 													<%
 														}
 													%>
 													<div class="col-xs-2 text-center">
-														<font color="black"><%=WB_Time%></font>
+														<font color="#353535"><%=WB_Time%></font>
 													</div>
 													<div class="col-xs-1 text-center">
-														<font color="black"><%=View_CNT%></font>
+														<font color="#353535"><%=View_CNT%></font>
 													</div>
 
 

@@ -7,7 +7,7 @@
 
 </head>
 <body>
-<div style="background-color:#c9dee3; color:black;">
+<div style="background-color:#f7f7f7; color:black;">
 	<div id="footer" class="container text-center">
 			
 <hr>

@@ -9,15 +9,15 @@
 /*네비게이션 바 기본 색상 지정*/
 .navbar-default{
 
-    background-image: linear-gradient(to bottom, #d9edf7 0, #d9edf7 100%) !important;
+    background-image: linear-gradient(to bottom, #002266 0, #002266 100%) !important;
 }
 /*네비게이션 바 글자 색깔*/
 .navbar-nav>li>a {
-    color: gray !important;
+    color: #BDBDBD !important;
 }
 /*네비게이션 클릭 했을 때*/
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.open>a{
-    background-image: linear-gradient(to bottom,#e6f0f5 0,#e6f0f5 100%) !important;
+    background-image: linear-gradient(to bottom,#123478 0,#123478 100%) !important;
     
     }
 
@@ -25,8 +25,8 @@
 
 .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover
 	{
-	color: #2e6da4  !important; 
-	background-color: transparent  !important;
+	color: white  !important; 
+	background-color: #123478  !important;
 }
 
 /*토글 기본 색상*/
@@ -42,20 +42,20 @@
 /*화면이 작아졌을 때 드롭다운 버튼을 눌렀을 시 글자 색*/
 @media ( max-width :767px) {
 	.navbar-default .navbar-nav .open .dropdown-menu>li>a {
-		color: gray !important;
+		color: black !important;
 	}
 
 /*화면이 작아졌을 때 드롭다운 버튼을 누르고 마우스 오버됬을 때 글자 색*/
 	.navbar-default .navbar-nav .open .dropdown-menu>li>a:focus,
 		.navbar-default .navbar-nav .open .dropdown-menu>li>a:hover {
-		color: black !important;
+		color: #123478 !important;
 		background-color: white !important;
 	}
 
 
 /*드롭다운 배경 색깔*/
 .dropdown-menu>li>a {
-  		background-color: #e6f0f5 !important;
+  		background-color: white !important;
 }
 </style>
 
@@ -65,7 +65,7 @@
 
 	<nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
-		<div class="navbar-header">
+		<div class="navbar-header text-center">
 			<button type="button" class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
 				aria-controls="navbar">
