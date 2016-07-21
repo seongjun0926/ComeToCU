@@ -17,7 +17,7 @@ public class DB {
 		return DriverManager.getConnection(
 				"~~~~~~~~",
 				"~~~~~",
-				"~~~~~~~~~"
+				"~"
 			);
 		
 	}
