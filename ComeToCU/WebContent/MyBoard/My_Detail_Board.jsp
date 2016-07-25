@@ -30,13 +30,7 @@
 		loadLikeCheck();
 		loadCommentList();
 	}
-	function delete_confirm() {
-		if (confirm("정말 삭제하시겠습니까??")) { //확인
-			document.Delete_Page.submit();
-		} else { //취소
-			return false;
-		}
-	}
+
 	function changeImageSize(pWidth) {
 		var r, re;
 		testImg = new Image();
@@ -56,15 +50,17 @@
 	}
 </script>
 <style type="text/css">
-.alert {
-	background-color: white !important;
-	color: #123478 !important;
+
+.alert{
+background-color: white !important;
+color: #123478 !important;
+}
+.panel-title{
+background-color : white 1important;
+color : #123478 !important;
 }
 
-.panel-title {
-	background-color: white 1important;
-	color: #123478 !important;
-}
+
 </style>
 <title>자유 게시판 글 보기</title>
 </head>
@@ -84,7 +80,6 @@
 		<%
 			String Get_ID = (String) session.getAttribute("Get_ID");
 			String CD_ID = request.getParameter("CD_ID");
-			String Get_Class = (String) session.getAttribute("Get_Class");
 
 			if ((Get_ID == null || Get_ID == "") && CD_ID.equals("20") == false) {
 				//로그인을 안했고, CD_ID가 20이 아니다(true) T&T 라면 로그인 ㄱ
@@ -107,9 +102,8 @@
 
 				String CS_ID = request.getParameter("CS_ID");
 				String WB_ID = request.getParameter("WB_ID");
-				System.out.println("Show_Detail_Board.jsp Get_Class="+Get_Class+ "WB_ID=" + WB_ID
-						+ "CD_ID : " + CD_ID + " CS_ID : " + CS_ID + " URI : "
-						+ URI);
+				System.out.println("Show_Detail_Board.jsp " + "WB_ID=" + WB_ID + "CD_ID : " + CD_ID + " CS_ID : "
+						+ CS_ID + " URI : " + URI);
 				String CD_Contents = null;
 				String CD_Notice = null;
 		%>
@@ -132,9 +126,8 @@
 					conn = DB.getConnection();
 					conn.setAutoCommit(false);
 					stmt = conn.createStatement();
-					rs = stmt
-							.executeQuery("select CD_Contents,CD_Notice from category_detail where CD_ID="
-									+ CD_ID + ";");
+					rs = stmt.executeQuery(
+							"select CD_Contents,CD_Notice from category_detail where CD_ID=" + CD_ID + ";");
 					if (rs.next()) {
 						CD_Contents = rs.getString("CD_Contents");
 						CD_Notice = rs.getString("CD_Notice");
@@ -149,11 +142,7 @@
 			<div class="panel" style="border: 4px solid #EAEAEA">
 				<div class="panel-heading">
 					<div class="panel-title text-center"
-						style="font-weight: bold; color: #002266;">
-						<a href="/Board/Show_Board.jsp?CD_ID=<%=CD_ID%>&CS_ID=<%=CS_ID%>">
-							<%=CD_Contents%>
-						</a>
-					</div>
+						style="font-weight: bold; color: #002266;"><%=CD_Contents%></div>
 				</div>
 
 				<div class="alert  text-center" role="alert"
@@ -171,9 +160,7 @@
 
 					<div class="col-md-10 col-xs-12">
 						<%
-							rs = stmt
-											.executeQuery("select * from write_board where WB_ID='"
-													+ WB_ID + "';");
+							rs = stmt.executeQuery("select * from write_board where WB_ID='" + WB_ID + "';");
 
 									while (rs.next()) {
 										String ID = rs.getString("WB_ID");
@@ -225,27 +212,6 @@
 
 									</div>
 									<hr>
-
-									<%
-										if (Get_ID.equals(Creator) || Get_Class.equals("1")) {
-											System.out.println(Get_Class.equals("1"));
-									%>
-	
-									<div class="text-right">
-										<form name="Delete_Page" action="/Board/Delete_Board.jsp"
-											method="post">
-											<input name="Delete_Page" type="hidden" value=<%=WB_ID%>>
-											<input name="WB_Creator" type="hidden" value=<%=Creator%>>
-											<button type="button" class="btn btn-default" aria-label="Left Align" onclick="delete_confirm()">
-												<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-											</button>
-										</form>
-									</div>
-									<%
-										}
-									%>
-									<hr>
-
 								</div>
 								<div class="text-center">
 									<h6>좋아요</h6>
@@ -279,9 +245,8 @@
 
 						<%
 							}
-									pstmt = conn
-											.prepareStatement("update write_board set View_CNT=View_CNT+1 where WB_ID='"
-													+ WB_ID + "';");
+									pstmt = conn.prepareStatement(
+											"update write_board set View_CNT=View_CNT+1 where WB_ID='" + WB_ID + "';");
 									pstmt.executeUpdate();
 									conn.commit();
 								} catch (

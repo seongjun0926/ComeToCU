@@ -160,9 +160,8 @@
 						<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="/S_D/Portfolio/Portfolio.jsp">개인정보 수정</a></li>
-						<li><a href="/S_D/Portfolio/Portfolio_Show.jsp">내 글 보기</a></li>
-						<li><a href="/S_D/Portfolio/Portfolio_Show.jsp">내 댓글 보기</a></li>
+						<li><a href="/MyBoard/My_Board.jsp?CD_ID=21&CS_ID=6">개인정보 수정</a></li>
+						<li><a href="/Board/Show_Board.jsp?CD_ID=22&CS_ID=6">내 글 보기</a></li>
 						<li><a href="/Log/LogOut.jsp">로그아웃</a></li>
 					</ul></li>
 					

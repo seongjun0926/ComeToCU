@@ -26,24 +26,25 @@
 
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js">
+	
 </script>
 
 <style type="text/css">
-
-.alert{
-background-color: white !important;
-color: black !important;
-}
-a.list-group-item{
- background-color: white !important;
- color:black !important;
-}
-a.list-group-item:hover{
-   background-color: white !important;
-   border:2px solid #0D3FA5 !important;
-   color: #00096F !important;
+.alert {
+	background-color: white !important;
+	color: black !important;
 }
 
+a.list-group-item {
+	background-color: white !important;
+	color: black !important;
+}
+
+a.list-group-item:hover {
+	background-color: white !important;
+	border: 2px solid #0D3FA5 !important;
+	color: #00096F !important;
+}
 </style>
 
 <title>자유 게시판</title>
@@ -91,12 +92,14 @@ a.list-group-item:hover{
 					//Sub_Board에서 get방식으로 받은 CD_ID,CS_ID로 화면을 표시함.
 					String CS_ID = request.getParameter("CS_ID");
 					Date from = new Date();
-					SimpleDateFormat transFormat = new SimpleDateFormat("yy-MM-dd HH:mm");
+					SimpleDateFormat transFormat = new SimpleDateFormat(
+							"yy-MM-dd HH:mm");
 					String Date = transFormat.format(from);
 
 					String Search_Content = request.getParameter("Search_Content");
 
-					System.out.println("Show_Board.jsp CD_ID : " + CD_ID + " CS_ID : " + CS_ID + " URI : " + URI
+					System.out.println("Show_Board.jsp CD_ID : " + CD_ID
+							+ " CS_ID : " + CS_ID + " URI : " + URI
 							+ " Search_Content : " + Search_Content);
 
 					int total = 0;
@@ -122,35 +125,52 @@ a.list-group-item:hover{
 						R_stmt = conn.createStatement();
 
 						//게시판 이름 및 게시판 공지글을 가져옴.
-						rs = stmt.executeQuery(
-								"select CD_Contents,CD_Notice from category_detail where CD_ID=" + CD_ID + ";");
+						rs = stmt
+								.executeQuery("select CD_Contents,CD_Notice from category_detail where CD_ID="
+										+ CD_ID + ";");
 						if (rs.next()) {
 							CD_Contents = rs.getString("CD_Contents");
 							CD_Notice = rs.getString("CD_Notice");
 							rs.close();
 						}
+						if (CD_ID.equals("22")) {//내가 쓴 글
+							rs = stmt
+									.executeQuery("select COUNT(*) from write_board where WB_Creator="
+											+ Get_ID + ";");
 
-						if (CD_ID.equals("19")) {//모든글
-							rs = stmt.executeQuery("select COUNT(*) from write_board where not CD_ID=20;");//공지사항 빼고
+						} else if (CD_ID.equals("19")) {//모든글
+							rs = stmt
+									.executeQuery("select COUNT(*) from write_board where not CD_ID=20;");//공지사항 빼고
 							if (Search_Content != null) {//검색을 위한 쿼리
-								rs = stmt.executeQuery("select COUNT(*) from write_board where WB_Header like '%"
-										+ Search_Content + "%' or WB_Contents like '%" + Search_Content + "%';");
+								rs = stmt
+										.executeQuery("select COUNT(*) from write_board where WB_Header like '%"
+												+ Search_Content
+												+ "%' or WB_Contents like '%"
+												+ Search_Content + "%';");
 							}
 						} else if (CD_ID.equals("18")) {//베스트글
-							rs = stmt.executeQuery(
-									"select COUNT(*) from write_board where (not CD_ID=20) and (WB_Like_Num > 50);");
+							rs = stmt
+									.executeQuery("select COUNT(*) from write_board where (not CD_ID=20) and (WB_Like_Num > 50);");
 							if (Search_Content != null) {
-								rs = stmt.executeQuery(
-										"select COUNT(*) from write_board where (WB_Like_Num > 50) and (WB_Header like '%"
-												+ Search_Content + "%' or WB_Contents like '%" + Search_Content + "%');");
+								rs = stmt
+										.executeQuery("select COUNT(*) from write_board where (WB_Like_Num > 50) and (WB_Header like '%"
+												+ Search_Content
+												+ "%' or WB_Contents like '%"
+												+ Search_Content + "%');");
 							}
 						} else {
 							//글이 있나 없나 확인하고 있으면 보여주고 없으면 등록된 글이 없다고 표시
-							rs = stmt.executeQuery("select COUNT(*) from write_board where CD_ID=" + CD_ID + ";");
+							rs = stmt
+									.executeQuery("select COUNT(*) from write_board where CD_ID="
+											+ CD_ID + ";");
 							if (Search_Content != null) {
-								rs = stmt.executeQuery("select COUNT(*) from write_board where (CD_ID=" + CD_ID
-										+ ") and (WB_Header like '%" + Search_Content + "%' or WB_Contents like '%"
-										+ Search_Content + "%');");
+								rs = stmt
+										.executeQuery("select COUNT(*) from write_board where (CD_ID="
+												+ CD_ID
+												+ ") and (WB_Header like '%"
+												+ Search_Content
+												+ "%' or WB_Contents like '%"
+												+ Search_Content + "%');");
 							}
 						}
 
@@ -246,19 +266,23 @@ a.list-group-item:hover{
 											//                                                       [6],[7],[8],[9],[10]                                 
 
 											int record_end_no = pageno * page_per_record_cnt;
-											int record_start_no = record_end_no - (page_per_record_cnt - 1);
+											int record_start_no = record_end_no
+													- (page_per_record_cnt - 1);
 											if (record_end_no > total_record) {
 												record_end_no = total_record;
 											}
 
-											int total_page = total_record / page_per_record_cnt
-													+ (total_record % page_per_record_cnt > 0 ? 1 : 0);
+											int total_page = total_record
+													/ page_per_record_cnt
+													+ (total_record % page_per_record_cnt > 0 ? 1
+															: 0);
 											if (pageno > total_page) {
 												pageno = total_page;
 											}
 
 											//             현재 페이지(정수) / 한페이지 당 보여줄 페지 번호 수(정수) + (그룹 번호는 현제 페이지(정수) % 한페이지 당 보여줄 페지 번호 수(정수)>0 ? 1 : 0)
-											int group_no = pageno / group_per_page_cnt + (pageno % group_per_page_cnt > 0 ? 1 : 0);
+											int group_no = pageno / group_per_page_cnt
+													+ (pageno % group_per_page_cnt > 0 ? 1 : 0);
 											//               현재 그룹번호 = 현재페이지 / 페이지당 보여줄 번호수 (현재 페이지 % 페이지당 보여줄 번호 수 >0 ? 1:0)   
 											//            ex)    14      =   13(몫)      =    (66 / 5)      1   (1(나머지) =66 % 5)           
 
@@ -288,7 +312,8 @@ a.list-group-item:hover{
 											}
 											if (next_pageno > total_page) {
 												//               다음 페이지보다 전체페이지 수보가 클경우      
-												next_pageno = total_page / group_per_page_cnt * group_per_page_cnt + 1;
+												next_pageno = total_page / group_per_page_cnt
+														* group_per_page_cnt + 1;
 												//               next_pageno=total_page
 												//               다음 페이지 = 전체페이지수 / 페이지당 보여줄 번호수 * 페이지당 보여줄 번호수 + 1 
 												//            ex)            =    76 / 5 * 5 + 1   ????????       
@@ -296,39 +321,67 @@ a.list-group-item:hover{
 
 											// [1][2][3].[10]
 											// [11][12]
+											if (CD_ID.equals("22")) {//모든글 
+												rs = stmt
+														.executeQuery("select * from write_board where WB_Creator='"+Get_ID+"' order by WB_ID desc limit "
+																+ ((pageno - 1) * page_per_record_cnt)
+																+ "," + page_per_record_cnt + ";");
 
-											if (CD_ID.equals("19")) {//모든글 
-												rs = stmt.executeQuery(
-														"select * from write_board where not CD_ID=20 order by WB_ID desc limit "
-																+ ((pageno - 1) * page_per_record_cnt) + "," + page_per_record_cnt + ";");
+											} else if (CD_ID.equals("19")) {//모든글 
+												rs = stmt
+														.executeQuery("select * from write_board where not CD_ID=20 order by WB_ID desc limit "
+																+ ((pageno - 1) * page_per_record_cnt)
+																+ "," + page_per_record_cnt + ";");
 												if (Search_Content != null) {
-													rs = stmt.executeQuery("select * from write_board where WB_Header like '%"
-															+ Search_Content + "%' or WB_Contents like '%" + Search_Content
-															+ "%' order by WB_ID desc limit " + ((pageno - 1) * page_per_record_cnt) + ","
-															+ page_per_record_cnt + ";");
+													rs = stmt
+															.executeQuery("select * from write_board where WB_Header like '%"
+																	+ Search_Content
+																	+ "%' or WB_Contents like '%"
+																	+ Search_Content
+																	+ "%' order by WB_ID desc limit "
+																	+ ((pageno - 1) * page_per_record_cnt)
+																	+ ","
+																	+ page_per_record_cnt
+																	+ ";");
 												}
 											} else if (CD_ID.equals("18")) { //베스트글
-												rs = stmt.executeQuery(
-														"select * from write_board where (not CD_ID=20)and (WB_Like_Num > 50) order by WB_ID desc limit "
-																+ ((pageno - 1) * page_per_record_cnt) + "," + page_per_record_cnt + ";");
+												rs = stmt
+														.executeQuery("select * from write_board where (not CD_ID=20)and (WB_Like_Num > 50) order by WB_ID desc limit "
+																+ ((pageno - 1) * page_per_record_cnt)
+																+ "," + page_per_record_cnt + ";");
 												if (Search_Content != null) {
-													rs = stmt.executeQuery(
-															"select * from write_board where (WB_Like_Num > 50) and (WB_Header like '%"
-																	+ Search_Content + "%' or WB_Contents like '%" + Search_Content
+													rs = stmt
+															.executeQuery("select * from write_board where (WB_Like_Num > 50) and (WB_Header like '%"
+																	+ Search_Content
+																	+ "%' or WB_Contents like '%"
+																	+ Search_Content
 																	+ "%') order by WB_ID desc limit "
-																	+ ((pageno - 1) * page_per_record_cnt) + "," + page_per_record_cnt
+																	+ ((pageno - 1) * page_per_record_cnt)
+																	+ ","
+																	+ page_per_record_cnt
 																	+ ";");
 												}
 											} else {
 												//CD_ID 즉 게시판 성격에 맞는 저장된 글의 모든 것을 가져옴
-												rs = stmt.executeQuery(
-														"select * from write_board where CD_ID=" + CD_ID + " order by WB_ID desc limit "
-																+ ((pageno - 1) * page_per_record_cnt) + "," + page_per_record_cnt + ";");
+												rs = stmt
+														.executeQuery("select * from write_board where CD_ID="
+																+ CD_ID
+																+ " order by WB_ID desc limit "
+																+ ((pageno - 1) * page_per_record_cnt)
+																+ "," + page_per_record_cnt + ";");
 												if (Search_Content != null) {
-													rs = stmt.executeQuery("select * from write_board where (CD_ID=" + CD_ID
-															+ ") and (WB_Header like '%" + Search_Content + "%' or WB_Contents like '%"
-															+ Search_Content + "%') order by WB_ID desc limit "
-															+ ((pageno - 1) * page_per_record_cnt) + "," + page_per_record_cnt + ";");
+													rs = stmt
+															.executeQuery("select * from write_board where (CD_ID="
+																	+ CD_ID
+																	+ ") and (WB_Header like '%"
+																	+ Search_Content
+																	+ "%' or WB_Contents like '%"
+																	+ Search_Content
+																	+ "%') order by WB_ID desc limit "
+																	+ ((pageno - 1) * page_per_record_cnt)
+																	+ ","
+																	+ page_per_record_cnt
+																	+ ";");
 												}
 											}
 											//이제부터 게시판 본체, 몸부분 시작
@@ -342,8 +395,8 @@ a.list-group-item:hover{
 												String View_CNT = rs.getString("View_CNT");
 												//익명을 나타내기위한 변수
 												//리플 갯수를 가져와서 게시글 이름에 표시
-												Reply_Count = R_stmt.executeQuery(
-														"select count(*) from write_board inner join reply on write_board.WB_ID = reply.WB_ID where write_board.WB_ID="
+												Reply_Count = R_stmt
+														.executeQuery("select count(*) from write_board inner join reply on write_board.WB_ID = reply.WB_ID where write_board.WB_ID="
 																+ ID + ";");
 												if (Reply_Count.next()) {
 													R_total = Reply_Count.getInt(1);
