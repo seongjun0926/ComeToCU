@@ -130,7 +130,7 @@
 		Text = Text.replace(/<br>/gi, "");
 		Text = Text.replace(/ /gi, "");
 
-		if (Text == "<p><\/p>" || Text == "") {
+		if (Text == "<p><\/p>" || Text == "" || Text==null) {
 			alert("내용을 입력하세요.")
 			return false;
 		}

@@ -98,7 +98,7 @@ var WB_ID = document.getElementById("WB_ID")
 
 		if (comment.Like_Check == 0) {
 			var html = '<div>'
-					+ '<button id="Like_BTN" onclick="Like();" type="button" class="btn btn-default btn-lg">'
+					+ '<button id="Like_BTN" onclick="Like();" type="button" class="btn btn-info btn-lg">'
 					+ '<span class="glyphicon glyphicon-thumbs-up"></span>'
 					+ '</button>'
 					+ '<span id="Like_Num" class="label label-default"></span>'
@@ -164,7 +164,7 @@ var WB_ID = document.getElementById("WB_ID")
 	function DisLike() {
 		document.getElementById('Like_BTN').setAttribute('onclick', 'Like();');
 		document.getElementById('Like_BTN').setAttribute('class',
-				'btn btn-default btn-lg')
+				'btn btn-info btn-lg')
 		Like_Count = document.getElementById('Like_Count').value;
 
 		var param = "WB_ID=" + encodeURIComponent(WB_ID) + "&" + "Like_Count="
