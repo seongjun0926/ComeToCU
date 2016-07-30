@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="org.json.simple.*"%>
 <%@ page import="java.sql.*"%>
 <%
 	String E_Mail = request.getParameter("E_Mail");
-	String PW = request.getParameter("PW");
+//	String PW = request.getParameter("PW");
 
 	JSONObject jsonMain = new JSONObject();
 	JSONArray jArray = new JSONArray();
@@ -20,13 +20,14 @@
 
 		Statement stmt = conn.createStatement();
 		//스테이트먼트 객체를 생성합니다.
-		String query = "select * from M_Create";
+		String query = "select * from M_Create where M_C_Creator='"+E_Mail+"'";
 		//db에 날릴 쿼리문을 생성합니다. 
 
 		ResultSet rs = stmt.executeQuery(query);
 		//쿼리를 실행합니다. 
 		int total = 0;
 		while (rs.next()) {
+			//널 이면 넘어가게 만들어야함
 			total=1;
 			JSONObject jObject = new JSONObject();
 
@@ -34,7 +35,7 @@
 			jObject.put("M_C_Num", rs.getString("M_C_Num"));
 			jObject.put("M_C_Creator", rs.getString("M_C_Creator"));
 			jObject.put("M_C_Text", rs.getString("M_C_Text"));
-			jObject.put("M_C_Contents", rs.getString("M_C_Contents"));
+			jObject.put("M_C_Contents","http://seongjun0926.cafe24.com/MemoryLock/Upload/img/"+rs.getString("M_C_Contents"));
 			jObject.put("M_C_Type", rs.getString("M_C_Type"));
 			jObject.put("M_C_lat", rs.getString("M_C_lat"));
 			jObject.put("M_C_lng", rs.getString("M_C_lng"));

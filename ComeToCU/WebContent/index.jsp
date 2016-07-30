@@ -50,12 +50,12 @@
 
 			<br>
 			<div class="row">
-				
+				<div class="col-md-12">
 					<jsp:include page="/Preview_Board/Preview_Board.jsp" flush="false">
 						<jsp:param name="CS_ID" value="1" />
 						<jsp:param name="CD_ID" value="20" />
 					</jsp:include>
-				
+				</div>
 
 			</div>
 			<br>

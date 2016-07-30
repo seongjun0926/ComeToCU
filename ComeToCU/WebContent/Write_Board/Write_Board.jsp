@@ -126,10 +126,18 @@
 		}
 
 		var Text = document.getElementById("ir1").value;
+		var length = Text.length;
+
 		Text = Text.replace(/&nbsp;/gi, "");
 		Text = Text.replace(/<br>/gi, "");
 		Text = Text.replace(/ /gi, "");
 
+		if (length >3000) {
+			alert("3000자 이내로 작성해주세요.")
+			return false;
+		}
+		
+		
 		if (Text == "<p><\/p>" || Text == "" || Text==null) {
 			alert("내용을 입력하세요.")
 			return false;
@@ -223,13 +231,13 @@ color: black !important;
 						<br>
 						<div class="row">
 							제목 <input type="text" placeholder="제목을 입력해주세요."
-								class="form-control" name="WB_Header" id="WB_Header">
+								class="form-control" name="WB_Header" id="WB_Header" maxlength="20">
 						</div>
 						<br>
 						<div class="row">
 
-							<textarea name='ir1' id='ir1' rows='10' cols='100'
-								style='width: device-width; min-width: 150px; height: 100px; display: none;'></textarea>
+							<textarea maxlength='100' name='ir1' id='ir1' rows='10' cols='100'
+								style='width: device-width; min-width: 150px; height: 100px; display: none;' ></textarea>
 
 
 						</div>

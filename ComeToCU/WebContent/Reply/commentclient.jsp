@@ -236,7 +236,7 @@
 						<input type="hidden" id="CD_ID" name="CD_ID" value="<%=CD_ID %>">
 						<input type="hidden" id="CS_ID" name="CS_ID" value="<%=CS_ID %>">
 						
-						<input type="text" class="form-control" id="content" name="content" onKeydown="javascript:if(event.keyCode == 13){addComment();}" required/> 
+						<input maxlength="999" type="text" class="form-control" id="content" name="content" onKeydown="javascript:if(event.keyCode == 13){addComment();}" required/> 
 						<span class="input-group-btn"> 
 						<input class="btn btn-default" type="button" value="입력" onClick="addComment();"/>
 						</span>
