@@ -142,10 +142,6 @@ function Check() {
               alert("필수항목을 입력해 주세요.");
               return false;
       }
-	if(isNull(thisform.S_Major.value)){
-        alert("필수항목을 입력해 주세요.");
-        return false;
-	}
 	if(isNull(thisform.S_Num.value)){
         alert("필수항목을 입력해 주세요.");
         return false;
@@ -238,14 +234,7 @@ function end() {
 					placeholder="이름을 입력해주세요." aria-describedby="basic-addon1" required
 					autofocus onkeypress="return blank_check(event)">
 			</div>
-			<div class="input-group">
-
-				<!-- 나중에 라디오 버튼으로 단대/학과 나열 -->
-				<span class="input-group-addon">학과</span> <input type="text"
-					name="S_Major" maxlength="10" class="form-control"
-					placeholder="학과를 입력해주세요." aria-describedby="basic-addon1" required
-					autofocus onkeypress="return blank_check(event)">
-			</div>
+		
 			<div class="input-group">
 
 				<span class="input-group-addon">학번</span> <input type="text"
@@ -281,6 +270,7 @@ function end() {
 				</div>
 			</div>
 		</form>
+		
 	</div>
 
 

@@ -15,12 +15,11 @@
 
 	<%
 		String Wrtie_Name = request.getParameter("S_Name");
-		String Wrtie_Major = request.getParameter("S_Major");
 		String Write_Num_Parse = request.getParameter("S_Num");
 		int Write_Num=Integer.parseInt(Write_Num_Parse);
 		String Write_PassWord = request.getParameter("S_Password");
 
-		System.out.println(Wrtie_Name+","+Wrtie_Major+","+Write_Num+","+Write_PassWord);
+		System.out.println(Wrtie_Name+","+Write_Num+","+Write_PassWord);
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -32,14 +31,12 @@
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
 
-			pstmt = conn.prepareStatement("insert into students(S_Name,S_Major,S_Num,S_PassWord,S_Question,S_Answer)value(?,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("insert into students(S_Name,S_Num,S_PassWord)value(?,?,?)");
 
 			pstmt.setString(1, Wrtie_Name);
-			pstmt.setString(2, Wrtie_Major);
-			pstmt.setInt(3, Write_Num);
-			pstmt.setString(4, Write_PassWord);
-			pstmt.setInt(5, 1);
-			pstmt.setString(6, "대구");
+			pstmt.setInt(2, Write_Num);
+			pstmt.setString(3, Write_PassWord);
+		
 
 			
 		
@@ -52,9 +49,10 @@
 			%>
 			<script>
 			alert("회원 가입이 완료되었습니다. 로그인해주세요!")
+			location.href="/index.jsp";
+
 			</script>
 			<%
-			response.sendRedirect("/index.jsp");
 
 		} catch (Exception e) {
 			out.println(e.getMessage());
