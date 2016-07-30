@@ -4,7 +4,11 @@
 <%@ page import = "Util.DB" %>
 
 	<%
+	
+	
 		String Enter_ID = request.getParameter("S_Num");
+
+
 		String Enter_PW = request.getParameter("S_PW");
 		String redirectURI="";
 		String Get_Class=""; //관리자 인지, 일반 회원인지 알기 위한 객체

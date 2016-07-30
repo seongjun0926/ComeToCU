@@ -188,11 +188,18 @@ color: black !important;
 
 				if (Get_ID == null || Get_ID == "") {
 			%>
-			<script>
+			<!-- <script>
 				alert("로그인이 필요합니다.")
 				window.open('/Log/Login_Ready.jsp', 'blank',
 						'width=350,height=150');
+			</script> -->
+								<jsp:include page="/Log/Login_Ready.jsp" flush="false" />
+			<!-- 모달을 추가해서 모달을 띄움 -->
+				<script>
+				alert("로그인이 필요합니다.")
+				$('#login').modal('show')
 			</script>
+			
 			<%
 				} else {
 

@@ -161,7 +161,7 @@
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="/Log/Register.jsp" data-toggle="modal"
 							data-target="#register">회원가입</a></li>
-						<li><a href="/Log/Login_Ready.jsp" data-toggle="modal"
+						<li><a href="#" data-toggle="modal"
 							data-target="#login">로그인</a></li>
 
 
@@ -173,16 +173,13 @@
 						<div class="modal-content"></div>
 					</div>
 				</div>
-
-				<!-- 로그인 모달 창 띄우기 -->
-				<div class="modal fade" id="login" tabindex="-1" role="dialog"
-					aria-labelledby="myModalLabel">
-					<div class="modal-dialog modal-sm" role="document">
-						<div class="modal-content"></div>
-					</div>
-				</div>
+				
+				<!-- 모달이라 보이지 않음 -->
+				<jsp:include page="/Log/Login_Ready.jsp" flush="false" />
+				
 			</ul>
 			<%
+			
 				} else {
 			%>
 			<!-- 로그인 되있으면 -->
@@ -191,8 +188,6 @@
 					<span class="caret"></span>
 			</a>
 				<ul class="dropdown-menu" role="menu">
-					<li><a href="/MyBoard/My_Board.jsp?CD_ID=21&CS_ID=6">개인정보
-							수정</a></li>
 					<li><a href="/Board/Show_Board.jsp?CD_ID=22&CS_ID=6">내 글
 							보기</a></li>
 					<li><a href="/Log/LogOut.jsp">로그아웃</a></li>
