@@ -5,6 +5,8 @@
 <%@ page import="java.sql.PreparedStatement"%>
 <%@ page import="java.sql.ResultSet"%>
 <%@ page import="java.sql.SQLException"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="Util.DB"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -22,12 +24,14 @@
 <title>Insert title here</title>
 
 <style type="text/css">
-a.three{
- color: black; font-size:15px;"
+a.three {
+	color: black;
+	font-size: 15px;
+	"
 }
 
 a.three:hover, a.three:active {
-   color:#123478;
+	color: #123478;
 }
 </style>
 
@@ -38,10 +42,19 @@ a.three:hover, a.three:active {
 		String Color = null; //프리뷰 보드에서 보더 색상을 나타내기 위함.
 		String Header = null;
 		String Like_Num = null;
+		String WB_Time = null;
 		String CD_ID = request.getParameter("CD_ID");
 		String CS_ID = request.getParameter("CS_ID");
 		String CD_Contents = null;
 		String WB_ID = null;
+		
+		String Compare_Date = null;
+		String Compare_WB_Time = null;
+		
+		Date from = new Date();
+		SimpleDateFormat transFormat = new SimpleDateFormat(
+				"yy-MM-dd HH:mm");
+		String Date = transFormat.format(from);
 		int R_total = 0;
 
 		System.out.println("Preview_Board.jsp CD_ID : " + CD_ID + " CS_ID: " + CS_ID);
@@ -78,7 +91,7 @@ a.three:hover, a.three:active {
 		%>
 		<div class="panel-heading" style="border-bottom:1px solid <%=Color%>">
 			<div class="row">
-				<div class=" text-center col-xs-10" style="font-size:17px;">
+				<div class=" text-center col-xs-10" style="font-size: 17px;">
 					<b><%=CD_Contents%></b>
 				</div>
 				<div class="col-xs-1 text-right">
@@ -122,7 +135,8 @@ a.three:hover, a.three:active {
 						String View_CNT = rs.getString("View_CNT");
 						Like_Num = rs.getString("WB_Like_Num");
 						WB_ID = rs.getString("WB_ID");
-
+						WB_Time=rs.getString("WB_Time");
+						
 						Reply_Count = R_stmt.executeQuery(
 								"select count(*) from write_board inner join reply on write_board.WB_ID = reply.WB_ID where write_board.WB_ID="
 										+ WB_ID + ";");
@@ -131,10 +145,21 @@ a.three:hover, a.three:active {
 						}
 			%>
 
-			<div class="row" style="border:5px solid white;">
-				<a class="three" href="/Board/Show_Detail_Board.jsp?CD_ID=<%=CD_ID%>&CS_ID=<%=CS_ID%>&WB_ID=<%=WB_ID%>">
+			<div class="row" style="border: 5px solid white;">
+				<a class="three"
+					href="/Board/Show_Detail_Board.jsp?CD_ID=<%=CD_ID%>&CS_ID=<%=CS_ID%>&WB_ID=<%=WB_ID%>">
 
 					<div class="col-xs-8 text-left"><%=Header%>
+						<%
+						Compare_Date = Date.substring(0, 10);
+						Compare_WB_Time = WB_Time.substring(0, 10);
+						if (Compare_Date.equals(Compare_WB_Time)) {
+						%>
+						<img src="/img/new.jpg" />
+						<%
+						}
+						%>
+
 					</div>
 					<div class="col-xs-2 text-right">
 
@@ -144,7 +169,7 @@ a.three:hover, a.three:active {
 						<%=Like_Num%></div>
 				</a>
 			</div>
-			
+
 
 			<%
 				}

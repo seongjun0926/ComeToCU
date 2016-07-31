@@ -238,8 +238,10 @@
 									</div>
 									<hr>
 
-									<%
+									<%if(Get_ID!=null){ //로그인을 했을 경우에!
+										
 										if (Get_ID.equals(Creator) || Get_Class.equals("1")) {
+											//관리자이거나 작성자 본인일 경우
 											System.out.println(Get_Class.equals("1"));
 									%>
 	
@@ -255,6 +257,7 @@
 									</div>
 									<%
 										}
+									}
 									%>
 									<hr>
 
