@@ -170,7 +170,8 @@
 					alert("에러 발생:"+message);
 				}
 			} else {
-				alert("서버 에러 발생: " + req.status);
+				alert("서버 에러 발생: " + req.status+"\n 다시 작성해주세요.");
+				
 				console.log(req.status);
 			}
 		}
