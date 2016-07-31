@@ -157,7 +157,7 @@ a.three:hover, a.three:active {
 					<div class="col-xs-8 text-left">
 
 						<%
-							if (Header.length() > 13) { //글자 제목의 길이가 13자리를  넘을 경우
+							if (Header.length() > 13 && CD_ID.equals("20")==false) { //공지사항 글이 아니고 글자 제목의 길이가 13자리를  넘을 경우
 										String Header_ = Header.substring(0, 12);
 						%>
 						<%=Header_ + "..."%>
