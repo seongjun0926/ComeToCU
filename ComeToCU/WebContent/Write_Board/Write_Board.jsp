@@ -238,7 +238,7 @@ color: black !important;
 						<br>
 						<div class="row">
 							제목 <input type="text" placeholder="제목을 입력해주세요."
-								class="form-control" name="WB_Header" id="WB_Header" maxlength="35">
+								class="form-control" name="WB_Header" id="WB_Header" maxlength="50">
 						</div>
 						<br>
 						<div class="row">

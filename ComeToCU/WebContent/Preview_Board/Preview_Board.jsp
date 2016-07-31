@@ -47,17 +47,18 @@ a.three:hover, a.three:active {
 		String CS_ID = request.getParameter("CS_ID");
 		String CD_Contents = null;
 		String WB_ID = null;
-		
+
 		String Compare_Date = null;
 		String Compare_WB_Time = null;
-		
+
 		Date from = new Date();
 		SimpleDateFormat transFormat = new SimpleDateFormat(
 				"yy-MM-dd HH:mm");
 		String Date = transFormat.format(from);
 		int R_total = 0;
 
-		System.out.println("Preview_Board.jsp CD_ID : " + CD_ID + " CS_ID: " + CS_ID);
+		System.out.println("Preview_Board.jsp CD_ID : " + CD_ID
+				+ " CS_ID: " + CS_ID);
 
 		if (CD_ID.equals("20")) {
 			Color = "#1F50B5";
@@ -83,7 +84,9 @@ a.three:hover, a.three:active {
 				stmt = conn.createStatement();
 				R_stmt = conn.createStatement();
 
-				rs = stmt.executeQuery("select CD_Contents from category_detail where CD_ID=" + CD_ID + ";");
+				rs = stmt
+						.executeQuery("select CD_Contents from category_detail where CD_ID="
+								+ CD_ID + ";");
 				if (rs.next()) {
 					CD_Contents = rs.getString("CD_Contents");
 					rs.close();
@@ -119,15 +122,17 @@ a.three:hover, a.three:active {
 			<%
 				//모든글 나중에 DB구조 바꿔야할 필요성이있기도하지만 일단은 이대로
 					if (CD_ID.equals("19")) {
-						rs = stmt.executeQuery("select * from write_board where not CD_ID=20 order by WB_ID desc limit 6;");
+						rs = stmt
+								.executeQuery("select * from write_board where not CD_ID=20 order by WB_ID desc limit 6;");
 						//베스트글
 					} else if (CD_ID.equals("18")) {
-						rs = stmt.executeQuery(
-								"select * from write_board where (not CD_ID=20) and (WB_Like_Num > 50) order by WB_ID desc limit 6;");
+						rs = stmt
+								.executeQuery("select * from write_board where (not CD_ID=20) and (WB_Like_Num > 50) order by WB_ID desc limit 6;");
 					} else {
 						//CD_ID 즉 게시판 성격에 맞는 저장된 글의 모든 것을 가져옴
-						rs = stmt.executeQuery(
-								"select * from write_board where CD_ID=" + CD_ID + " order by WB_ID desc limit 6;");
+						rs = stmt
+								.executeQuery("select * from write_board where CD_ID="
+										+ CD_ID + " order by WB_ID desc limit 6;");
 					}
 
 					while (rs.next()) {
@@ -135,10 +140,10 @@ a.three:hover, a.three:active {
 						String View_CNT = rs.getString("View_CNT");
 						Like_Num = rs.getString("WB_Like_Num");
 						WB_ID = rs.getString("WB_ID");
-						WB_Time=rs.getString("WB_Time");
-						
-						Reply_Count = R_stmt.executeQuery(
-								"select count(*) from write_board inner join reply on write_board.WB_ID = reply.WB_ID where write_board.WB_ID="
+						WB_Time = rs.getString("WB_Time");
+
+						Reply_Count = R_stmt
+								.executeQuery("select count(*) from write_board inner join reply on write_board.WB_ID = reply.WB_ID where write_board.WB_ID="
 										+ WB_ID + ";");
 						if (Reply_Count.next()) {
 							R_total = Reply_Count.getInt(1);
@@ -149,15 +154,28 @@ a.three:hover, a.three:active {
 				<a class="three"
 					href="/Board/Show_Detail_Board.jsp?CD_ID=<%=CD_ID%>&CS_ID=<%=CS_ID%>&WB_ID=<%=WB_ID%>">
 
-					<div class="col-xs-8 text-left"><%=Header%>
+					<div class="col-xs-8 text-left">
+
 						<%
-						Compare_Date = Date.substring(0, 10);
-						Compare_WB_Time = WB_Time.substring(0, 10);
-						if (Compare_Date.equals(Compare_WB_Time)) {
+							if (Header.length() > 13) { //글자 제목의 길이가 13자리를  넘을 경우
+										String Header_ = Header.substring(0, 12);
+						%>
+						<%=Header_ + "..."%>
+						<%
+							} else {//아닌경우
+						%>
+						<%=Header%>
+						<%
+							}
+						%>
+						<%
+							Compare_Date = Date.substring(0, 10);
+									Compare_WB_Time = WB_Time.substring(0, 10);
+									if (Compare_Date.equals(Compare_WB_Time)) {
 						%>
 						<img src="/img/new.jpg" />
 						<%
-						}
+							}
 						%>
 
 					</div>
