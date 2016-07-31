@@ -40,7 +40,6 @@
 					%>
 					<!-- 로그인 성공 시 부모 창을 리로드 해주며 자신은 꺼짐 -->
 					<SCRIPT>
-						alert("로그인 되었습니다.");
 						location.href="/index.jsp";
 					</SCRIPT>
 					
