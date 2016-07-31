@@ -84,7 +84,7 @@ a.list-group-item:hover {
 						'width=350,height=150');
 			</script> -->
 			<!-- 모달을 추가해서 모달을 띄움 -->
-			<script>
+			<script type="text/javascript">
 				alert("로그인이 필요합니다.")
 				$('#login').modal('show')
 			</script>
@@ -444,7 +444,13 @@ a.list-group-item:hover {
 														<font color="#353535"><%=Like_Num%></font>
 													</div>
 													<%
-														if (Compare_CD_ID.equals("2")) {
+														if (Compare_CD_ID.equals("20")) {
+													%><div class="col-xs-1 text-center">
+														<font color="#353535">관리자</font>
+													</div>
+													<%
+														}
+														else if (Compare_CD_ID.equals("2")) {
 													%><div class="col-xs-1 text-center">
 														<font color="#353535">익명</font>
 													</div>
@@ -505,7 +511,11 @@ a.list-group-item:hover {
 														style="color: gray; font-size: 14px; opacity: 0.7;">
 														<img src="/img/creator.png" />
 														<%
-															if (CD_ID.equals("2")) {
+															if (CD_ID.equals("20")) {
+														%><font color="black">관리자</font>
+														<%
+															}
+															else if (CD_ID.equals("2")) {
 														%><font color="black">익명</font>
 														<%
 															} else {

@@ -212,10 +212,14 @@
 									<div class="text-right">
 										<img src="/img/creator.png" />
 										<%
-											if (Compare_CD_ID.equals("2")) {
+											if (Compare_CD_ID.equals("20")) { //20이면 관리자로 표현
+										%><span class="label label-default">관리자</span>
+										<%
+											}
+											else if (Compare_CD_ID.equals("2")) {//2면 익명으로
 										%><span class="label label-default">익명</span>
 										<%
-											} else {
+											} else {//암것도 아니면 그냥 게시자
 										%>
 
 										<span class="label label-default"><%=Creator%></span>&nbsp;&nbsp;
