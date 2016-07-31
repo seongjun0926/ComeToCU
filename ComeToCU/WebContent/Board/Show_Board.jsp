@@ -84,12 +84,12 @@ a.list-group-item:hover {
 						'width=350,height=150');
 			</script> -->
 			<!-- 모달을 추가해서 모달을 띄움 -->
-				<script>
+			<script>
 				alert("로그인이 필요합니다.")
 				$('#login').modal('show')
 			</script>
-			
-			
+
+
 			<%
 				} else {
 					String URI = request.getRequestURL().toString();
@@ -330,7 +330,9 @@ a.list-group-item:hover {
 											// [11][12]
 											if (CD_ID.equals("22")) {//모든글 
 												rs = stmt
-														.executeQuery("select * from write_board where WB_Creator='"+Get_ID+"' order by WB_ID desc limit "
+														.executeQuery("select * from write_board where WB_Creator='"
+																+ Get_ID
+																+ "' order by WB_ID desc limit "
 																+ ((pageno - 1) * page_per_record_cnt)
 																+ "," + page_per_record_cnt + ";");
 
@@ -475,7 +477,19 @@ a.list-group-item:hover {
 
 												<div class="row text-left">
 													<div class="text-left" style="font-size: 16px;">
-														<font color="black"><%=Header%></font> [<%=R_total%>]
+										
+														<%
+															if (Header.length() > 17) { //공지사항 글이 아니고 글자 제목의 길이가 13자리를  넘을 경우
+																				String Header_ = Header.substring(0, 16);
+														%>
+														<font color="black"><%=Header_ + "..."%></font>
+														<%
+															} else {//아닌경우
+														%>
+														<font color="black"><%=Header%></font>
+														<%
+															}
+														%>
 														<%
 															Compare_Date = Date.substring(0, 10);
 																			Compare_WB_Time = WB_Time.substring(0, 10);
@@ -485,6 +499,7 @@ a.list-group-item:hover {
 														<%
 															}
 														%>
+														 [<%=R_total%>]
 													</div>
 													<div class="text-left"
 														style="color: gray; font-size: 14px; opacity: 0.7;">
