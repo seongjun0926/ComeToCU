@@ -18,7 +18,7 @@
 		conn.setAutoCommit(false);
 
 		stmt = conn.createStatement();
-		rs = stmt.executeQuery("select * from reply where WB_ID="+WB_ID+" order by R_Num");
+		rs = stmt.executeQuery("select * from C_reply where WB_ID="+WB_ID+" order by R_Num");
 %>
 <result>
 	<code>success</code>

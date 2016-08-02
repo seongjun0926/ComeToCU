@@ -19,9 +19,8 @@
 		Statement stmt = conn.createStatement();
 		//스테이트먼트 객체를 생성합니다.
 		//M_S_Shared 와 조인을 해서 M_C_Creator 와  M_S_Persons 에 넣기 
-		String query = "select * from M_Create where M_C_Creator='"+E_Mail+"'";
+		String query = "SELECT * FROM M_Create LEFT  OUTER JOIN M_Shared ON M_Create.M_C_Num = M_Shared.M_S_FK where M_Shared.M_S_Persons = '"+E_Mail+"' or M_Create.M_C_Creator = '"+E_Mail+"'";
 		//db에 날릴 쿼리문을 생성합니다. 
-
 		ResultSet rs = stmt.executeQuery(query);
 		//쿼리를 실행합니다. 
 		int total = 0;
@@ -32,7 +31,6 @@
 
 			jObject.put("Check", "succed");
 			jObject.put("M_C_Num", rs.getString("M_C_Num"));
-			jObject.put("M_C_Creator", rs.getString("M_C_Creator"));
 			jObject.put("M_C_Text", rs.getString("M_C_Text"));
 			jObject.put("M_C_Contents","http://seongjun0926.cafe24.com/MemoryLock/Upload/img/"+rs.getString("M_C_Contents"));
 			jObject.put("M_C_Type", rs.getString("M_C_Type"));

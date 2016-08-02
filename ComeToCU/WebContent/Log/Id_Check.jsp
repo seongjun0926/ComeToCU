@@ -19,7 +19,7 @@ ResultSet rs = null;
 try {
 	conn = DB.getConnection();
 	stmt = conn.createStatement();
-	rs = stmt.executeQuery("select * from students where S_Num='" + id + "';");
+	rs = stmt.executeQuery("select * from C_students where S_Num='" + id + "';");
 	
 	while (rs.next()) {
 		re = 1;

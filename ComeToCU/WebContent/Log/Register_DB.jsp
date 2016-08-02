@@ -31,7 +31,7 @@
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
 
-			pstmt = conn.prepareStatement("insert into students(S_Name,S_Num,S_PassWord)value(?,?,?)");
+			pstmt = conn.prepareStatement("insert into C_students(S_Name,S_Num,S_PassWord)value(?,?,?)");
 
 			pstmt.setString(1, Wrtie_Name);
 			pstmt.setInt(2, Write_Num);

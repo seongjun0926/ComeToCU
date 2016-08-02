@@ -63,7 +63,7 @@
 	 g.drawImage(bi,0,0,500,500,null); //정해진 버퍼사이즈에 맞춰서 드로우
 	  File file=new File(realFolder+"/"+fileName);
 	 ImageIO.write(thumb,"jpg",file); //저장타입을 jpg
-	
+
 
 	Date from = new Date();
 	SimpleDateFormat transFormat = new SimpleDateFormat("yy-MM-dd");
@@ -85,7 +85,7 @@
 		if (conn == null){
 			throw new Exception("데이터베이스에 연결할 수 없습니다.");
 		}
-		if(M_S_Persons==null){//공유사용자 추가 안되면
+		if(M_S_Persons==null||M_S_Persons.equals("null")){//공유사용자 추가 안되면
 		stmt = conn.createStatement();
 		String command = String
 				.format("insert into M_Create (M_C_Creator, M_C_Text, M_C_Contents, M_C_Type, M_C_lat, M_C_lng, M_C_Time) values ('%s', '%s', '%s', '%s', '%s', '%s', '%s');",
@@ -97,23 +97,25 @@
 			throw new Exception("데이터를 DB에 입력할 수 없습니다.");
 		}
 		else{//추가되면
-		stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, 
-				ResultSet.CONCUR_UPDATABLE);
 		
-		ResultSet rs=stmt.executeQuery("select M_C_Num from M_Create where M_C_Creator='"+M_C_Creator+"';");
-		int M_C_Num_=0;
-		while(rs.next()){
-			M_C_Num_=rs.getInt("M_C_Num"); //M_C_Num의 마지막 값을 가져옴 while 반복문을 사용해서.
-		}
-		M_C_Num_+=1;//거기 값에 1을 더하면 현재추가해야할 값이 됨
-		rs.close();
-		stmt.close();
 
 		stmt=conn.createStatement();
 		stmt1=conn.createStatement();
 		
-		 stmt.executeUpdate("insert into M_Create value ("+M_C_Num_+", '"+M_C_Creator+"', '"+M_C_Text+"','"+M_C_Contents+"','"+M_C_Type+"' ,'"+M_C_lat+"', '"+M_C_lng+"', '"+M_C_Time+"');");
+		 stmt.executeUpdate("insert into M_Create (M_C_Creator,M_C_Text,M_C_Contents,M_C_Type,M_C_lat, M_C_lng, M_C_Time) value ( '"+M_C_Creator+"', '"+M_C_Text+"','"+M_C_Contents+"','"+M_C_Type+"' ,'"+M_C_lat+"', '"+M_C_lng+"', '"+M_C_Time+"');");
 		 stmt.close();
+		 
+		 stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, 
+					ResultSet.CONCUR_UPDATABLE);
+			
+			ResultSet rs=stmt.executeQuery("select M_C_Num from M_Create where M_C_Creator='"+M_C_Creator+"';");
+			int M_C_Num_=0;
+			while(rs.next()){
+				M_C_Num_=rs.getInt("M_C_Num"); //M_C_Num의 마지막 값을 가져옴 while 반복문을 사용해서.
+			}
+			rs.close();
+			stmt.close();
+		 
 		 stmt1.executeUpdate("insert into M_Shared (M_S_Persons,M_S_FK) values ('"+M_S_Persons+"',"+M_C_Num_+");");
 		 stmt1.close();
 		} 

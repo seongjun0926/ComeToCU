@@ -25,7 +25,7 @@
 		try {
 			conn = DB.getConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select * from students where S_Num='" + Enter_ID + "';");
+			rs = stmt.executeQuery("select * from C_students where S_Num='" + Enter_ID + "';");
 
 			if (rs.next()) {
 				Get_ID = rs.getString("S_Num");

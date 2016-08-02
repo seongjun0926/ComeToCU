@@ -28,11 +28,11 @@ int Like_Count=Integer.parseInt(S_L_C);
 		conn = DB.getConnection();
 		conn.setAutoCommit(false);
 
-		pstmt_Plus =conn.prepareStatement("update write_board set WB_Like_Num=WB_Like_Num+1 where WB_ID='" + WB_ID + "';");
+		pstmt_Plus =conn.prepareStatement("update C_write_board set WB_Like_Num=WB_Like_Num+1 where WB_ID='" + WB_ID + "';");
 		
 		
 		
-		pstmt=conn.prepareStatement("insert into like_table(L_WB_ID,L_S_Num)value(?,?);");
+		pstmt=conn.prepareStatement("insert into C_like_table(L_WB_ID,L_S_Num)value(?,?);");
 		pstmt.setString(1, WB_ID);
  		pstmt.setString(2, S_Num);
 

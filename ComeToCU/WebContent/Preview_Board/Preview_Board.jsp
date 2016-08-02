@@ -85,7 +85,7 @@ a.three:hover, a.three:active {
 				R_stmt = conn.createStatement();
 
 				rs = stmt
-						.executeQuery("select CD_Contents from category_detail where CD_ID="
+						.executeQuery("select CD_Contents from C_category_detail where CD_ID="
 								+ CD_ID + ";");
 				if (rs.next()) {
 					CD_Contents = rs.getString("CD_Contents");
@@ -123,15 +123,15 @@ a.three:hover, a.three:active {
 				//모든글 나중에 DB구조 바꿔야할 필요성이있기도하지만 일단은 이대로
 					if (CD_ID.equals("19")) {
 						rs = stmt
-								.executeQuery("select * from write_board where not CD_ID=20 order by WB_ID desc limit 6;");
+								.executeQuery("select * from C_write_board where not CD_ID=20 order by WB_ID desc limit 6;");
 						//베스트글
 					} else if (CD_ID.equals("18")) {
 						rs = stmt
-								.executeQuery("select * from write_board where (not CD_ID=20) and (WB_Like_Num > 50) order by WB_ID desc limit 6;");
+								.executeQuery("select * from C_write_board where (not CD_ID=20) and (WB_Like_Num > 50) order by WB_ID desc limit 6;");
 					} else {
 						//CD_ID 즉 게시판 성격에 맞는 저장된 글의 모든 것을 가져옴
 						rs = stmt
-								.executeQuery("select * from write_board where CD_ID="
+								.executeQuery("select * from C_write_board where CD_ID="
 										+ CD_ID + " order by WB_ID desc limit 6;");
 					}
 
@@ -143,7 +143,7 @@ a.three:hover, a.three:active {
 						WB_Time = rs.getString("WB_Time");
 
 						Reply_Count = R_stmt
-								.executeQuery("select count(*) from write_board inner join reply on write_board.WB_ID = reply.WB_ID where write_board.WB_ID="
+								.executeQuery("select count(*) from C_write_board inner join C_reply on  C_write_board.WB_ID =  C_reply.WB_ID where  C_write_board.WB_ID="
 										+ WB_ID + ";");
 						if (Reply_Count.next()) {
 							R_total = Reply_Count.getInt(1);

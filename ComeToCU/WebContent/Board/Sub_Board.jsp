@@ -48,7 +48,7 @@ a.two:hover{
             try {
                conn = DB.getConnection();
                stmt = conn.createStatement();
-               rs = stmt.executeQuery("select * from category_detail where CS_ID=" + CS_ID + ";");
+               rs = stmt.executeQuery("select * from C_category_detail where CS_ID=" + CS_ID + ";");
 
                while (rs.next()) {
                   String CD_ID = rs.getString("CD_ID");

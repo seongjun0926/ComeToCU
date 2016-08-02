@@ -133,7 +133,7 @@ a.list-group-item:hover {
 
 						//게시판 이름 및 게시판 공지글을 가져옴.
 						rs = stmt
-								.executeQuery("select CD_Contents,CD_Notice from category_detail where CD_ID="
+								.executeQuery("select CD_Contents,CD_Notice from C_category_detail where CD_ID="
 										+ CD_ID + ";");
 						if (rs.next()) {
 							CD_Contents = rs.getString("CD_Contents");
@@ -142,25 +142,25 @@ a.list-group-item:hover {
 						}
 						if (CD_ID.equals("22")) {//내가 쓴 글
 							rs = stmt
-									.executeQuery("select COUNT(*) from write_board where WB_Creator="
+									.executeQuery("select COUNT(*) from C_write_board where WB_Creator="
 											+ Get_ID + ";");
 
 						} else if (CD_ID.equals("19")) {//모든글
 							rs = stmt
-									.executeQuery("select COUNT(*) from write_board where not CD_ID=20;");//공지사항 빼고
+									.executeQuery("select COUNT(*) from C_write_board where not CD_ID=20;");//공지사항 빼고
 							if (Search_Content != null) {//검색을 위한 쿼리
 								rs = stmt
-										.executeQuery("select COUNT(*) from write_board where WB_Header like '%"
+										.executeQuery("select COUNT(*) from C_write_board where WB_Header like '%"
 												+ Search_Content
 												+ "%' or WB_Contents like '%"
 												+ Search_Content + "%';");
 							}
 						} else if (CD_ID.equals("18")) {//베스트글
 							rs = stmt
-									.executeQuery("select COUNT(*) from write_board where (not CD_ID=20) and (WB_Like_Num > 50);");
+									.executeQuery("select COUNT(*) from C_write_board where (not CD_ID=20) and (WB_Like_Num > 50);");
 							if (Search_Content != null) {
 								rs = stmt
-										.executeQuery("select COUNT(*) from write_board where (WB_Like_Num > 50) and (WB_Header like '%"
+										.executeQuery("select COUNT(*) from C_write_board where (WB_Like_Num > 50) and (WB_Header like '%"
 												+ Search_Content
 												+ "%' or WB_Contents like '%"
 												+ Search_Content + "%');");
@@ -168,11 +168,11 @@ a.list-group-item:hover {
 						} else {
 							//글이 있나 없나 확인하고 있으면 보여주고 없으면 등록된 글이 없다고 표시
 							rs = stmt
-									.executeQuery("select COUNT(*) from write_board where CD_ID="
+									.executeQuery("select COUNT(*) from C_write_board where CD_ID="
 											+ CD_ID + ";");
 							if (Search_Content != null) {
 								rs = stmt
-										.executeQuery("select COUNT(*) from write_board where (CD_ID="
+										.executeQuery("select COUNT(*) from C_write_board where (CD_ID="
 												+ CD_ID
 												+ ") and (WB_Header like '%"
 												+ Search_Content
@@ -330,7 +330,7 @@ a.list-group-item:hover {
 											// [11][12]
 											if (CD_ID.equals("22")) {//모든글 
 												rs = stmt
-														.executeQuery("select * from write_board where WB_Creator='"
+														.executeQuery("select * from C_write_board where WB_Creator='"
 																+ Get_ID
 																+ "' order by WB_ID desc limit "
 																+ ((pageno - 1) * page_per_record_cnt)
@@ -338,12 +338,12 @@ a.list-group-item:hover {
 
 											} else if (CD_ID.equals("19")) {//모든글 
 												rs = stmt
-														.executeQuery("select * from write_board where not CD_ID=20 order by WB_ID desc limit "
+														.executeQuery("select * from C_write_board where not CD_ID=20 order by WB_ID desc limit "
 																+ ((pageno - 1) * page_per_record_cnt)
 																+ "," + page_per_record_cnt + ";");
 												if (Search_Content != null) {
 													rs = stmt
-															.executeQuery("select * from write_board where WB_Header like '%"
+															.executeQuery("select * from C_write_board where WB_Header like '%"
 																	+ Search_Content
 																	+ "%' or WB_Contents like '%"
 																	+ Search_Content
@@ -355,12 +355,12 @@ a.list-group-item:hover {
 												}
 											} else if (CD_ID.equals("18")) { //베스트글
 												rs = stmt
-														.executeQuery("select * from write_board where (not CD_ID=20)and (WB_Like_Num > 50) order by WB_ID desc limit "
+														.executeQuery("select * from C_write_board where (not CD_ID=20)and (WB_Like_Num > 50) order by WB_ID desc limit "
 																+ ((pageno - 1) * page_per_record_cnt)
 																+ "," + page_per_record_cnt + ";");
 												if (Search_Content != null) {
 													rs = stmt
-															.executeQuery("select * from write_board where (WB_Like_Num > 50) and (WB_Header like '%"
+															.executeQuery("select * from C_write_board where (WB_Like_Num > 50) and (WB_Header like '%"
 																	+ Search_Content
 																	+ "%' or WB_Contents like '%"
 																	+ Search_Content
@@ -373,14 +373,14 @@ a.list-group-item:hover {
 											} else {
 												//CD_ID 즉 게시판 성격에 맞는 저장된 글의 모든 것을 가져옴
 												rs = stmt
-														.executeQuery("select * from write_board where CD_ID="
+														.executeQuery("select * from C_write_board where CD_ID="
 																+ CD_ID
 																+ " order by WB_ID desc limit "
 																+ ((pageno - 1) * page_per_record_cnt)
 																+ "," + page_per_record_cnt + ";");
 												if (Search_Content != null) {
 													rs = stmt
-															.executeQuery("select * from write_board where (CD_ID="
+															.executeQuery("select * from C_write_board where (CD_ID="
 																	+ CD_ID
 																	+ ") and (WB_Header like '%"
 																	+ Search_Content
@@ -405,7 +405,7 @@ a.list-group-item:hover {
 												//익명을 나타내기위한 변수
 												//리플 갯수를 가져와서 게시글 이름에 표시
 												Reply_Count = R_stmt
-														.executeQuery("select count(*) from write_board inner join reply on write_board.WB_ID = reply.WB_ID where write_board.WB_ID="
+														.executeQuery("select count(*) from C_write_board inner join C_reply on C_write_board.WB_ID = C_reply.WB_ID where C_write_board.WB_ID="
 																+ ID + ";");
 												if (Reply_Count.next()) {
 													R_total = Reply_Count.getInt(1);

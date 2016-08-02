@@ -33,14 +33,14 @@
 		stmt = conn.createStatement();
 		
 		pstmtCommentInsert = conn.prepareStatement(
-			"insert into reply(R_Contents,R_Creator,WB_ID,R_Time)value (?,?,?,?)");
+			"insert into C_reply(R_Contents,R_Creator,WB_ID,R_Time)value (?,?,?,?)");
 		pstmtCommentInsert.setString(1, content);
 		pstmtCommentInsert.setString(2, R_Creator);
 		pstmtCommentInsert.setString(3, WB_ID);
 		pstmtCommentInsert.setString(4, R_Time);
 		pstmtCommentInsert.executeUpdate();
 		
-		rs = stmt.executeQuery("select R_Num from reply where WB_ID="+WB_ID+" and R_Contents='"+content+"' and R_Creator='"+R_Creator+"' and R_Time='"+R_Time+"';");
+		rs = stmt.executeQuery("select R_Num from C_reply where WB_ID="+WB_ID+" and R_Contents='"+content+"' and R_Creator='"+R_Creator+"' and R_Time='"+R_Time+"';");
 		if(rs.next()){
 			R_Num=rs.getInt("R_Num");
 		}

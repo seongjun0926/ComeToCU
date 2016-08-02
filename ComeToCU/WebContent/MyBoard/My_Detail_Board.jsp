@@ -86,7 +86,6 @@ color : #123478 !important;
 				//로그인을 안했고, CD_ID가 20이다 -> false
 		%>
 
-							<jsp:include page="/Log/Login_Ready.jsp" flush="false" />
 			<!-- 모달을 추가해서 모달을 띄움 -->
 				<script>
 				alert("로그인이 필요합니다.")
@@ -128,7 +127,7 @@ color : #123478 !important;
 					conn.setAutoCommit(false);
 					stmt = conn.createStatement();
 					rs = stmt.executeQuery(
-							"select CD_Contents,CD_Notice from category_detail where CD_ID=" + CD_ID + ";");
+							"select CD_Contents,CD_Notice from C_category_detail where CD_ID=" + CD_ID + ";");
 					if (rs.next()) {
 						CD_Contents = rs.getString("CD_Contents");
 						CD_Notice = rs.getString("CD_Notice");
@@ -161,7 +160,7 @@ color : #123478 !important;
 
 					<div class="col-md-10 col-xs-12">
 						<%
-							rs = stmt.executeQuery("select * from write_board where WB_ID='" + WB_ID + "';");
+							rs = stmt.executeQuery("select * from C_write_board where WB_ID='" + WB_ID + "';");
 
 									while (rs.next()) {
 										String ID = rs.getString("WB_ID");
@@ -247,7 +246,7 @@ color : #123478 !important;
 						<%
 							}
 									pstmt = conn.prepareStatement(
-											"update write_board set View_CNT=View_CNT+1 where WB_ID='" + WB_ID + "';");
+											"update C_write_board set View_CNT=View_CNT+1 where WB_ID='" + WB_ID + "';");
 									pstmt.executeUpdate();
 									conn.commit();
 								} catch (

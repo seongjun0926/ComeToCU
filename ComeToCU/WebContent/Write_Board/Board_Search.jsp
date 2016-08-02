@@ -24,9 +24,9 @@
       stmt = conn.createStatement();
       
       if(Get_Class.equals("1")){
-          rs=stmt.executeQuery("select * from category_detail where CS_ID="+CS_ID+" and NOT CD_ID=18 and NOT CD_ID=19;");
+          rs=stmt.executeQuery("select * from C_category_detail where CS_ID="+CS_ID+" and NOT CD_ID=18 and NOT CD_ID=19;");
       }else{
-    	  rs=stmt.executeQuery("select * from category_detail where CS_ID="+CS_ID+" and NOT CD_ID=18 and NOT CD_ID=19 and NOT CD_ID=20;");
+    	  rs=stmt.executeQuery("select * from C_category_detail where CS_ID="+CS_ID+" and NOT CD_ID=18 and NOT CD_ID=19 and NOT CD_ID=20;");
       }
       %>
 <result> <code>success</code> <data><![CDATA[

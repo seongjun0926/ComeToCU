@@ -232,7 +232,8 @@ function end() {
 				<span class="input-group-addon" id="S_Name">이름</span> <input
 					type="text" name="S_Name" maxlength="10" class="form-control"
 					placeholder="이름을 입력해주세요." aria-describedby="basic-addon1" required
-					autofocus onkeypress="return blank_check(event)">
+					autofocus >
+					<!-- onkeypress="return blank_check(event)" -->
 			</div>
 		
 			<div class="input-group">

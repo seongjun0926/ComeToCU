@@ -20,7 +20,7 @@
 		conn.setAutoCommit(false);
 		
 		pstmt = conn.prepareStatement(
-			"delete from reply where R_Num=?");
+			"delete from C_reply where R_Num=?");
 		pstmt.setInt(1, id);
 		pstmt.executeUpdate();
 		

@@ -21,7 +21,7 @@
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
 
-			pstmt = conn.prepareStatement("delete from write_board where WB_ID=? and WB_Creator=?");
+			pstmt = conn.prepareStatement("delete from C_write_board where WB_ID=? and WB_Creator=?");
 			pstmt.setString(1, WB_ID);
 			pstmt.setString(2, WB_Creator);
 			pstmt.executeUpdate();

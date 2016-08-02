@@ -104,7 +104,7 @@
 			</script> -->
 						
 			<!-- 모달을 추가해서 모달을 띄움 -->
-				<script>
+			<script type="text/javascript">
 				alert("로그인이 필요합니다.")
 				$('#login').modal('show')
 			</script>
@@ -145,7 +145,7 @@
 					conn.setAutoCommit(false);
 					stmt = conn.createStatement();
 					rs = stmt
-							.executeQuery("select CD_Contents,CD_Notice from category_detail where CD_ID="
+							.executeQuery("select CD_Contents,CD_Notice from C_category_detail where CD_ID="
 									+ CD_ID + ";");
 					if (rs.next()) {
 						CD_Contents = rs.getString("CD_Contents");
@@ -184,7 +184,7 @@
 					<div class="col-md-10 col-xs-12">
 						<%
 							rs = stmt
-											.executeQuery("select * from write_board where WB_ID='"
+											.executeQuery("select * from C_write_board where WB_ID='"
 													+ WB_ID + "';");
 
 									while (rs.next()) {
@@ -299,7 +299,7 @@
 						<%
 							}
 									pstmt = conn
-											.prepareStatement("update write_board set View_CNT=View_CNT+1 where WB_ID='"
+											.prepareStatement("update C_write_board set View_CNT=View_CNT+1 where WB_ID='"
 													+ WB_ID + "';");
 									pstmt.executeUpdate();
 									conn.commit();

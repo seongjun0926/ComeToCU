@@ -54,7 +54,7 @@
 		conn.setAutoCommit(false);
 		
 		pstmtCommentInsert = conn.prepareStatement(
-			"insert into write_board(CD_ID,WB_Header,WB_Contents,WB_Creator,WB_Time)value (?,?,?,?,?)");
+			"insert into C_write_board(CD_ID,WB_Header,WB_Contents,WB_Creator,WB_Time)value (?,?,?,?,?)");
 		pstmtCommentInsert.setString(1, CD_ID);
 		pstmtCommentInsert.setString(2, WB_Header);
 		pstmtCommentInsert.setString(3, WB_Contents);

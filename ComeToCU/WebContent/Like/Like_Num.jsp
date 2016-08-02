@@ -17,7 +17,7 @@
 		conn = DB.getConnection();
 		conn.setAutoCommit(false);
 		stmt = conn.createStatement();
-		rs = stmt.executeQuery("select WB_ID, WB_Like_Num from write_board where WB_ID="+WB_ID+";");
+		rs = stmt.executeQuery("select WB_ID, WB_Like_Num from C_write_board where WB_ID="+WB_ID+";");
 %>
 <result>
 	<code>success</code>

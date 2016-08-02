@@ -28,11 +28,11 @@
 		conn = DB.getConnection();
 		conn.setAutoCommit(false);
 
-		pstmt_Plus =conn.prepareStatement("update write_board set WB_Like_Num=WB_Like_Num-1 where WB_ID='" + WB_ID + "';");
+		pstmt_Plus =conn.prepareStatement("update C_write_board set WB_Like_Num=WB_Like_Num-1 where WB_ID='" + WB_ID + "';");
 		
 		
 		
-		pstmt=conn.prepareStatement("delete from like_table where L_WB_ID="+WB_ID+" and L_S_Num="+S_Num+" ;");
+		pstmt=conn.prepareStatement("delete from C_like_table where L_WB_ID="+WB_ID+" and L_S_Num="+S_Num+" ;");
 		
 
 		
