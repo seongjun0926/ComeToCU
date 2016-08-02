@@ -62,10 +62,18 @@ function displayResult() {
 	
 
 			var listView = document.getElementById('checkMsg');
+			var keyword = document.Register_Member.S_Num.value;
+			
 			if (resultText == 0) {
+				if(keyword.length!=8){
+					listView.innerHTML = "전체 학번을 입력해주세요.";
+					listView.style.color = "red";
+					IDCheck = false;
+				}else{
 				listView.innerHTML = "사용 할 수 있는 학번 입니다.";
 				listView.style.color = "blue";
 				IDCheck = true;
+				}
 			} else {
 				
 				listView.innerHTML = "이미 등록된 학번 입니다.";
