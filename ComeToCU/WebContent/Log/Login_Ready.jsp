@@ -10,16 +10,22 @@
 <script type="text/javascript" src="/Log/httpRequest.js"></script>
 <script type="text/javascript">
 
-function digit_check(evt){
-   var code = evt.which?evt.which:event.keyCode;
-   if(code < 48 || code > 57){
-   return false;
-   }
-   else{
-
-   }
+function onlyNumber(event){
+	event = event || window.event;
+	var keyID = (event.which) ? event.which : event.keyCode;
+	if ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
+		return;
+	else
+		return false;
 }
-
+function removeChar(event) {
+	event = event || window.event;
+	var keyID = (event.which) ? event.which : event.keyCode;
+	if ( keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
+		return;
+	else
+		event.target.value = event.target.value.replace(/[^0-9]/g, "");
+}
 function end() {
 	location.replace("/index.jsp");
 	}
@@ -51,15 +57,18 @@ function end() {
 
 					<form action="/Log/LoginProcess.jsp" method="POST">
 
-
-
-
+						<%String URI2 = request.getRequestURL().toString();
+						if(request.getQueryString()!=null)
+							URI2=URI2+"?"+request.getQueryString();
+	        	 %>
+	        	 <input type="hidden" name="redirectURI" value=<%=URI2 %>>
+	        	 
 						<div class="input-group">
 
 							<span class="input-group-addon" id="S_Num">학번</span> <input
 								name="S_Num" type="text" class="form-control"
 								placeholder="학번을 입력해주세요." aria-describedby="basic-addon1"
-								required autofocus onkeypress="return digit_check(event)"
+								required autofocus onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)"
 								maxlength="8">
 						</div>
 

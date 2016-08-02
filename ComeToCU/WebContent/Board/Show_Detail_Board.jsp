@@ -82,6 +82,7 @@
 
 		<!-- 세션으로 로그인이 되어있는지 안되어있는지 확인. 나중에 페이지 하나 새로 만들어서 include하고 싶은데 할줄몰라서 그냥 이렇게함. -->
 		<%
+
 			String Get_ID = (String) session.getAttribute("Get_ID");
 			String CD_ID = request.getParameter("CD_ID");
 			String Get_Class = (String) session.getAttribute("Get_Class");
@@ -90,25 +91,25 @@
 				//로그인을 안했고, CD_ID가 20이 아니다(true) T&T 라면 로그인 ㄱ
 				//로그인을 안했고, CD_ID가 20이다 -> false
 		%>
-<!-- 
+		<!-- 
 		<script>
 			alert("로그인이 필요합니다.")
 			window
 					.open('/Log/Login_Ready.jsp', 'blank',
 							'width=350,height=150');
 		</script> -->
-			<!-- <script>
+		<!-- <script>
 				alert("로그인이 필요합니다.")
 				window.open('/Log/Login_Ready.jsp', 'blank',
 						'width=350,height=150');
 			</script> -->
-						
-			<!-- 모달을 추가해서 모달을 띄움 -->
-			<script type="text/javascript">
-				alert("로그인이 필요합니다.")
-				$('#login').modal('show')
-			</script>
-			
+
+		<!-- 모달을 추가해서 모달을 띄움 -->
+		<script type="text/javascript">
+			alert("로그인이 필요합니다.")
+			$('#login').modal('show')
+		</script>
+
 		<%
 			} else {
 				String URI = request.getRequestURL().toString();
@@ -119,9 +120,9 @@
 
 				String CS_ID = request.getParameter("CS_ID");
 				String WB_ID = request.getParameter("WB_ID");
-				System.out.println("Show_Detail_Board.jsp Get_Class="+Get_Class+ "WB_ID=" + WB_ID
-						+ "CD_ID : " + CD_ID + " CS_ID : " + CS_ID + " URI : "
-						+ URI);
+				System.out.println("Show_Detail_Board.jsp Get_Class="
+						+ Get_Class + "WB_ID=" + WB_ID + "CD_ID : " + CD_ID
+						+ " CS_ID : " + CS_ID + " URI : " + URI);
 				String CD_Contents = null;
 				String CD_Notice = null;
 		%>
@@ -215,8 +216,7 @@
 											if (Compare_CD_ID.equals("20")) { //20이면 관리자로 표현
 										%><span class="label label-default">관리자</span>
 										<%
-											}
-											else if (Compare_CD_ID.equals("2")) {//2면 익명으로
+											} else if (Compare_CD_ID.equals("2")) {//2면 익명으로
 										%><span class="label label-default">익명</span>
 										<%
 											} else {//암것도 아니면 그냥 게시자
@@ -242,26 +242,28 @@
 									</div>
 									<hr>
 
-									<%if(Get_ID!=null){ //로그인을 했을 경우에!
-										
-										if (Get_ID.equals(Creator) || Get_Class.equals("1")) {
-											//관리자이거나 작성자 본인일 경우
-											System.out.println(Get_Class.equals("1"));
+									<%
+										if (Get_ID != null) { //로그인을 했을 경우에!
+
+														if (Get_ID.equals(Creator) || Get_Class.equals("1")) {
+															//관리자이거나 작성자 본인일 경우
+															System.out.println(Get_Class.equals("1"));
 									%>
-	
+
 									<div class="text-right">
 										<form name="Delete_Page" action="/Board/Delete_Board.jsp"
 											method="post">
 											<input name="Delete_Page" type="hidden" value=<%=WB_ID%>>
 											<input name="WB_Creator" type="hidden" value=<%=Creator%>>
-											<button type="button" class="btn btn-default" aria-label="Left Align" onclick="delete_confirm()">
+											<button type="button" class="btn btn-default"
+												aria-label="Left Align" onclick="delete_confirm()">
 												<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 											</button>
 										</form>
 									</div>
 									<%
 										}
-									}
+													}
 									%>
 									<hr>
 

@@ -70,6 +70,7 @@ a.list-group-item:hover {
 
 			<!-- 세션으로 로그인이 되어있는지 안되어있는지 확인. 나중에 페이지 하나 새로 만들어서 include하고 싶은데 할줄몰라서 그냥 이렇게함. -->
 			<%
+
 				String CD_ID = request.getParameter("CD_ID");
 
 				String Get_ID = (String) session.getAttribute("Get_ID");

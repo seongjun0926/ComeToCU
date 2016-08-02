@@ -78,11 +78,21 @@ function displayResult() {
 		}
 	}
 }
-function digit_check(evt){
-	var code = evt.which?evt.which:event.keyCode;
-	if(code < 48 || code > 57){
-	return false;
-	}
+function onlyNumber(event){
+	event = event || window.event;
+	var keyID = (event.which) ? event.which : event.keyCode;
+	if ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
+		return;
+	else
+		return false;
+}
+function removeChar(event) {
+	event = event || window.event;
+	var keyID = (event.which) ? event.which : event.keyCode;
+	if ( keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
+		return;
+	else
+		event.target.value = event.target.value.replace(/[^0-9]/g, "");
 }
 function blank_check(evt){
 	var code = evt.which?evt.which:event.keyCode;
@@ -241,8 +251,7 @@ function end() {
 				<span class="input-group-addon">학번</span> <input type="text"
 					id="S_Num" name="S_Num" maxlength="8" onkeydown="checkId()"
 					class="form-control" style="ime-mode: disabled"
-					placeholder="학번을 입력해주세요." aria-describedby="basic-addon1" required
-					onkeypress="return digit_check(event)">
+					placeholder="학번을 입력해주세요." aria-describedby="basic-addon1" required onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)">
 			</div>
 			<div id="checkMsg">학번을 입력하세요.</div>
 

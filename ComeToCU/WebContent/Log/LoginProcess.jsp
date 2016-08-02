@@ -10,9 +10,9 @@
 
 
 		String Enter_PW = request.getParameter("S_PW");
-		String redirectURI="";
+		String redirectURI=request.getParameter("redirectURI");
 		String Get_Class=""; //관리자 인지, 일반 회원인지 알기 위한 객체
-		
+		System.out.println(";"+redirectURI);
 		String Get_ID = "";
 		String Get_PW = "";
 		String Get_Name = "";
@@ -37,15 +37,9 @@
 					session.setAttribute("Get_Name", Get_Name);
 					session.setAttribute("Get_ID",Get_ID);
 					session.setAttribute("Get_Class",Get_Class);
-					%>
-					<!-- 로그인 성공 시 부모 창을 리로드 해주며 자신은 꺼짐 -->
-					<SCRIPT>
-						location.href="/index.jsp";
-					</SCRIPT>
 					
 					
-					
-					<%
+					response.sendRedirect(redirectURI);
 					
 				} else {
 				%>
