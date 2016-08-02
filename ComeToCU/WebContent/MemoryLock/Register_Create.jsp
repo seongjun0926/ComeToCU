@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page import="org.json.simple.*"%>
 
+<%@ page import="Util.DB"%>
+
+
 <%@ page import="java.awt.Graphics2D"%>
 <%@ page import="java.awt.image.renderable.ParameterBlock"%>
 <%@ page import="java.awt.image.BufferedImage"%>
@@ -19,8 +22,8 @@
 <%
 	response.setCharacterEncoding("utf-8");
 	request.setCharacterEncoding("UTF-8");
+	String M_C_Contents = "12";
 	String fileName="";
-	String M_C_Contents = "";
 	String realFolder = ""; //파일경로를 알아보기위한 임시변수를 하나 만들고,
 	String saveFolder = "MemoryLock/Upload/img"; //파일저장 폴더명을 설정한 뒤에...
 	String encType = "utf-8"; //인코딩방식도 함께 설정한 뒤,
@@ -61,28 +64,28 @@
 	  File file=new File(realFolder+"/"+fileName);
 	 ImageIO.write(thumb,"jpg",file); //저장타입을 jpg
 	
-	
+
 	Date from = new Date();
 	SimpleDateFormat transFormat = new SimpleDateFormat("yy-MM-dd");
 	String M_C_Creator = request.getParameter("M_C_Creator");
 	String M_C_Text = new String(request.getParameter("M_C_Text")
 			.getBytes("8859_1"), "utf-8");//db에 글자 넣기 위해 인코딩
 	String M_C_Type = request.getParameter("M_C_Type");
-
+	String M_S_Persons=request.getParameter("M_S_Persons");
 	String M_C_lat = request.getParameter("lat");
 	String M_C_lng = request.getParameter("lng");
 	String M_C_Time = transFormat.format(from);
 
 	Connection conn = null;
 	Statement stmt = null;
+	Statement stmt1 = null;
 
 	try {
-		Class.forName("com.mysql.jdbc.Driver");
-		conn = DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/seongjun0926",
-				"seongjun0926", "tjdwns3721");
-		if (conn == null)
+		conn = DB.getConnection();
+		if (conn == null){
 			throw new Exception("데이터베이스에 연결할 수 없습니다.");
+		}
+		if(M_S_Persons==null){//공유사용자 추가 안되면
 		stmt = conn.createStatement();
 		String command = String
 				.format("insert into M_Create (M_C_Creator, M_C_Text, M_C_Contents, M_C_Type, M_C_lat, M_C_lng, M_C_Time) values ('%s', '%s', '%s', '%s', '%s', '%s', '%s');",
@@ -92,9 +95,32 @@
 		int rowNum = stmt.executeUpdate(command);
 		if (rowNum < 1)
 			throw new Exception("데이터를 DB에 입력할 수 없습니다.");
+		}
+		else{//추가되면
+		stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, 
+				ResultSet.CONCUR_UPDATABLE);
+		
+		ResultSet rs=stmt.executeQuery("select M_C_Num from M_Create where M_C_Creator='"+M_C_Creator+"';");
+		int M_C_Num_=0;
+		while(rs.next()){
+			M_C_Num_=rs.getInt("M_C_Num"); //M_C_Num의 마지막 값을 가져옴 while 반복문을 사용해서.
+		}
+		M_C_Num_+=1;//거기 값에 1을 더하면 현재추가해야할 값이 됨
+		rs.close();
+		stmt.close();
+
+		stmt=conn.createStatement();
+		stmt1=conn.createStatement();
+		
+		 stmt.executeUpdate("insert into M_Create value ("+M_C_Num_+", '"+M_C_Creator+"', '"+M_C_Text+"','"+M_C_Contents+"','"+M_C_Type+"' ,'"+M_C_lat+"', '"+M_C_lng+"', '"+M_C_Time+"');");
+		 stmt.close();
+		 stmt1.executeUpdate("insert into M_Shared (M_S_Persons,M_S_FK) values ('"+M_S_Persons+"',"+M_C_Num_+");");
+		 stmt1.close();
+		} 
 	} finally {
 		try {
 			stmt.close();
+			stmt1.close();
 		} catch (Exception ignored) {
 		}
 		try {

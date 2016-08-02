@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="org.json.simple.*"%>
 <%@ page import="java.sql.*"%>
+<%@ page import="Util.DB"%>
 <%
 	String E_Mail = request.getParameter("E_Mail");
 //	String PW = request.getParameter("PW");
@@ -13,13 +14,11 @@
 	Connection conn = null;
 
 	try {
-		Class.forName("com.mysql.jdbc.Driver");
-		conn = DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/seongjun0926",
-				"seongjun0926", "tjdwns3721");
+		conn = DB.getConnection();
 
 		Statement stmt = conn.createStatement();
 		//스테이트먼트 객체를 생성합니다.
+		//M_S_Shared 와 조인을 해서 M_C_Creator 와  M_S_Persons 에 넣기 
 		String query = "select * from M_Create where M_C_Creator='"+E_Mail+"'";
 		//db에 날릴 쿼리문을 생성합니다. 
 

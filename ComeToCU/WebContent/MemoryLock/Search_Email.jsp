@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="org.json.simple.*"%>
 <%@ page import="java.sql.*"%>
+<%@ page import="Util.DB"%>
+
 <%
 String E_Mail = request.getParameter("E_Mail");
 JSONObject jsonMain = new JSONObject();
@@ -13,9 +15,7 @@ JSONObject jObject = new JSONObject();
     Connection conn = null;
 
  try{
-        Class.forName("com.mysql.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/seongjun0926", "seongjun0926", "tjdwns3721");
-       
+	 conn = DB.getConnection();
   Statement stmt = conn.createStatement();
   //스테이트먼트 객체를 생성합니다.
   String query = "select * from M_Register";

@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="org.json.simple.*"%>
 <%@ page import="java.sql.*"%>
+<%@ page import="Util.DB"%>
+
 <%
 String E_Mail = request.getParameter("E_Mail");
 String PW = request.getParameter("PW");
@@ -15,9 +17,7 @@ JSONObject jObject = new JSONObject();
     Connection conn = null;
 
  try{
-        Class.forName("com.mysql.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/seongjun0926", "seongjun0926", "tjdwns3721");
-       
+	 conn = DB.getConnection();
   Statement stmt = conn.createStatement();
   //스테이트먼트 객체를 생성합니다.
  String query = "select COUNT(*) from M_Register where M_Email='"+E_Mail+"' and M_PW='"+PW+"'";
