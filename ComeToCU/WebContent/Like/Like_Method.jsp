@@ -95,7 +95,6 @@ var WB_ID = document.getElementById("WB_ID")
 	function makeLikeBtn(comment) {
 		//<div>
 		var commentDiv = document.createElement('div');
-
 		if (comment.Like_Check == 0) {
 			var html = '<div>'
 					+ '<button id="Like_BTN" onclick="Like();" type="button" class="btn btn-info btn-lg">'
@@ -120,6 +119,12 @@ var WB_ID = document.getElementById("WB_ID")
 	}
 
 	function Like() {
+		var Get_ID = <%=session.getAttribute("Get_ID")%>;
+		
+		if(Get_ID==""||Get_ID==null){
+			alert("로그인이 필요합니다.")
+			$('#login').modal('show')
+		}else{
 		document.getElementById('Like_BTN').setAttribute('class',
 				'btn btn-default btn-lg');
 		document.getElementById('Like_BTN').setAttribute('onclick',
@@ -131,6 +136,7 @@ var WB_ID = document.getElementById("WB_ID")
 				+ encodeURIComponent(Like_Count);
 		new ajax.xhr.Request("/Like/Like_Num_Plus.jsp", param,
 				Like_Plus_Result, "post");
+		}
 	}
 	function Like_Plus_Result(req) {
 
@@ -162,6 +168,12 @@ var WB_ID = document.getElementById("WB_ID")
 	}
 
 	function DisLike() {
+var Get_ID = <%=session.getAttribute("Get_ID")%>;
+		
+		if(Get_ID==""||Get_ID==null){
+			alert("로그인이 필요합니다.")
+			$('#login').modal('show')
+		}else{
 		document.getElementById('Like_BTN').setAttribute('onclick', 'Like();');
 		document.getElementById('Like_BTN').setAttribute('class',
 				'btn btn-info btn-lg')
@@ -171,6 +183,7 @@ var WB_ID = document.getElementById("WB_ID")
 				+ encodeURIComponent(Like_Count);
 		new ajax.xhr.Request("/Like/Like_Num_Minus.jsp", param,
 				Like_Minus_Result, "post");
+		}
 	}
 
 	function Like_Minus_Result(req) {
@@ -220,6 +233,7 @@ color: black !important;
 	
 	<div id="commentCheck"></div>
 	<input class="like btn" type="button" name="Like_Count" id="Like_Count" value="" disabled="true" />
+	
 	<!-- <input type="button" name="Like_Count" id="Like_Count" value="" /> -->
 
 
