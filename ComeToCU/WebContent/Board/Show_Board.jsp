@@ -512,11 +512,11 @@ a.list-group-item:hover {
 														style="color: gray; font-size: 14px; opacity: 0.7;">
 														<img src="/img/creator.png" />
 														<%
-															if (CD_ID.equals("20")) {
+															if (Compare_CD_ID.equals("20")) {
 														%><font color="black">관리자</font>
 														<%
 															}
-															else if (CD_ID.equals("2")) {
+															else if (Compare_CD_ID.equals("2")) {
 														%><font color="black">익명</font>
 														<%
 															} else {
