@@ -16,18 +16,7 @@
 </head>
 <body>
 <%
-		String Get_ID = (String) session.getAttribute("Get_ID");
 
-		if (Get_ID == null || Get_ID == "") {
-	%>
-	<script>
-		alert("로그인이 필요합니다.")
-		window.open('/Log/Login_Ready.jsp', 'blank', 'width=350,height=150');
-	</script>
-	<%
-		} else {
-	
-	
 	request.setCharacterEncoding("UTF-8");
 	String WB_Contents= request.getParameter("ir1");
 	String F_Category=request.getParameter("F_Category");
@@ -79,6 +68,6 @@
 		} catch(SQLException ex) {}
 	}
 	
-	} %>
+%>
 </body>
 </html>

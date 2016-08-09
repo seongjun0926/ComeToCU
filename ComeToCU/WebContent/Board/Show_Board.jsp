@@ -86,7 +86,7 @@ a.list-group-item:hover {
 			</script>
 			
 		<%
-			}else if(Get_Certification.equals("0")){
+			}else if(Get_Certification.equals("0")&& CD_ID.equals("20") == false){
 				%>
 				<script>
 				alert("회원가입시 작성한 본교 홈페이지 메일에서 인증을 해주세요!");
