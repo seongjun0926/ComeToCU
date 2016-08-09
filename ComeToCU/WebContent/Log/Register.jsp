@@ -267,7 +267,7 @@ function end() {
 			
 			<div class="input-group">
 					<span class="input-group-addon">이메일 인증</span> 
-					<input type="text" id="receiver" name="receiver" maxlength="30" class="form-control" style="ime-mode: disabled" placeholder="대구 가톨릭 대학교 로그인 ID를 입력해주세요."
+					<input type="text" required id="receiver" name="receiver" maxlength="30" class="form-control" style="ime-mode: disabled" placeholder="대구 가톨릭 대학교 로그인 ID를 입력해주세요."
 						aria-describedby="basic-addon1" required>
 				
 			</div>
