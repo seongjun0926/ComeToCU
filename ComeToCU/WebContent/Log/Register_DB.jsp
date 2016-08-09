@@ -1,222 +1,150 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="java.util.List"%>
+<% request.setCharacterEncoding("UTF-8"); %>
+<%@ page import="Util.DB"%>
+<%@ page trimDirectiveWhitespaces="true" %>
+<%@ page import="javax.mail.Transport" %>
+<%@ page import="javax.mail.Message" %>
+<%@ page import="javax.mail.internet.InternetAddress" %>
+<%@ page import="javax.mail.Address" %>
+<%@ page import="javax.mail.internet.MimeMessage" %>
+<%@ page import="javax.mail.Session" %>
+<%@ page import="javax.mail.Authenticator" %>
+<%@ page import="java.util.Properties" %>
+<%@ page import="Util.Mail" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-<title>회원 가입</title>
-
-<script type="text/javascript" src="/Log/httpRequest.js"></script>
-<script type="text/javascript">
-var checkFirst = false;
-var lastKeyword = '';
-var loopSendKeyword = false;
-
-var IDCheck = true;
-var PWCheck = true;
-
-function checkId() {
-	if (checkFirst == false) {
-		setTimeout("sendId();", 500);
-		loopSendKeyword = true;
-	}
-	checkFirst = true;
-}
-
-function sendId() {
-	if (loopSendKeyword == false)
-		return;
-
-	var keyword = document.Register_Member.S_Num.value;
-	if (keyword == '') {
-		lastKeyword = '';
-		document.getElementById('checkMsg').style.color = "black";
-		document.getElementById('checkMsg').innerHTML = "학번를 입력하세요.";
-	} else if (keyword != lastKeyword) {
-		lastKeyword = keyword;
-
-		if (keyword != '') {
-			var params = "id=" + encodeURIComponent(keyword);
-
-			sendRequest("/Log/Id_Check.jsp", params, displayResult, 'POST');
-		} else {
-		}
-	}
-	setTimeout("sendId();", 500);
-}
-
-function displayResult() {
-
-	if (httpRequest.readyState == 4) {
-		if (httpRequest.status == 200) {
-			var resultText = httpRequest.responseText;
-	
-
-			var listView = document.getElementById('checkMsg');
-			if (resultText == 0) {
-				listView.innerHTML = "사용 할 수 있는 학번 입니다.";
-				listView.style.color = "blue";
-				IDCheck = true;
-			} else {
-				
-				listView.innerHTML = "이미 등록된 학번 입니다.";
-				listView.style.color = "red";
-				IDCheck = false;
-
-			}
-		} else {
-			alert("에러 발생: " + httpRequest.status);
-		}
-	}
-}
-function digit_check(evt){
-	var code = evt.which?evt.which:event.keyCode;
-	if(code < 48 || code > 57){
-	return false;
-	}
-}
-function blank_check(evt){
-	var code = evt.which?evt.which:event.keyCode;
-	if((code < 65 || code>=91)&(code<97||code>=123)){
-	return false;
-	}
-}
-function pw_blank_check(evt){
-	var code = evt.which?evt.which:event.keyCode;
-	if(code == 32){
-	return false;
-	}
-}
-function checkPwd() {
-	var f1 = document.forms[0];
-	var pw1 = f1.S_Password.value;
-	var pw2 = f1.S_Password_Check.value;
-	if (pw1 != pw2 || pw2!=pw1) {
-		document.getElementById('checkPwd').style.color = "red";
-		document.getElementById('checkPwd').innerHTML = "동일한 암호를 입력하세요.";
-		PWCheck = false;
-	} 
-	if(pw1==pw2) {
-		pw1=pw1.trim();
-		pw2=pw2.trim();
-		if(pw1==null||pw1=="")
-			{
-			if(pw2==null||pw2==""){
-				document.getElementById('checkPwd').style.color = "green";
-				document.getElementById('checkPwd').innerHTML = "암호를 입력해주세요.";
-			}
-			
-			}
-		else{
-		document.getElementById('checkPwd').style.color = "blue";
-		document.getElementById('checkPwd').innerHTML = "암호가 확인 되었습니다.";
-		}
-		PWCheck = true;
-		
-	}
-}
-function Check() {
-	if (IDCheck == false) {
-		alert("학번을 확인하세요.");
-		return false;
-	}
-	
-	if (PWCheck == false) {
-		alert("암호를 확인하세요.");
-		return false;
-	}
-
-	
-	Register_Member.submit();
-}
-
-
-
-function trim(str) {
-	    str = input.replace(/(^\s*)|(\s*$)/, "");
-	    return str;
-	} 
-
-
-
-</script>
-
-
+<title>Insert title here</title>
 </head>
 <body>
 
-	<form name="Register_Member" action="/Log/Register_DB.jsp"
-		method="Post">
-		<div class="container">
-			<div class="panel panel-info">
-				<div class="panel-heading text-center">회원 가입</div>
-				<table class="table">
-					<tr>
-						<div class="input-group">
+	<%
 
-							<span class="input-group-addon" id="S_Name">이름</span> <input
-								type="text" name="S_Name" maxlength="10" class="form-control"
-								placeholder="이름을 입력해주세요." aria-describedby="basic-addon1"
-								required autofocus onkeypress="return blank_check(event)">
-						</div>
-						<div class="input-group">
+String sender = "mongshared@naver.com";
+String receiver = request.getParameter("receiver");
+String receiver_ = receiver+"naver.com";
+String subject = "ComeToCU 회원가입 인증 메일입니다.";
+String content = "http://cometocu.com/Log/E_Mail_Certification.jsp?E_Mail="+receiver;
 
-							<!-- 나중에 라디오 버튼으로 단대/학과 나열 -->
-							<span class="input-group-addon">학과</span> <input type="text"
-								name="S_Major" maxlength="10" class="form-control"
-								placeholder="학과를 입력해주세요." aria-describedby="basic-addon1"
-								required autofocus onkeypress="return blank_check(event)">
-						</div>
-						<div class="input-group">
+//정보를 담기 위한 객체
+Properties p = new Properties();
 
-							<span class="input-group-addon">학번</span> <input type="text"
-								id="S_Num" name="S_Num" maxlength="8" onkeydown="checkId()"
-								class="form-control" style="ime-mode: disabled"
-								placeholder="학번을 입력해주세요." aria-describedby="basic-addon1"
-								required onkeypress="return digit_check(event)">
-						</div>
-						<div id="checkMsg">학번을 입력하세요.</div>
+//SMTP 서버의 계정 설정
+//Naver와 연결할 경우 네이버 아이디 지정
+//Google과 연결할 경우 본인의 Gmail 주소
+p.put("mail.smtp.user", "mongshared");
 
-						<div class="input-group">
+//SMTP 서버 정보 설정
+//네이버일 경우 smtp.naver.com
+//Google일 경우 smtp.gmail.com
+p.put("mail.smtp.host", "smtp.naver.com");
+ 
+//아래 정보는 네이버와 구글이 동일하므로 수정하지 마세요.
+p.put("mail.smtp.port", "465");
+p.put("mail.smtp.starttls.enable", "true");
+p.put("mail.smtp.auth", "true");
+p.put("mail.smtp.debug", "true");
+p.put("mail.smtp.socketFactory.port", "465");
+p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+p.put("mail.smtp.socketFactory.fallback", "false");
 
-							<span class="input-group-addon">암호</span> <input type="password"
-								name="S_Password" id="S_Password" maxlength="20"
-								class="form-control" placeholder="암호를 입력해주세요."
-								aria-describedby="basic-addon1" required onkeyup="checkPwd()"
-								onkeypress="return pw_blank_check(event)">
-						</div>
-						<div class="input-group">
+try {
+    Authenticator auth = new Mail();
+    Session ses = Session.getInstance(p, auth);
 
-							<span class="input-group-addon">암호 확인</span> <input
-								type="password" name="S_Password_Check" id="S_Password_Check"
-								maxlength="20" class="form-control" placeholder="암호를 확인해주세요."
-								aria-describedby="basic-addon1" required onkeyup="checkPwd()"
-								onkeypress="return pw_blank_check(event)">
-						</div>
-						<div id="checkPwd">동일한 암호를 입력하세요.</div>
+    // 메일을 전송할 때 상세한 상황을 콘솔에 출력한다.
+    ses.setDebug(true);
+        
+    // 메일의 내용을 담기 위한 객체
+    MimeMessage msg = new MimeMessage(ses);
+
+    // 제목 설정
+    msg.setSubject(subject);
+        
+    // 보내는 사람의 메일주소
+    Address fromAddr = new InternetAddress(sender);
+    msg.setFrom(fromAddr);
+        
+    // 받는 사람의 메일주소
+    Address toAddr = new InternetAddress(receiver);
+    msg.addRecipient(Message.RecipientType.TO, toAddr);
+        
+    // 메시지 본문의 내용과 형식, 캐릭터 셋 설정
+    msg.setContent(content, "text/html;charset=UTF-8");
+        
+    // 발송하기
+    Transport.send(msg);
+        
+} catch (Exception mex) {
+    mex.printStackTrace();
+    String script = "<script type='text/javascript'>\n";
+    script += "alert('메일발송에 실패했습니다. 다시 시도해주세요.');\n";
+    script += "history.back();\n";
+    script += "</script>";
+    out.print(script);
+    return;
+}
+	
+	
+		String Wrtie_Name = request.getParameter("S_Name");
+		String Write_Num_Parse = request.getParameter("S_Num");
+		int Write_Num=Integer.parseInt(Write_Num_Parse);
+		String Write_PassWord = request.getParameter("S_Password");
+
+		System.out.println(Wrtie_Name+","+Write_Num+","+Write_PassWord);
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
 
 
-					</tr>
-				</table>
+		try {
+			//디비 연결
 
-			</div>
-			<div class="text-center">
-				<div class="btn-group " role="group">
-					<button type="button" class="btn btn-primary" onclick="return Check();">등록</button>
-				</div>
-			</div>
-		</div>
+			conn = DB.getConnection();
+			conn.setAutoCommit(false);
 
-	</form>
+			pstmt = conn.prepareStatement("insert into C_students(S_Name,S_Num,S_PassWord)value(?,?,?)");
+
+			pstmt.setString(1, Wrtie_Name);
+			pstmt.setInt(2, Write_Num);
+			pstmt.setString(3, Write_PassWord);
+		
+
+			
+		
+			
+			pstmt.executeUpdate();
+			conn.commit();
+			pstmt.close();
+			conn.close();
+			
+			%>
+			<script>
+			alert("회원 가입이 완료되었습니다. 이메일 인증 후 로그인해주세요!")
+			location.href="/index.jsp";
+
+			</script>
+			<%
+
+		} catch (Exception e) {
+			out.println(e.getMessage());
+			%>
+			<script>
+			alert("에러 발생 : "+e.getMessage()+"관리자에게 문의해주세요.");
+			</script>
+			<%
+		}
+	%>
+
+
+
+
+
 
 </body>
 </html>
