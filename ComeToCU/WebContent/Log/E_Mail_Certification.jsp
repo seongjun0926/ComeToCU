@@ -3,7 +3,7 @@
 <%
 request.setCharacterEncoding("UTF-8");
 
-String a=request.getParameter("E_Mail");
+String S_Num=request.getParameter("E_Mail");
 
-System.out.print(a);
+System.out.print(S_Num);
 %>

@@ -115,9 +115,11 @@ function pw_blank_check(evt){
 	}
 }
 function checkPwd() {
-	var f1 = document.forms[0];
-	var pw1 = f1.S_Password.value;
-	var pw2 = f1.S_Password_Check.value;
+
+	var pw1 = document.Register_Member.S_Password.value;
+	var pw2 = document.Register_Member.S_Password_Check.value;
+	
+	
 	if (pw1 != pw2 || pw2!=pw1) {
 		document.getElementById('checkPwd').style.color = "red";
 		document.getElementById('checkPwd').innerHTML = "동일한 암호를 입력하세요.";
@@ -168,8 +170,10 @@ function Check() {
         alert("필수항목을 입력해 주세요.");
         return false;
 	}
-	
-
+	if(isNull(thisform.receiver.value)){
+        alert("필수항목을 입력해 주세요.");
+        return false;
+	}
 	if (IDCheck == false) {
 		alert("학번을 확인하세요.");
 		return false;
@@ -268,7 +272,7 @@ function end() {
 			<div class="input-group">
 					<span class="input-group-addon">이메일 인증</span> 
 					<input type="text" required id="receiver" name="receiver" maxlength="30" class="form-control" style="ime-mode: disabled" placeholder="대구 가톨릭 대학교 로그인 ID를 입력해주세요."
-						aria-describedby="basic-addon1" required>
+						aria-describedby="basic-addon1" required />
 				
 			</div>
 			
