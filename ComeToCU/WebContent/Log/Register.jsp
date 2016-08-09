@@ -213,13 +213,14 @@ function end() {
 	<!-- body -->
 	<div class="modal-body">
 		<br>
-		<form name="Register_Member" action="/Log/Register_DB.jsp" 
-			method="Post" >
+		<form name="Register_Member" action="/Log/Register_DB.jsp"
+			method="Post">
 			<textarea class="form-control" rows="5" readonly>
 				<%
 					BufferedReader reader = null;
 					try {
-						String filePath = application.getRealPath("/WEB-INF/cometocu.txt");
+						String filePath = application
+								.getRealPath("/WEB-INF/cometocu.txt");
 						reader = new BufferedReader(new FileReader(filePath));
 						while (true) {
 							String str = reader.readLine();
@@ -250,19 +251,27 @@ function end() {
 				<span class="input-group-addon" id="S_Name">이름</span> <input
 					type="text" name="S_Name" maxlength="10" class="form-control"
 					placeholder="이름을 입력해주세요." aria-describedby="basic-addon1" required
-					autofocus >
-					<!-- onkeypress="return blank_check(event)" -->
+					autofocus>
+				<!-- onkeypress="return blank_check(event)" -->
 			</div>
-		
+
 			<div class="input-group">
 
 				<span class="input-group-addon">학번</span> <input type="text"
 					id="S_Num" name="S_Num" maxlength="8" onkeydown="checkId()"
 					class="form-control" style="ime-mode: disabled"
-					placeholder="학번을 입력해주세요." aria-describedby="basic-addon1" required onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)">
+					placeholder="학번을 입력해주세요." aria-describedby="basic-addon1" required
+					onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)">
 			</div>
 			<div id="checkMsg">학번을 입력하세요.</div>
-
+			
+			<div class="input-group">
+					<span class="input-group-addon">이메일 인증</span> 
+					<input type="text" id="receiver" name="receiver" maxlength="30" class="form-control" style="ime-mode: disabled" placeholder="대구 가톨릭 대학교 로그인 ID를 입력해주세요."
+						aria-describedby="basic-addon1" required>
+				
+			</div>
+			
 			<div class="input-group">
 
 				<span class="input-group-addon">암호</span> <input type="password"
@@ -287,8 +296,8 @@ function end() {
 						onclick="return Check();">등록</button>
 				</div>
 			</div>
-		</form>
-		
+	
+			</form>
 	</div>
 
 

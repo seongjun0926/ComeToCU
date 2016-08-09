@@ -182,26 +182,33 @@ color: black !important;
 			<!-- 상단 네비게이션 바 -->
 			<jsp:include page="/NavBar.jsp" flush="false" />
 
-			<!-- 세션으로 로그인이 되어있는지 안되어있는지 확인. 나중에 페이지 하나 새로 만들어서 include하고 싶은데 할줄몰라서 그냥 이렇게함. -->
-			<%
-				String Get_ID = (String) session.getAttribute("Get_ID");
-
-				if (Get_ID == null || Get_ID == "") {
-			%>
-			<!-- <script>
-				alert("로그인이 필요합니다.")
-				window.open('/Log/Login_Ready.jsp', 'blank',
-						'width=350,height=150');
-			</script> -->
+				<!-- 세션으로 로그인이 되어있는지 안되어있는지 확인. 나중에 페이지 하나 새로 만들어서 include하고 싶은데 할줄몰라서 그냥 이렇게함. -->
+		<%
+			String Get_ID = (String) session.getAttribute("Get_ID");
+			String CD_ID = request.getParameter("CD_ID");
+			String Get_Certification= (String)session.getAttribute("Get_Certification");
 			
+			if ((Get_ID == null || Get_ID == "") && CD_ID.equals("20") == false) {
+				//로그인을 안했고, CD_ID가 20이 아니다(true) T&T 라면 로그인 ㄱ
+				//로그인을 안했고, CD_ID가 20이다 -> false
+		%>
+
 			<!-- 모달을 추가해서 모달을 띄움 -->
 				<script>
 				alert("로그인이 필요합니다.")
 				$('#login').modal('show')
 			</script>
 			
+		<%
+			}else if(Get_Certification.equals("0")){
+				%>
+				<script>
+				alert("회원가입시 작성한 본교 홈페이지 메일에서 인증을 해주세요!");
+				location.href="/index.jsp";
+
+			</script>
 			<%
-				} else {
+			}else {
 
 					String URI = (String) session.getAttribute("URI");//전에 있던 페이지로 돌아가기위한 변수
 					System.out.println("Write_Board.jsp URI : " + URI + " ID : " + Get_ID);

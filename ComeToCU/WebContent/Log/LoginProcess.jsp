@@ -16,7 +16,7 @@
 		String Get_ID = "";
 		String Get_PW = "";
 		String Get_Name = "";
-
+		String Get_Certification="0"; //이메일 인증 여부를 위한 값 0이면 안함, 1이면 함
 
 		Connection conn = null;
 		Statement stmt = null;
@@ -32,12 +32,13 @@
 				Get_PW = rs.getString("S_PassWord");
 				Get_Name = rs.getString("S_Name");
 				Get_Class = rs.getString("S_Class");
+				Get_Certification = rs.getString("S_Certification");
 				
 				if (Get_PW.equals(Enter_PW)) {
 					session.setAttribute("Get_Name", Get_Name);
 					session.setAttribute("Get_ID",Get_ID);
 					session.setAttribute("Get_Class",Get_Class);
-					
+					session.setAttribute("Get_Certification",Get_Certification);
 					
 					response.sendRedirect(redirectURI);
 					

@@ -80,7 +80,8 @@ color : #123478 !important;
 		<%
 			String Get_ID = (String) session.getAttribute("Get_ID");
 			String CD_ID = request.getParameter("CD_ID");
-
+			String Get_Certification= (String)session.getAttribute("Get_Certification");
+			
 			if ((Get_ID == null || Get_ID == "") && CD_ID.equals("20") == false) {
 				//로그인을 안했고, CD_ID가 20이 아니다(true) T&T 라면 로그인 ㄱ
 				//로그인을 안했고, CD_ID가 20이다 -> false
@@ -93,7 +94,17 @@ color : #123478 !important;
 			</script>
 			
 		<%
-			} else {
+			}else if(Get_Certification.equals("0")){
+				%>
+				<script>
+				alert("회원가입시 작성한 본교 홈페이지 메일에서 인증을 해주세요!");
+							location.href="/index.jsp";
+
+			</script>
+			<%
+			}else {
+			
+				
 				String URI = request.getRequestURL().toString();
 				if (request.getQueryString() != null)
 					URI = URI + "?" + request.getQueryString();
