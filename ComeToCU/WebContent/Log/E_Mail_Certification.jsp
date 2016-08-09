@@ -16,7 +16,7 @@
 <%
 request.setCharacterEncoding("UTF-8");
 
-String S_Num=request.getParameter("E_Mail");
+String S_Num=request.getParameter("S_Num");
 System.out.println(S_Num);
 
 

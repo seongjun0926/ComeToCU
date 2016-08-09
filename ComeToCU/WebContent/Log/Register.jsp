@@ -268,14 +268,15 @@ function end() {
 					onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)">
 			</div>
 			<div id="checkMsg">학번을 입력하세요.</div>
-			
+			<br>
 			<div class="input-group">
-					<span class="input-group-addon">이메일 인증</span> 
-					<input type="text" required id="receiver" name="receiver" maxlength="30" class="form-control" style="ime-mode: disabled" placeholder="대구 가톨릭 대학교 로그인 ID를 입력해주세요."
+					<span class="input-group-addon">대가인 인증</span> 
+					
+					<input type="text" required id="receiver" name="receiver" maxlength="15" class="form-control col-xs-5" style="ime-mode: disabled" placeholder="강의정보시스템 ID를 입력해주세요."
 						aria-describedby="basic-addon1" required />
-				
+				<span class="input-group-addon">@cu.ac.kr</span> 
 			</div>
-			
+			<br>
 			<div class="input-group">
 
 				<span class="input-group-addon">암호</span> <input type="password"
