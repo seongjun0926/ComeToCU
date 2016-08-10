@@ -9,11 +9,18 @@
 <%@page import="org.apache.commons.fileupload.disk.DiskFileItemFactory"%>
 <%@page import="org.apache.commons.fileupload.servlet.ServletFileUpload"%>
 
+<%@ page import="java.awt.Graphics2D"%>
+<%@ page import="java.awt.image.renderable.ParameterBlock"%>
+<%@ page import="java.awt.image.BufferedImage"%>
+<%@ page import="javax.media.jai.JAI"%>
+<%@ page import="javax.media.jai.RenderedOp"%>
+<%@ page import="javax.imageio.ImageIO"%>
+
 <%
 String return1="";
 String return2="";
 String return3="";
-//변경 title 태그에는 원본 파일명을 넣어주어야 하므로
+//ë³ê²½ title íê·¸ìë ìë³¸ íì¼ëªì ë£ì´ì£¼ì´ì¼ íë¯ë¡
 String name = "";
 if (ServletFileUpload.isMultipartContent(request)){
 	ServletFileUpload uploadHandler = new ServletFileUpload(new DiskFileItemFactory());
@@ -27,7 +34,7 @@ if (ServletFileUpload.isMultipartContent(request)){
 		} else if(item.getFieldName().equals("Filedata")) {
 			if(item.getSize() > 0) {
 				//String name = item.getName().substring(item.getName().lastIndexOf(File.separator)+1);
-                // 기존 상단 코드를 막고 하단코드를 이용
+                // ê¸°ì¡´ ìë¨ ì½ëë¥¼ ë§ê³  íë¨ì½ëë¥¼ ì´ì©
                 name = item.getName().substring(item.getName().lastIndexOf(File.separator)+1);
 				String filename_ext = name.substring(name.lastIndexOf(".")+1);
 				filename_ext = filename_ext.toLowerCase();
@@ -42,9 +49,9 @@ if (ServletFileUpload.isMultipartContent(request)){
 			   		return3 = "&errstr="+name;
 			   	} else {
 			   		
-			   		//파일 기본경로
+			   		//íì¼ ê¸°ë³¸ê²½ë¡
 		    		String dftFilePath = request.getServletContext().getRealPath("/");
-		    		//파일 기본경로 _ 상세경로
+		    		//íì¼ ê¸°ë³¸ê²½ë¡ _ ìì¸ê²½ë¡
 		    		String filePath = dftFilePath + "UpLoad" + File.separator +"ComeToCU_UpLoad" + File.separator;
 		    		
 		    		File file = null;
@@ -59,23 +66,37 @@ if (ServletFileUpload.isMultipartContent(request)){
 					realFileNm = today+UUID.randomUUID().toString() + name.substring(name.lastIndexOf("."));
 					
 					String rlFileNm = filePath + realFileNm;
-					///////////////// 서버에 파일쓰기 ///////////////// 
+					///////////////// ìë²ì íì¼ì°ê¸° ///////////////// 
 					InputStream is = item.getInputStream();
 					OutputStream os=new FileOutputStream(rlFileNm);
 					int numRead;
 					byte b[] = new byte[(int)item.getSize()];
 					while((numRead = is.read(b,0,b.length)) != -1){
 						os.write(b,0,numRead);
+						
+						ParameterBlock pb=new ParameterBlock(); //ParameterBlock클래스에 변환할 이미지를 담고 그 이미지를 불러옴
+						 pb.add(rlFileNm);//방금 들어간 곳의 파일을 pb에 넣음
+						 RenderedOp rOp=JAI.create("fileload",pb);
+						 
+						 BufferedImage bi= rOp.getAsBufferedImage();
+						 BufferedImage thumb=new BufferedImage(700,700,BufferedImage.TYPE_INT_RGB);//100*100으로 지정
+						 //BufferdImage 앞 두 숫자와 drawImage 뒤의 숫자가 같아야 사진이 올바르게 표시됨
+						 Graphics2D g=thumb.createGraphics(); 
+						 g.drawImage(bi,0,0,700,700,null); //정해진 버퍼사이즈에 맞춰서 드로우
+						  File file1=new File(rlFileNm);
+						 ImageIO.write(thumb,"jpg",file1); //저장타입을 jpg
+						
+						
 					}
 					if(is != null) {
 						is.close();
 					}
 					os.flush();
 					os.close();
-					///////////////// 서버에 파일쓰기 /////////////////
+					///////////////// ìë²ì íì¼ì°ê¸° /////////////////
 		    		
 		    		return3 += "&bNewLine=true";
-                                // img 태그의 title 옵션에 들어갈 원본파일명
+                                // img íê·¸ì title ìµìì ë¤ì´ê° ìë³¸íì¼ëª
 		    		return3 += "&sFileName="+ name;
 		    		return3 += "&sFileURL=/UpLoad/ComeToCU_UpLoad/"+realFileNm;
 			   	}

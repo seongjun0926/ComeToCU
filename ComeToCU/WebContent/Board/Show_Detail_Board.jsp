@@ -87,6 +87,8 @@
 			String Get_Certification= (String)session.getAttribute("Get_Certification");
 			String Get_Class = (String) session.getAttribute("Get_Class");
 
+			System.out.println(Get_Certification);
+			
 			if ((Get_ID == null || Get_ID == "") && CD_ID.equals("20") == false) {
 				//로그인을 안했고, CD_ID가 20이 아니다(true) T&T 라면 로그인 ㄱ
 				//로그인을 안했고, CD_ID가 20이다 -> false
@@ -99,7 +101,8 @@
 			</script>
 			
 		<%
-			}else if(Get_Certification.equals("0")&& CD_ID.equals("20") == false){
+			}else if((Get_Certification==null||Get_Certification.equals("0"))&& CD_ID.equals("20") == false){
+				//로그인을 안했거나 회원인증을 안했는데, 공지사항 볼때,
 				%>
 				<script>
 				alert("회원가입시 작성한 본교 홈페이지 메일에서 인증을 해주세요!");
@@ -121,17 +124,8 @@
 						+ " CS_ID : " + CS_ID + " URI : " + URI);
 				String CD_Contents = null;
 				String CD_Notice = null;
-		%>
-
-
-
-
-
-
-
-
-		<%
-			Connection conn = null;
+		
+				Connection conn = null;
 				Statement stmt = null;
 				Statement stmt_reply = null;
 				ResultSet rs = null;
@@ -324,7 +318,7 @@
 			}
 		%>
 		<script>
-			changeImageSize("600");
+			changeImageSize(300);
 		</script>
 
 	</div>

@@ -58,7 +58,7 @@
 
 
 
-<jsp:include page="/Log/Login_Ready.jsp" flush="false" />
+<jsp:include page="/Log/Login/Login_Ready.jsp" flush="false" />
 
 
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -156,7 +156,7 @@
 						class="caret"></span>
 				</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="/Log/Register.jsp" data-toggle="modal"
+						<li><a href="/Log/Register/Register.jsp" data-toggle="modal"
 							data-target="#register">회원가입</a></li>
 						<li><a href="#" data-toggle="modal"
 							data-target="#login">로그인</a></li>
@@ -185,7 +185,7 @@
 				<ul class="dropdown-menu" role="menu">
 					<li><a href="/Board/Show_Board.jsp?CD_ID=22&CS_ID=6">내 글
 							보기</a></li>
-					<li><a href="/Log/LogOut.jsp">로그아웃</a></li>
+					<li><a href="/Log/Login/LogOut.jsp">로그아웃</a></li>
 				</ul></li>
 			</ul>
 			<%

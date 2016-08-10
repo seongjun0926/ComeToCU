@@ -55,7 +55,7 @@ function end() {
 				<div class="modal-body">
 					<br>
 
-					<form action="/Log/LoginProcess.jsp" method="POST">
+					<form action="/Log/Login/LoginProcess.jsp" method="POST">
 
 						<%String URI2 = request.getRequestURL().toString();
 						if(request.getQueryString()!=null)
@@ -85,7 +85,7 @@ function end() {
 						<br />
 						<button class="btn btn-default btn-info btn-block" type="submit">로그인</button>
 						<div class="text-right">
-							<a href="#"><u>암호를 잊었습니다</u></a>
+							<a href="/Log/Forget_PW/Forget_PW.jsp"><u>암호를 잊었습니다</u></a>
 						</div>
 
 

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@page import="java.io.*"%>
 <%@page import="java.io.BufferedReader"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -217,7 +218,7 @@ function end() {
 	<!-- body -->
 	<div class="modal-body">
 		<br>
-		<form name="Register_Member" action="/Log/Register_DB.jsp"
+		<form name="Register_Member" action="/Log/Register/Register_DB.jsp"
 			method="Post">
 			<textarea class="form-control" rows="5" readonly>
 				<%
@@ -272,7 +273,7 @@ function end() {
 			<div class="input-group">
 					<span class="input-group-addon">대가인 인증</span> 
 					
-					<input type="text" required id="receiver" name="receiver" maxlength="15" class="form-control col-xs-5" style="ime-mode: disabled" placeholder="강의정보시스템 ID를 입력해주세요."
+					<input type="text" required id="receiver" name="receiver" maxlength="15" class="form-control col-xs-5" style="ime-mode: disabled" placeholder="대가대 메일 ID를 @앞 부분만 입력해주세요."
 						aria-describedby="basic-addon1" required />
 				<span class="input-group-addon">@cu.ac.kr</span> 
 			</div>

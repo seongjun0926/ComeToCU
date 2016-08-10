@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%@ page import = "Util.DB" %>
+<%@page import="Util.Password"%>
 
 	<%
 	
@@ -10,6 +11,10 @@
 
 
 		String Enter_PW = request.getParameter("S_PW");
+		
+		Password PW=new Password();//pw 암호화
+		Enter_PW=PW.createHash(Enter_PW);
+		
 		String redirectURI=request.getParameter("redirectURI");
 		String Get_Class=""; //관리자 인지, 일반 회원인지 알기 위한 객체
 		System.out.println(";"+redirectURI);

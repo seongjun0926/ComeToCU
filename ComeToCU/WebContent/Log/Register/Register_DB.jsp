@@ -2,9 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="java.util.List"%>
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
+
 <%@ page import="Util.DB"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ page import="javax.mail.Transport"%>
@@ -16,6 +14,8 @@
 <%@ page import="javax.mail.Authenticator"%>
 <%@ page import="java.util.Properties"%>
 <%@ page import="Util.Mail"%>
+<%@page import="Util.Password"%>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -26,17 +26,21 @@
 <body>
 
 	<%
+		request.setCharacterEncoding("UTF-8");
+	
 		String Wrtie_Name = request.getParameter("S_Name");
 		String Write_Num_Parse = request.getParameter("S_Num");
 		int Write_Num = Integer.parseInt(Write_Num_Parse);
 		String Write_PassWord = request.getParameter("S_Password");
 		
+		Password PW=new Password();//pw 암호화
+		Write_PassWord=PW.createHash(Write_PassWord);
+		
 		String sender = "mongshared@naver.com";
-		String receiver = request.getParameter("receiver") + "@cu.ac.kr";
+		String receiver = request.getParameter("receiver")+"@cu.ac.kr";
 		String subject = "ComeToCU 회원가입 인증 메일입니다.";
-		String content = "http://cometocu.com/Log/E_Mail_Certification.jsp?S_Num="
-				+ Write_Num;
-
+		String content = "<a href="+"http://cometocu.com/Log/Register/E_Mail_Certification.jsp?S_Num="+Write_Num+">회원가입 인증 주소입니다. 본 링크를 우클릭해서 새탭으로 열기 후 이용해주세요.</a>";
+		
 		//정보를 담기 위한 객체
 		Properties p = new Properties();
 
@@ -108,11 +112,12 @@
 			conn.setAutoCommit(false);
 
 			pstmt = conn
-					.prepareStatement("insert into C_students(S_Name,S_Num,S_PassWord)value(?,?,?)");
+					.prepareStatement("insert into C_students(S_Name,S_Num,S_PassWord,S_ID)value(?,?,?,?)");
 
 			pstmt.setString(1, Wrtie_Name);
 			pstmt.setInt(2, Write_Num);
 			pstmt.setString(3, Write_PassWord);
+			pstmt.setString(4, receiver);
 
 			pstmt.executeUpdate();
 			conn.commit();
