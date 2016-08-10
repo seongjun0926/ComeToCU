@@ -12,6 +12,9 @@
 <%@ page import="Util.Mail"%>
 <%@ page import="Util.DB"%>
 <%@ page import="java.sql.*"%>
+
+<%@ page import="sun.misc.BASE64Encoder" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,8 +25,14 @@
 
 	<%
 		request.setCharacterEncoding("UTF-8");
-
+		
+		BASE64Encoder base64Encoder = new BASE64Encoder();	
+		
 		String Write_Num = request.getParameter("S_Num");
+
+		String En_Write_Num=base64Encoder.encode(Write_Num.getBytes());
+		
+		
 
 		String sender = "mongshared@naver.com";
 		String receiver_ = request.getParameter("receiver");
@@ -31,7 +40,8 @@
 		String subject = "ComeToCU 암호 찾기 인증 메일입니다.";
 		String content = "<a href="
 				+ "http://cometocu.com/Log/Forget_PW/Alter_PW.jsp?S_Num="
-				+ Write_Num + ">암호 찾기 인증 메일입니다. 본 링크를 우클릭해서 새탭으로 열기 후 이용해주세요.</a>";
+				+ En_Write_Num + ">암호 찾기 인증 메일입니다. 본 링크를 우클릭해서 새탭으로 열기 후 이용해주세요.</a>";
+		
 		String S_ID = "";
 
 		Connection conn = null;
