@@ -273,7 +273,7 @@ function end() {
 			<div class="input-group">
 					<span class="input-group-addon">대가인 인증</span> 
 					
-					<input type="text" required id="receiver" name="receiver" maxlength="15" class="form-control col-xs-5" style="ime-mode: disabled" placeholder="대가대 메일 ID를 @앞 부분만 입력해주세요."
+					<input type="text" required id="receiver" name="receiver" maxlength="15" class="form-control col-xs-5" style="ime-mode: disabled" placeholder="대가대 로그인 ID를 입력해주세요."
 						aria-describedby="basic-addon1" required />
 				<span class="input-group-addon">@cu.ac.kr</span> 
 			</div>

@@ -156,11 +156,11 @@
 	<br>
 	<!-- 색깔 넣어주면댐  -->
 	<div class="container">
-		<div class="col-xs-offset-3 col-xs-5">
 
-			<form name="Forget_PW"
-				action="/Log/Forget_PW/Forget_PW_Email_Send.jsp" method="POST">
+		<form name="Forget_PW"
+			action="/Log/Forget_PW/Forget_PW_Email_Send.jsp" method="POST">
 
+			<div class="col-xs-offset-3 col-xs-5 visible-md visible-lg">
 
 
 				<div class="input-group">
@@ -182,17 +182,52 @@
 
 
 				</div>
-					
+
 				<div class="text-right">~@cu.ac.kr 로 메일이 전송됩니다.</div>
-				
+
 				<br>
 				<div class="text-right">
 					<button type="button" class="btn btn-primary"
 						onclick="return Check();">암호 찾기</button>
 				</div>
-			</form>
-		</div>
+			</div>
+			
+			
+			<div class="col-xs-12 visible-sm visible-xs">
+
+
+				<div class="input-group">
+
+					<span class="input-group-addon">학번</span> <input type="text"
+						id="S_Num" name="S_Num" maxlength="8" onkeydown="checkId()"
+						class="form-control" style="ime-mode: disabled"
+						placeholder="학번을 입력해주세요." aria-describedby="basic-addon1" required
+						onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)">
+				</div>
+				<div class="text-right" id="checkMsg">학번을 입력하세요.</div>
+				<br />
+				<div class="input-group">
+
+					<span class="input-group-addon" id="receiver">대가대 ID</span> <input
+						name="receiver" type="text" class="form-control"
+						placeholder="대가대 로그인 ID를 입력해주세요."
+						aria-describedby="basic-addon1" required maxlength="15">
+
+
+				</div>
+
+				<div class="text-right">~@cu.ac.kr 로 메일이 전송됩니다.</div>
+
+				<br>
+				<div class="text-right">
+					<button type="button" class="btn btn-primary"
+						onclick="return Check();">암호 찾기</button>
+				</div>
+			</div>
+			
+		</form>
 	</div>
+
 	<jsp:include page="/footer.jsp" flush="false" />
 
 
