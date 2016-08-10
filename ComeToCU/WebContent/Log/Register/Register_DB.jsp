@@ -37,7 +37,8 @@
 		Write_PassWord=PW.createHash(Write_PassWord);
 		
 		String sender = "mongshared@naver.com";
-		String receiver = request.getParameter("receiver")+"@cu.ac.kr";
+		String receiver_=request.getParameter("receiver");
+		String receiver = receiver_+"@cu.ac.kr";
 		String subject = "ComeToCU 회원가입 인증 메일입니다.";
 		String content = "<a href="+"http://cometocu.com/Log/Register/E_Mail_Certification.jsp?S_Num="+Write_Num+">회원가입 인증 주소입니다. 본 링크를 우클릭해서 새탭으로 열기 후 이용해주세요.</a>";
 		
@@ -117,7 +118,7 @@
 			pstmt.setString(1, Wrtie_Name);
 			pstmt.setInt(2, Write_Num);
 			pstmt.setString(3, Write_PassWord);
-			pstmt.setString(4, receiver);
+			pstmt.setString(4, receiver_);
 
 			pstmt.executeUpdate();
 			conn.commit();
@@ -125,7 +126,7 @@
 			conn.close();
 	%>
 	<script>
-		alert("회원 가입이 완료되었습니다. 이메일 인증 후 로그인해주세요!")
+		alert("회원 가입이 완료되었습니다.\n메일 전송까지 약 3분가량 걸립니다.\n이메일 인증 후 로그인해주세요!")
 		location.href = "/index.jsp";
 	</script>
 	<%
