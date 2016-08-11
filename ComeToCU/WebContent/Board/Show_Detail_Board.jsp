@@ -32,17 +32,13 @@
 	}
 	function Alter_confirm() {
 		if (confirm("게시글을 수정하시겠습니까??")) { //확인
-			document.Alter_Page.submit();
+			document.Choose_Action.submit();
 		} else { //취소
 			return false;
 		}
 	}
 	function delete_confirm() {
-		if (confirm("정말 삭제하시겠습니까??")) { //확인
-			document.Delete_Page.submit();
-		} else { //취소
-			return false;
-		}
+
 	}
 	function changeImageSize() {
 		var a = document.body.clientWidth;
@@ -61,6 +57,41 @@
 							/ testImg.width;
 				}
 			}
+		}
+	}
+	function choose_action(str) {
+		var CA = document.Choose_Action;
+
+		switch (str) {
+
+		case 0:
+			CA.action = "/Board/Delete_Board.jsp"
+
+			if (confirm("정말 삭제하시겠습니까??")) { //확인
+				document.Choose_Action.submit();
+			} else { //취소
+				return false;
+			}
+			break;
+
+		case 1:
+			CA.action = "/Board/Alter_Board.jsp"
+
+			if (confirm("정말 수정하시겠습니까??")) { //확인
+				document.Choose_Action.submit();
+			} else { //취소
+				return false;
+			}
+
+			break;
+		case 2:
+
+			if (confirm("공유하시겠습니까??")) { //확인
+				document.Choose_Action.submit();
+			} else { //취소
+				return false;
+			}
+			break;
 		}
 	}
 </script>
@@ -254,36 +285,36 @@
 
 									<div class="text-right">
 										<div class="panel-body" style="padding: 0px 15px">
-										<form name="Delete_Page" action="/Board/Delete_Board.jsp"
-											method="post">
-											<input name="Delete_Page" type="hidden" value=<%=WB_ID%>>
-											<input name="WB_Creator" type="hidden" value=<%=Creator%>>
-											<button type="button" class="btn btn-default"
-												aria-label="Left Align" onclick="delete_confirm()">
-												<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-											</button>
-										</form>
-										
-										<form name="Alter_Page" action="#"
-											method="post">
-											<input name="Alter_Page" type="hidden" value=<%=WB_ID%>>
-											<input name="WB_Creator" type="hidden" value=<%=Creator%>>
-											<button type="button" class="btn btn-default"
-												aria-label="Left Align" onclick="Alter_confirm()">
-												<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-											</button>
-										</form>
-										
-										<form name="Share_Page" action="#"
-											method="post">
-											<input name="Share_Page" type="hidden" value=<%=WB_ID%>>
-											<input name="WB_Creator" type="hidden" value=<%=Creator%>>
-											<button type="button" class="btn btn-default"
-												aria-label="Left Align" onclick="delete_confirm()">
-												<span class="glyphicon glyphicon-share" aria-hidden="true"></span>
-											</button>
-										</form>
-										
+
+											<form name="Choose_Action" action="#" method="post">
+												<!--  -->
+												<div class="btn-group dropup">
+
+													<input name="Delete_Page" type="hidden" value=<%=WB_ID%>>
+													<input name="WB_Creator" type="hidden" value=<%=Creator%>>
+													<button type="button" class="btn btn-default"
+														aria-label="Left Align"
+														onclick="choose_action(0)">
+														<!-- delete_confirm() -->
+														<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+													</button>
+
+													<button type="button" class="btn btn-default"
+														aria-label="Left Align"
+														onclick="choose_action(1)">
+														<!-- Alter_confirm() -->
+														<span class="glyphicon glyphicon-wrench"
+															aria-hidden="true"></span>
+													</button>
+
+													<button type="button" class="btn btn-default"
+														aria-label="Left Align"
+														onclick="choose_action(2)">
+														<span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+													</button>
+												</div>
+											</form>
+
 										</div>
 									</div>
 									<%
