@@ -37,7 +37,9 @@
 			return false;
 		}
 	}
-	function changeImageSize(pWidth) {
+	function changeImageSize() {
+		var a=document.body.clientWidth;
+		var pWidth=a/2;
 		var r, re;
 		testImg = new Image();
 
@@ -226,7 +228,7 @@
 							<div class="panel-body">
 
 								<div class="row">
-									<div style="font-size: 17px;">
+									<div class="panel-body" style="font-size: 17px;">
 										<%=Contents%>
 
 									</div>
@@ -317,8 +319,8 @@
 		<%
 			}
 		%>
-		<script>
-			changeImageSize(300);
+ 	<script>
+			changeImageSize();
 		</script>
 
 	</div>
