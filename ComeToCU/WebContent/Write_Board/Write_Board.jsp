@@ -132,8 +132,8 @@
 		Text = Text.replace(/<br>/gi, "");
 		Text = Text.replace(/ /gi, "");
 
-		if (length >7001) {
-			alert("7000자 이내로 작성해주세요.")
+		if (length >10000) {
+			alert("10000자 이내로 작성해주세요.")
 			return false;
 		}
 		
