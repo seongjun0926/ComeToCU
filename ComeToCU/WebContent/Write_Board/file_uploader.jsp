@@ -74,17 +74,17 @@ if (ServletFileUpload.isMultipartContent(request)){
 					while((numRead = is.read(b,0,b.length)) != -1){
 						os.write(b,0,numRead);
 						
-						ParameterBlock pb=new ParameterBlock(); //ParameterBlock클래스에 변환할 이미지를 담고 그 이미지를 불러옴
+						/* ParameterBlock pb=new ParameterBlock(); //ParameterBlock클래스에 변환할 이미지를 담고 그 이미지를 불러옴
 						 pb.add(rlFileNm);//방금 들어간 곳의 파일을 pb에 넣음
 						 RenderedOp rOp=JAI.create("fileload",pb);
 						 
 						 BufferedImage bi= rOp.getAsBufferedImage();
-						 BufferedImage thumb=new BufferedImage(700,700,BufferedImage.TYPE_INT_RGB);//100*100으로 지정
+						 BufferedImage thumb=new BufferedImage(300,300,BufferedImage.TYPE_INT_RGB);//100*100으로 지정
 						 //BufferdImage 앞 두 숫자와 drawImage 뒤의 숫자가 같아야 사진이 올바르게 표시됨
 						 Graphics2D g=thumb.createGraphics(); 
-						 g.drawImage(bi,0,0,700,700,null); //정해진 버퍼사이즈에 맞춰서 드로우
+						 g.drawImage(bi,0,0,300,300,null); //정해진 버퍼사이즈에 맞춰서 드로우
 						  File file1=new File(rlFileNm);
-						 ImageIO.write(thumb,"jpg",file1); //저장타입을 jpg
+						 ImageIO.write(thumb,"jpg",file1); //저장타입을 jpg */
 						
 						
 					}

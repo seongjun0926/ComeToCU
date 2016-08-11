@@ -16,6 +16,8 @@
 <%@ page import="Util.Mail"%>
 <%@page import="Util.Password"%>
 
+<%@ page import="sun.misc.BASE64Encoder" %>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -29,8 +31,12 @@
 		request.setCharacterEncoding("UTF-8");
 	
 		String Wrtie_Name = request.getParameter("S_Name");
-		String Write_Num_Parse = request.getParameter("S_Num");
-		int Write_Num = Integer.parseInt(Write_Num_Parse);
+		String Write_Num = request.getParameter("S_Num");
+
+		
+		BASE64Encoder base64Encoder = new BASE64Encoder();	
+		String En_Write_Num=base64Encoder.encode(Write_Num.getBytes());
+
 		String Write_PassWord = request.getParameter("S_Password");
 		
 		Password PW=new Password();//pw 암호화
@@ -40,7 +46,7 @@
 		String receiver_=request.getParameter("receiver");
 		String receiver = receiver_+"@cu.ac.kr";
 		String subject = "ComeToCU 회원가입 인증 메일입니다.";
-		String content = "<a href="+"http://cometocu.com/Log/Register/E_Mail_Certification.jsp?S_Num="+Write_Num+">회원가입 인증 주소입니다. 본 링크를 우클릭해서 새탭으로 열기 후 이용해주세요.</a>";
+		String content = "<a href="+"http://cometocu.com/Log/Register/E_Mail_Certification.jsp?S_Num="+En_Write_Num+">회원가입 인증 주소입니다. 본 링크를 우클릭해서 새탭으로 열기 후 이용해주세요.</a>";
 		
 		//정보를 담기 위한 객체
 		Properties p = new Properties();
@@ -116,7 +122,7 @@
 					.prepareStatement("insert into C_students(S_Name,S_Num,S_PassWord,S_ID)value(?,?,?,?)");
 
 			pstmt.setString(1, Wrtie_Name);
-			pstmt.setInt(2, Write_Num);
+			pstmt.setString(2, Write_Num);
 			pstmt.setString(3, Write_PassWord);
 			pstmt.setString(4, receiver_);
 

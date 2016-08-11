@@ -122,7 +122,7 @@ function end() {
 	<br>
 	<!-- 색깔 넣어주면댐  -->
 	<div class="container">
-		<div class="col-xs-offset-3 col-xs-5">
+		<div class="col-lg-offset-3 col-lg-5">
 
 			<form name="Register_Member" action="/Log/Forget_PW/Alter_PW_DB.jsp" method="Post">
 				<input type="hidden" name="S_Num" id="S_Num" value="<%=S_Num%>">

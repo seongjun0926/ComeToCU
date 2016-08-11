@@ -25,8 +25,9 @@
 
 		try {
 			S_Num = new String(base64Decoder.decodeBuffer(S_Num));
-
+			
 			String S_Password = request.getParameter("S_Password");
+
 
 			Password PW = new Password();//pw 암호화
 			S_Password = PW.createHash(S_Password);
@@ -56,7 +57,7 @@
 		} catch (Throwable e) {
 			%>
 			<script>
-			alert("비정상적 접근입니다.");
+			alert("비정상적 접근입니다1.");
 			location.href="/index.jsp"
 			</script>
 			<%
@@ -65,7 +66,7 @@
 				} catch (SQLException ex) {
 					%>
 					<script>
-					alert("비정상적 접근입니다.");
+					alert("비정상적 접근입니다2.");
 					location.href="/index.jsp"
 					</script>
 					<%
@@ -91,7 +92,7 @@
 		} catch (Exception e) {
 			%>
 			<script>
-			alert("비정상적 접근입니다.");
+			alert("값이 없습니다.");
 			location.href="/index.jsp"
 			</script>
 			 <%

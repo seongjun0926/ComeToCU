@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import = "java.sql.Connection" %>
-<%@ page import = "java.sql.Statement" %>
-<%@ page import = "java.sql.PreparedStatement" %>
-<%@ page import = "java.sql.ResultSet" %>
-<%@ page import = "java.sql.SQLException" %>
-<%@ page import = "Util.DB" %>
+	pageEncoding="UTF-8"%>
+<%@ page import="java.sql.Connection"%>
+<%@ page import="java.sql.Statement"%>
+<%@ page import="java.sql.PreparedStatement"%>
+<%@ page import="java.sql.ResultSet"%>
+<%@ page import="java.sql.SQLException"%>
+<%@ page import="Util.DB"%>
+
+<%@ page import="sun.misc.BASE64Decoder"%>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,48 +17,69 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%
-request.setCharacterEncoding("UTF-8");
+	<%
+		request.setCharacterEncoding("UTF-8");
 
-String S_Num=request.getParameter("S_Num");
-System.out.println(S_Num);
+		BASE64Decoder base64Decoder = new BASE64Decoder();
 
+		String S_Num = request.getParameter("S_Num");
+		try {
+			S_Num = new String(base64Decoder.decodeBuffer(S_Num));
 
-Connection conn = null;
-Statement stmtIdSelect = null;
-PreparedStatement pstmtCommentInsert = null;
+			Connection conn = null;
+			Statement stmtIdSelect = null;
+			PreparedStatement pstmtCommentInsert = null;
 
-try {
-	conn = DB.getConnection();
-	conn.setAutoCommit(false);
-	
-	pstmtCommentInsert = conn.prepareStatement("update C_students set S_Certification=? where S_Num=?");
-	pstmtCommentInsert.setInt(1, 1);
-	pstmtCommentInsert.setString(2, S_Num);
-	
-	pstmtCommentInsert.executeUpdate();
-	
-	conn.commit();
+			try {
+				conn = DB.getConnection();
+				conn.setAutoCommit(false);
+
+				pstmtCommentInsert = conn
+						.prepareStatement("update C_students set S_Certification=? where S_Num=?");
+				pstmtCommentInsert.setInt(1, 1);
+				pstmtCommentInsert.setString(2, S_Num);
+
+				pstmtCommentInsert.executeUpdate();
+
+				conn.commit();
 	%>
 	<script>
-	alert("회원가입이 완료되었습니다! 즐겨주세요.")
-	location.href="/index.jsp";
+		alert("회원가입이 완료되었습니다! 즐겨주세요.")
+		location.href = "/index.jsp";
 	</script>
 	<%
-	
-} catch(Throwable e) {
-	try { conn.rollback(); } catch(SQLException ex) {}
-} finally {
-	if (stmtIdSelect != null) 
-		try { stmtIdSelect.close(); } catch(SQLException ex) {}
-	if (pstmtCommentInsert != null) 
-		try { pstmtCommentInsert.close(); } catch(SQLException ex) {}
-	if (conn != null) try {
-		conn.setAutoCommit(true);
-		conn.close();
-	} catch(SQLException ex) {}
-}
-
-%>
+		} catch (Throwable e) {
+				try {
+					conn.rollback();
+				} catch (SQLException ex) {
+				}
+			} finally {
+				if (stmtIdSelect != null)
+					try {
+						stmtIdSelect.close();
+					} catch (SQLException ex) {
+					}
+				if (pstmtCommentInsert != null)
+					try {
+						pstmtCommentInsert.close();
+					} catch (SQLException ex) {
+					}
+				if (conn != null)
+					try {
+						conn.setAutoCommit(true);
+						conn.close();
+					} catch (SQLException ex) {
+					}
+			}
+		} catch (Exception e) {
+	%>
+	<script>
+		alert("값이 없습니다.");
+		location.href = "/index.jsp"
+	</script>
+	<%
+		e.printStackTrace();
+		}
+	%>
 </body>
 </html>
