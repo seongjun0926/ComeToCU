@@ -30,6 +30,13 @@
 		loadLikeCheck();
 		loadCommentList();
 	}
+	function Alter_confirm() {
+		if (confirm("게시글을 수정하시겠습니까??")) { //확인
+			document.Alter_Page.submit();
+		} else { //취소
+			return false;
+		}
+	}
 	function delete_confirm() {
 		if (confirm("정말 삭제하시겠습니까??")) { //확인
 			document.Delete_Page.submit();
@@ -38,8 +45,8 @@
 		}
 	}
 	function changeImageSize() {
-		var a=document.body.clientWidth;
-		var pWidth=a/2;
+		var a = document.body.clientWidth;
+		var pWidth = a / 2;
 		var r, re;
 		testImg = new Image();
 
@@ -82,37 +89,38 @@
 		<!-- 상단 네비게이션 바 -->
 		<jsp:include page="/NavBar.jsp" flush="false" />
 
-				<!-- 세션으로 로그인이 되어있는지 안되어있는지 확인. 나중에 페이지 하나 새로 만들어서 include하고 싶은데 할줄몰라서 그냥 이렇게함. -->
+		<!-- 세션으로 로그인이 되어있는지 안되어있는지 확인. 나중에 페이지 하나 새로 만들어서 include하고 싶은데 할줄몰라서 그냥 이렇게함. -->
 		<%
 			String Get_ID = (String) session.getAttribute("Get_ID");
 			String CD_ID = request.getParameter("CD_ID");
-			String Get_Certification= (String)session.getAttribute("Get_Certification");
+			String Get_Certification = (String) session
+					.getAttribute("Get_Certification");
 			String Get_Class = (String) session.getAttribute("Get_Class");
 
 			System.out.println(Get_Certification);
-			
+
 			if ((Get_ID == null || Get_ID == "") && CD_ID.equals("20") == false) {
 				//로그인을 안했고, CD_ID가 20이 아니다(true) T&T 라면 로그인 ㄱ
 				//로그인을 안했고, CD_ID가 20이다 -> false
 		%>
 
-			<!-- 모달을 추가해서 모달을 띄움 -->
-				<script>
-				alert("로그인이 필요합니다.")
-				$('#login').modal('show')
-			</script>
-			
-		<%
-			}else if((Get_Certification==null||Get_Certification.equals("0"))&& CD_ID.equals("20") == false){
-				//로그인을 안했거나 회원인증을 안했는데, 공지사항 볼때,
-				%>
-				<script>
-				alert("회원가입시 작성한 본교 홈페이지 메일에서 인증을 해주세요!");
-							location.href="/index.jsp";
+		<!-- 모달을 추가해서 모달을 띄움 -->
+		<script>
+			alert("로그인이 필요합니다.")
+			$('#login').modal('show')
+		</script>
 
-			</script>
-			<%
-			}else {
+		<%
+			} else if ((Get_Certification == null || Get_Certification
+					.equals("0")) && CD_ID.equals("20") == false) {
+				//로그인을 안했거나 회원인증을 안했는데, 공지사항 볼때,
+		%>
+		<script>
+			alert("회원가입시 작성한 본교 홈페이지 메일에서 인증을 해주세요!");
+			location.href = "/index.jsp";
+		</script>
+		<%
+			} else {
 				String URI = request.getRequestURL().toString();
 				if (request.getQueryString() != null)
 					URI = URI + "?" + request.getQueryString();
@@ -126,7 +134,7 @@
 						+ " CS_ID : " + CS_ID + " URI : " + URI);
 				String CD_Contents = null;
 				String CD_Notice = null;
-		
+
 				Connection conn = null;
 				Statement stmt = null;
 				Statement stmt_reply = null;
@@ -201,25 +209,27 @@
 									<hr style="border: solid 1.5px #EAEAEA;">
 								</div>
 								<div class="row">
+									<div class="panel-heading" style="padding: 0px 15px">
 
-									<div class="text-right">
-										<img src="/img/creator.png" />
-										<%
-											if (Compare_CD_ID.equals("20")) { //20이면 관리자로 표현
-										%><span class="label label-default">관리자</span>
-										<%
-											} else if (Compare_CD_ID.equals("2")) {//2면 익명으로
-										%><span class="label label-default">익명</span>
-										<%
-											} else {//암것도 아니면 그냥 게시자
-										%>
+										<div class="text-right">
+											<img src="/img/creator.png" />
+											<%
+												if (Compare_CD_ID.equals("20")) { //20이면 관리자로 표현
+											%><span class="label label-default">관리자</span>
+											<%
+												} else if (Compare_CD_ID.equals("2")) {//2면 익명으로
+											%><span class="label label-default">익명</span>
+											<%
+												} else {//암것도 아니면 그냥 게시자
+											%>
 
-										<span class="label label-default"><%=Creator%></span>&nbsp;&nbsp;
-										<%
-											}
-										%><img src="/img/date.png" /> <span
-											class="label label-default"><%=Time%></span>&nbsp;&nbsp; <img
-											src="/img/see.png" /> <span class="label label-default"><%=View_CNT%></span>
+											<span class="label label-default"><%=Creator%></span>&nbsp;&nbsp;
+											<%
+												}
+											%><img src="/img/date.png" /> <span
+												class="label label-default"><%=Time%></span>&nbsp;&nbsp; <img
+												src="/img/see.png" /> <span class="label label-default"><%=View_CNT%></span>
+										</div>
 									</div>
 									<hr>
 								</div>
@@ -243,6 +253,7 @@
 									%>
 
 									<div class="text-right">
+										<div class="panel-body" style="padding: 0px 15px">
 										<form name="Delete_Page" action="/Board/Delete_Board.jsp"
 											method="post">
 											<input name="Delete_Page" type="hidden" value=<%=WB_ID%>>
@@ -252,6 +263,28 @@
 												<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 											</button>
 										</form>
+										
+										<form name="Alter_Page" action="#"
+											method="post">
+											<input name="Alter_Page" type="hidden" value=<%=WB_ID%>>
+											<input name="WB_Creator" type="hidden" value=<%=Creator%>>
+											<button type="button" class="btn btn-default"
+												aria-label="Left Align" onclick="Alter_confirm()">
+												<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+											</button>
+										</form>
+										
+										<form name="Share_Page" action="#"
+											method="post">
+											<input name="Share_Page" type="hidden" value=<%=WB_ID%>>
+											<input name="WB_Creator" type="hidden" value=<%=Creator%>>
+											<button type="button" class="btn btn-default"
+												aria-label="Left Align" onclick="delete_confirm()">
+												<span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+											</button>
+										</form>
+										
+										</div>
 									</div>
 									<%
 										}
@@ -319,7 +352,7 @@
 		<%
 			}
 		%>
- 	<script>
+		<script>
 			changeImageSize();
 		</script>
 
