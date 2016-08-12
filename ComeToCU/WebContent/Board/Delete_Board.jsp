@@ -8,7 +8,7 @@
 <%@ page import="Util.DB"%>
 <%
 	String WB_Creator = request.getParameter("WB_Creator");
-	String WB_ID = request.getParameter("Delete_Page");
+	String WB_ID = request.getParameter("WB_ID");
 	String Get_ID = (String) session.getAttribute("Get_ID");
 	String Get_Class = (String) session.getAttribute("Get_Class");
 	String URI = (String)session.getAttribute("URI");//전에 있던 페이지로 돌아가기위한 변수

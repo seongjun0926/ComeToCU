@@ -87,13 +87,15 @@
 		case 2:
 
 			if (confirm("공유하시겠습니까??")) { //확인
-				document.Choose_Action.submit();
+
 			} else { //취소
 				return false;
 			}
 			break;
 		}
 	}
+	
+	
 </script>
 <style type="text/css">
 .alert {
@@ -160,9 +162,8 @@
 
 				String CS_ID = request.getParameter("CS_ID");
 				String WB_ID = request.getParameter("WB_ID");
-				System.out.println("Show_Detail_Board.jsp Get_Class="
-						+ Get_Class + "WB_ID=" + WB_ID + "CD_ID : " + CD_ID
-						+ " CS_ID : " + CS_ID + " URI : " + URI);
+		
+				
 				String CD_Contents = null;
 				String CD_Notice = null;
 
@@ -274,53 +275,57 @@
 
 									</div>
 									<hr>
-
-									<%
-										if (Get_ID != null) { //로그인을 했을 경우에!
-
-														if (Get_ID.equals(Creator) || Get_Class.equals("1")) {
-															//관리자이거나 작성자 본인일 경우
-															System.out.println(Get_Class.equals("1"));
-									%>
-
 									<div class="text-right">
 										<div class="panel-body" style="padding: 0px 15px">
+											<div class="btn-group dropup">
+												<%
+													if (Get_ID != null) { //로그인을 했을 경우에!
+												%>
+												<form name="Choose_Action" action="#" method="post">
+													<%
+														if (Get_ID.equals(Creator) || Get_Class.equals("1")) {
+																			//관리자이거나 작성자 본인일 경우
+													%>
 
-											<form name="Choose_Action" action="#" method="post">
-												<!--  -->
-												<div class="btn-group dropup">
 
-													<input name="Delete_Page" type="hidden" value=<%=WB_ID%>>
+
+
+													<input name="WB_ID" type="hidden" value=<%=WB_ID%>>
 													<input name="WB_Creator" type="hidden" value=<%=Creator%>>
+
 													<button type="button" class="btn btn-default"
-														aria-label="Left Align"
-														onclick="choose_action(0)">
+														aria-label="Left Align" onclick="choose_action(0)">
 														<!-- delete_confirm() -->
 														<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 													</button>
 
 													<button type="button" class="btn btn-default"
-														aria-label="Left Align"
-														onclick="choose_action(1)">
+														aria-label="Left Align" onclick="choose_action(1)">
 														<!-- Alter_confirm() -->
 														<span class="glyphicon glyphicon-wrench"
 															aria-hidden="true"></span>
 													</button>
 
-													<button type="button" class="btn btn-default"
-														aria-label="Left Align"
-														onclick="choose_action(2)">
+
+
+
+
+													<%
+														}
+													%>
+												<!-- 	<button type="button" class="btn btn-default"
+														aria-label="Left Align" onclick="choose_action(2)">
 														<span class="glyphicon glyphicon-share" aria-hidden="true"></span>
-													</button>
-												</div>
-											</form>
+													</button> -->
+												</form>
+												<%
+													}
+												%>
+
+											</div>
 
 										</div>
 									</div>
-									<%
-										}
-													}
-									%>
 									<hr>
 
 								</div>

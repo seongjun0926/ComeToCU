@@ -75,7 +75,7 @@
 					alert("에러 발생:" + message);
 				}
 			} else {
-				alert("댓글 목록 로딩 실패:" + req.status);
+				alert("에러 발생:" + req.status);
 			}
 		}
 	}
