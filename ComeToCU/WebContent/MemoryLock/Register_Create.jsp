@@ -66,7 +66,7 @@
 
 
 	Date from = new Date();
-	SimpleDateFormat transFormat = new SimpleDateFormat("yy-MM-dd");
+	SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 	String M_C_Creator = request.getParameter("M_C_Creator");
 	String M_C_Text = new String(request.getParameter("M_C_Text")
 			.getBytes("8859_1"), "utf-8");//db에 글자 넣기 위해 인코딩
@@ -75,7 +75,9 @@
 	String M_C_lat = request.getParameter("lat");
 	String M_C_lng = request.getParameter("lng");
 	String M_C_Time = transFormat.format(from);
-
+	String M_C_OpenTime = request.getParameter("M_C_OpenTime");
+	String M_C_Header = new String(request.getParameter("M_C_Header")
+			.getBytes("8859_1"), "utf-8");//db에 글자 넣기 위해 인코딩
 	Connection conn = null;
 	Statement stmt = null;
 	Statement stmt1 = null;
@@ -88,9 +90,9 @@
 		if(M_S_Persons==null||M_S_Persons.equals("null")){//공유사용자 추가 안되면
 		stmt = conn.createStatement();
 		String command = String
-				.format("insert into M_Create (M_C_Creator, M_C_Text, M_C_Contents, M_C_Type, M_C_lat, M_C_lng, M_C_Time) values ('%s', '%s', '%s', '%s', '%s', '%s', '%s');",
-						M_C_Creator, M_C_Text, M_C_Contents, M_C_Type,
-						M_C_lat, M_C_lng, M_C_Time);
+				.format("insert into M_Create (M_C_Creator, M_C_Header, M_C_Text, M_C_Contents, M_C_Type, M_C_lat, M_C_lng, M_C_Time,M_C_OpenTime) values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s','%s');",
+						M_C_Creator, M_C_Header, M_C_Text, M_C_Contents, M_C_Type,
+						M_C_lat, M_C_lng, M_C_Time,M_C_OpenTime);
 
 		int rowNum = stmt.executeUpdate(command);
 		if (rowNum < 1)
@@ -102,7 +104,7 @@
 		stmt=conn.createStatement();
 		stmt1=conn.createStatement();
 		
-		 stmt.executeUpdate("insert into M_Create (M_C_Creator,M_C_Text,M_C_Contents,M_C_Type,M_C_lat, M_C_lng, M_C_Time) value ( '"+M_C_Creator+"', '"+M_C_Text+"','"+M_C_Contents+"','"+M_C_Type+"' ,'"+M_C_lat+"', '"+M_C_lng+"', '"+M_C_Time+"');");
+		 stmt.executeUpdate("insert into M_Create (M_C_Creator,M_C_Header,M_C_Text,M_C_Contents,M_C_Type,M_C_lat, M_C_lng, M_C_Time,M_C_OpenTime) value ( '"+M_C_Creator+"', '"+M_C_Header+"' ,'"+M_C_Text+"','"+M_C_Contents+"','"+M_C_Type+"' ,'"+M_C_lat+"', '"+M_C_lng+"', '"+M_C_Time+"','"+M_C_OpenTime+"');");
 		 stmt.close();
 		 
 		 stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, 
