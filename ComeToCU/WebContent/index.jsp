@@ -12,11 +12,17 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
+<meta name="naver-site-verification" content="a48d55e49fcb4a061159f2e7efd50d5dfa6d7972"/>
+
+<link rel="canonical" href="http://cometocu.com/index.jsp">
+
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-<title>대구가톨릭대학교 커뮤니티 사이트</title>
-
+<title>컴투씨유</title>
+<head>
+<meta name="description" content="대구가톨릭대학교 커뮤니티 사이트">
+</head>
 </head>
 <body style="background-color:#F6F6F6; color:#002266">
 	<br>
