@@ -17,6 +17,9 @@
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+
 		try {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
@@ -25,6 +28,12 @@
 			pstmt.setString(1, WB_ID);
 			pstmt.setString(2, WB_Creator);
 			pstmt.executeUpdate();
+
+			pstmt1 = conn.prepareStatement("delete from C_reply where WB_ID not in (Select WB_ID from C_write_board)");
+			pstmt1.executeUpdate();
+
+			pstmt2 = conn.prepareStatement("delete from C_like_table where L_WB_ID not in (Select WB_ID from C_write_board)");
+			pstmt2.executeUpdate();
 
 			conn.commit();
 
@@ -39,6 +48,16 @@
 			if (pstmt != null)
 				try {
 					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt1 != null)
+				try {
+					pstmt1.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt2 != null)
+				try {
+					pstmt2.close();
 				} catch (SQLException ex) {
 				}
 			if (conn != null)
