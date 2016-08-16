@@ -43,7 +43,7 @@ var WB_ID = document.getElementById("WB_ID")
 				} else if (code == 'error') {
 					var message = xmlDoc.getElementsByTagName('message')
 							.item(0).firstChild.nodeValue;
-					alert("에러 발생:" + message);
+					alert("에러 발생3:" + message);
 				}
 			} else {
 				alert("따봉 갯수 로딩 실패:" + req.status);
@@ -84,7 +84,7 @@ var WB_ID = document.getElementById("WB_ID")
 				} else if (code == 'error') {
 					var message = xmlDoc.getElementsByTagName('message')
 							.item(0).firstChild.nodeValue;
-					alert("에러 발생:" + message);
+					alert("에러 발생8:" + message);
 				}
 			} else {
 				alert("댓글 목록 로딩 실패:" + req.status);
@@ -119,8 +119,7 @@ var WB_ID = document.getElementById("WB_ID")
 	}
 
 	function Like() {
-		var Get_ID = <%=session.getAttribute("Get_ID")%>;
-		
+		var Get_ID = "<%=session.getAttribute("Get_ID")%>";
 		if(Get_ID==""||Get_ID==null){
 			alert("로그인이 필요합니다.")
 			$('#login').modal('show')
@@ -158,7 +157,7 @@ var WB_ID = document.getElementById("WB_ID")
 				} else if (code == 'error') {
 					var message = xmlDoc.getElementsByTagName('message')
 							.item(0).firstChild.nodeValue;
-					alert("에러 발생:" + message);
+					alert("에러 발생9:" + message);
 				}
 			} else {
 				alert("댓글 목록 로딩 실패:" + req.status);
@@ -168,12 +167,12 @@ var WB_ID = document.getElementById("WB_ID")
 	}
 
 	function DisLike() {
-var Get_ID = <%=session.getAttribute("Get_ID")%>;
-		
+		var Get_ID = "<%=session.getAttribute("Get_ID")%>";
 		if(Get_ID==""||Get_ID==null){
 			alert("로그인이 필요합니다.")
 			$('#login').modal('show')
 		}else{
+
 		document.getElementById('Like_BTN').setAttribute('onclick', 'Like();');
 		document.getElementById('Like_BTN').setAttribute('class',
 				'btn btn-info btn-lg')
@@ -206,7 +205,7 @@ var Get_ID = <%=session.getAttribute("Get_ID")%>;
 				} else if (code == 'error') {
 					var message = xmlDoc.getElementsByTagName('message')
 							.item(0).firstChild.nodeValue;
-					alert("에러 발생:" + message);
+					alert("에러 발생10:" + message);
 				}
 			} else {
 				alert("댓글 목록 로딩 실패:" + req.status);

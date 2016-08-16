@@ -124,13 +124,11 @@
 
 		<!-- 세션으로 로그인이 되어있는지 안되어있는지 확인. 나중에 페이지 하나 새로 만들어서 include하고 싶은데 할줄몰라서 그냥 이렇게함. -->
 		<%
-			String Get_ID = (String) session.getAttribute("Get_ID");
+			String Get_ID = (String)session.getAttribute("Get_ID");
 			String CD_ID = request.getParameter("CD_ID");
-			String Get_Certification = (String) session
-					.getAttribute("Get_Certification");
+			String Get_Certification = (String) session.getAttribute("Get_Certification");
 			String Get_Class = (String) session.getAttribute("Get_Class");
 
-			System.out.println(Get_Certification);
 
 			if ((Get_ID == null || Get_ID == "") && CD_ID.equals("20") == false) {
 				//로그인을 안했고, CD_ID가 20이 아니다(true) T&T 라면 로그인 ㄱ
@@ -241,7 +239,7 @@
 									<hr style="border: solid 1.5px #EAEAEA;">
 								</div>
 								<div class="row">
-									<div class="panel-heading" style="padding: 0px 15px">
+									<div class="panel-heading" style="padding: 0px 10px">
 
 										<div class="text-right">
 											<img src="/img/creator.png" />

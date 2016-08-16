@@ -24,7 +24,7 @@ function removeChar(event) {
 	if ( keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
 		return;
 	else
-		event.target.value = event.target.value.replace(/[^0-9]/g, "");
+		event.target.value = event.target.value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, "");
 }
 function end() {
 	location.replace("/index.jsp");
@@ -65,11 +65,12 @@ function end() {
 	        	 
 						<div class="input-group">
 
-							<span class="input-group-addon" id="S_Num">학번</span> <input
+							<span class="input-group-addon" id="S_Num">ID</span> <input
 								name="S_Num" type="text" class="form-control"
-								placeholder="학번을 입력해주세요." aria-describedby="basic-addon1"
-								required autofocus onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)"
-								maxlength="8">
+								placeholder="ID를 입력해주세요." aria-describedby="basic-addon1"
+								required autofocus onkeyup="removeChar(event)"
+								maxlength="20">
+								<!--  onkeydown="return onlyNumber(event)"  -->
 						</div>
 
 

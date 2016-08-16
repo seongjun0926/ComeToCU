@@ -70,7 +70,8 @@ a.list-group-item:hover {
 
 				<!-- 세션으로 로그인이 되어있는지 안되어있는지 확인. 나중에 페이지 하나 새로 만들어서 include하고 싶은데 할줄몰라서 그냥 이렇게함. -->
 		<%
-			String Get_ID = (String) session.getAttribute("Get_ID");
+			String Get_ID = (String)session.getAttribute("Get_ID");
+		
 			String CD_ID = request.getParameter("CD_ID");
 			String Get_Certification= (String)session.getAttribute("Get_Certification");
 			
@@ -146,8 +147,8 @@ a.list-group-item:hover {
 						}
 						if (CD_ID.equals("22")) {//내가 쓴 글
 							rs = stmt
-									.executeQuery("select COUNT(*) from C_write_board where WB_Creator="
-											+ Get_ID + ";");
+									.executeQuery("select COUNT(*) from C_write_board where WB_Creator='"
+											+ Get_ID + "';");
 
 						} else if (CD_ID.equals("19")) {//모든글
 							rs = stmt
@@ -359,7 +360,7 @@ a.list-group-item:hover {
 												}
 											} else if (CD_ID.equals("18")) { //베스트글
 												rs = stmt
-														.executeQuery("select * from C_write_board where (not CD_ID=20)and (WB_Like_Num > 50) order by WB_ID desc limit "
+														.executeQuery("select * from C_write_board where (not CD_ID=20) and (WB_Like_Num > 50) order by WB_ID desc limit "
 																+ ((pageno - 1) * page_per_record_cnt)
 																+ "," + page_per_record_cnt + ";");
 												if (Search_Content != null) {

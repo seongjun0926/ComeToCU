@@ -131,7 +131,7 @@
 		} else {
 	%>
 	<script>
-		alert("대가대 ID와 학번이 일치하지 않습니다.\n확인 후 이용해주세요.")
+		alert("대가대 ID와 ID 일치하지 않습니다.\n확인 후 이용해주세요.")
 		history.go(-1);
 	</script>
 	<%

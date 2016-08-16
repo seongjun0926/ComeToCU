@@ -85,10 +85,10 @@ function loadBoardList(req) {
 			} else if (code == 'error') {
 				var message = xmlDoc.getElementsByTagName('message')
 						.item(0).firstChild.nodeValue;
-				alert("에러 발생:" + message);
+				alert("에러 발생6:" + message);
 			}
 		} else {
-			alert("에러 발생:" + req.status);
+			alert("에러 발생7:" + req.status);
 		}
 	}
 }

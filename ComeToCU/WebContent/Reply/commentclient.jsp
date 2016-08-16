@@ -40,7 +40,7 @@
 					}
 				} else if (code == 'error') {
 					var message = xmlDoc.getElementsByTagName('message').item(0).firstChild.nodeValue;
-					alert("에러 발생:"+message);
+					alert("에러 발생5:"+message);
 				}
 			} else {
 				alert("댓글 목록 로딩 실패:"+req.status);
@@ -58,16 +58,16 @@
 
 		if(GET_ID==comment.name||Get_Class==1){
 			var html = 
-					'<div class="row visible-md visible-lg">'+
-					'<div class="col-xs-6 text-center" style="font-size:15px;">'+comment.content.replace(/\n/g,'')+'</div>'+
-					'<div class="col-xs-2 text-center" style="font-size:10px; font-weight: bold;">'+comment.name+'</div>'+
-					'<div class="col-xs-3 text-center" style="color: gray; font-size: 10px; opacity: 0.7;">'+comment.time+'</div>'+
-					'<div class="col-xs-1 text-center">'+
-					'<button type="button" class="btn btn-default btn-sm" onclick="confirmDeletion('+comment.id+');">'+
-					'<span class="glyphicon glyphicon-trash" aria-hidden="true">'+
-					'</span>'+
-					'</button>'+
-					'</div>'+
+					'<div class="visible-md visible-lg">'+
+						'<div class="col-xs-8 text-center" style="font-size:15px;">'+comment.content.replace(/\n/g,'')+'</div>'+
+						'<div class="col-xs-1 text-center" style="font-size:10px; font-weight: bold;">'+comment.name+'</div>'+
+						'<div class="col-xs-2 text-center" style="color: gray; font-size: 10px; opacity: 0.7;">'+comment.time+'</div>'+
+						'<div class="col-xs-1 text-center">'+
+							'<button type="button" class="btn btn-default btn-sm" onclick="confirmDeletion('+comment.id+');">'+
+								'<span class="glyphicon glyphicon-trash" aria-hidden="true">'+
+								'</span>'+
+							'</button>'+
+						'</div>'+
 					'</div>'+
 					
 					'<div class="row visible-sm visible-xs">'+
@@ -75,16 +75,16 @@
 					'<div class="col-xs-6 text-left" style="font-size:9px; font-weight: bold;">'+comment.name+'</div>'+
 					'<div class="col-xs-6 text-right" style="color:gray; font-size:6px; opacity:0.7;">'+comment.time+'</div>'+
 					'</div>'+
-					'<div class="row">'+
-					'<div class="col-xs-6 text-left" style="font-size:15px;">-'+comment.content.replace(/\n/g,'')+'</div>'+
-					'<div class="col-xs-6 text-right">'+
+					
+					'<div class="col-xs-10 text-left" style="font-size:15px;">-'+comment.content.replace(/\n/g,'')+'</div>'+
+					'<div class="col-xs-2 text-right">'+
 					'<button type="button" class="btn btn-default btn-sm" onclick="confirmDeletion('+comment.id+')">'+
 					'<span class="glyphicon glyphicon-trash" aria-hidden="true">'+
 					'</span>'+
 					'</button>'+
 					
 					'</div>'+
-					'</div>'+
+					
 					'<hr>'+
 					'</div>';
 					
@@ -167,7 +167,7 @@
 				} else if (code == 'fail') {
 					var message = xmlDoc.getElementsByTagName('message')
 					                    .item(0).firstChild.nodeValue;
-					alert("에러 발생:"+message);
+					alert("에러 발생1:"+message);
 				}
 			} else {
 				alert("서버 에러 발생: " + req.status+"\n 다시 작성해주세요.");
@@ -203,7 +203,7 @@
 		    } else if (code == 'fail') {
 		     var message = xmlDoc.getElementsByTagName('message')
 		                         .item(0).firstChild.nodeValue;
-		     alert("에러 발생:"+message);
+		     alert("에러 발생13:"+message);
 		    }
 		   } else {
 		    alert("서버 에러 발생: " + req.status);

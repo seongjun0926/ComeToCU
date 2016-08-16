@@ -8,8 +8,7 @@
 	
 	
 		String Enter_ID = request.getParameter("S_Num");
-
-
+	
 		String Enter_PW = request.getParameter("S_PW");
 		
 		Password PW=new Password();//pw 암호화
@@ -17,7 +16,6 @@
 		
 		String redirectURI=request.getParameter("redirectURI");
 		String Get_Class=""; //관리자 인지, 일반 회원인지 알기 위한 객체
-		System.out.println(";"+redirectURI);
 		String Get_ID = "";
 		String Get_PW = "";
 		String Get_Name = "";
@@ -31,7 +29,7 @@
 			conn = DB.getConnection();
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("select * from C_students where S_Num='" + Enter_ID + "';");
-
+			
 			if (rs.next()) {
 				Get_ID = rs.getString("S_Num");
 				Get_PW = rs.getString("S_PassWord");
@@ -59,7 +57,7 @@
 			else{
 				%>
 				<SCRIPT>
-				alert("학번이 잘못되었습니다.")
+				alert("ID가 잘못되었습니다.")
 				history.go(-1);
 				</SCRIPT>
 				<%
@@ -69,7 +67,7 @@
 			e.printStackTrace();
 			%>
 			<script>
-			alert("에러 발생 : "+e.getMessage()+"관리자에게 문의해주세요.");
+			alert("에러 발생 2: "+e.getMessage()+"관리자에게 문의해주세요.");
 			</script>
 			<%
 		} finally {

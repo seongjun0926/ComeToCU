@@ -32,7 +32,7 @@
 		
 		
 		
-		pstmt=conn.prepareStatement("delete from C_like_table where L_WB_ID="+WB_ID+" and L_S_Num="+S_Num+" ;");
+		pstmt=conn.prepareStatement("delete from C_like_table where L_WB_ID="+WB_ID+" and L_S_Num='"+S_Num+"' ;");
 		
 
 		

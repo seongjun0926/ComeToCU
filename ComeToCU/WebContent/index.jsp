@@ -13,7 +13,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <meta name="naver-site-verification" content="a48d55e49fcb4a061159f2e7efd50d5dfa6d7972"/>
-
+<meta name="google-site-verification" content="g5mR01G6S6zzdylSyZz6ABKTIBjyPfcF_sZDJrKh29Q" />
 <link rel="canonical" href="http://cometocu.com/index.jsp">
 
 <script
@@ -40,8 +40,7 @@
 			<div class="row">
 				<!-- 학교 로고가 들어갈 자리 -->
 
-				<img class="col-xs-12 col-md-12" src="/img/1.jpg" width="750"
-					height="145" alt="사과" />
+				<img class="col-xs-12 col-md-12" src="/img/1.jpg" height="145" alt="사과" />
 
 			</div>
 		</div>

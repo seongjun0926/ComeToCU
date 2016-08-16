@@ -140,7 +140,7 @@
 			out.println(e.getMessage());
 	%>
 	<script>
-		alert("에러 발생 : " + e.getMessage() + "관리자에게 문의해주세요.");
+		alert("에러 발생12 : " + e.getMessage() + "관리자에게 문의해주세요.");
 	</script>
 	<%
 		}

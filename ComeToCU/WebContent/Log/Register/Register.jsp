@@ -35,7 +35,7 @@ function sendId() {
 	if (keyword == '') {
 		lastKeyword = '';
 		document.getElementById('checkMsg').style.color = "black";
-		document.getElementById('checkMsg').innerHTML = "학번를 입력하세요.";
+		document.getElementById('checkMsg').innerHTML = "ID를 입력하세요.";
 	} else if (keyword != lastKeyword) {
 		lastKeyword = keyword;
 
@@ -66,24 +66,24 @@ function displayResult() {
 			var keyword = document.Register_Member.S_Num.value;
 			
 			if (resultText == 0) {
-				if(keyword.length!=8){
-					listView.innerHTML = "전체 학번을 입력해주세요.";
+				if(keyword.length<=5){
+					listView.innerHTML = "5자리 이상 입력해주세요.";
 					listView.style.color = "red";
 					IDCheck = false;
 				}else{
-				listView.innerHTML = "사용 할 수 있는 학번 입니다.";
+				listView.innerHTML = "사용 할 수 있는 ID 입니다.";
 				listView.style.color = "blue";
 				IDCheck = true;
 				}
 			} else {
 				
-				listView.innerHTML = "이미 등록된 학번 입니다.";
+				listView.innerHTML = "이미 등록된 ID 입니다.";
 				listView.style.color = "red";
 				IDCheck = false;
 
 			}
 		} else {
-			alert("에러 발생: " + httpRequest.status);
+			alert("에러 발생13: " + httpRequest.status);
 		}
 	}
 }
@@ -101,7 +101,7 @@ function removeChar(event) {
 	if ( keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
 		return;
 	else
-		event.target.value = event.target.value.replace(/[^0-9]/g, "");
+		event.target.value = event.target.value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, "");
 }
 function blank_check(evt){
 	var code = evt.which?evt.which:event.keyCode;
@@ -176,7 +176,7 @@ function Check() {
         return false;
 	}
 	if (IDCheck == false) {
-		alert("학번을 확인하세요.");
+		alert("ID를 확인하세요.");
 		return false;
 	}
 	
@@ -262,13 +262,14 @@ function end() {
 
 			<div class="input-group">
 
-				<span class="input-group-addon">학번</span> <input type="text"
-					id="S_Num" name="S_Num" maxlength="8" onkeydown="checkId()"
+				<span class="input-group-addon">ID</span> <input type="text"
+					id="S_Num" name="S_Num" maxlength="20" onkeydown="checkId()"
 					class="form-control" style="ime-mode: disabled"
-					placeholder="학번을 입력해주세요." aria-describedby="basic-addon1" required
-					onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)">
+					placeholder="ID를 입력해주세요." aria-describedby="basic-addon1" required onkeyup="removeChar(event)">
+					<!-- 
+					onkeydown="return onlyNumber(event)"  -->
 			</div>
-			<div id="checkMsg">학번을 입력하세요.</div>
+			<div id="checkMsg">ID를 입력하세요.</div>
 			<br>
 			<div class="input-group">
 					<span class="input-group-addon">대가인 인증</span> 
