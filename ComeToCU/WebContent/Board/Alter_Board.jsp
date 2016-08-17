@@ -229,7 +229,7 @@ function makeBoardView(Board) {
 						conn=DB.getConnection();
 						conn.setAutoCommit(false);
 						stmt = conn.createStatement();
-						rs = stmt.executeQuery("select WB_Header,WB_Contents from C_write_board where WB_ID="+WB_ID+" and WB_Creator="+ WB_Creator + ";");
+						rs = stmt.executeQuery("select WB_Header,WB_Contents from C_write_board where WB_ID="+WB_ID+" and WB_Creator='"+ WB_Creator + "';");
 						
 						if(rs.next()){
 							WB_Header=rs.getString("WB_Header");

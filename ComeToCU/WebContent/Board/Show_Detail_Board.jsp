@@ -110,7 +110,7 @@
 </style>
 <title>자유 게시판 글 보기</title>
 </head>
-<body style="background-color: #f7f7f7">
+<body style="background-color: #f7f7f7" onLoad="changeImageSize()">
 	<br>
 	<br>
 	<br>
@@ -239,7 +239,7 @@
 									<hr style="border: solid 1.5px #EAEAEA;">
 								</div>
 								<div class="row">
-									<div class="panel-heading" style="padding: 0px 10px">
+									<div class="panel-heading" style="padding: 0px 3px">
 
 										<div class="text-right">
 											<img src="/img/creator.png" />
