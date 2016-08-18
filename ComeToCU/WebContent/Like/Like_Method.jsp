@@ -120,7 +120,8 @@ var WB_ID = document.getElementById("WB_ID")
 
 	function Like() {
 		var Get_ID = "<%=session.getAttribute("Get_ID")%>";
-		if(Get_ID==""||Get_ID==null){
+
+		if(Get_ID==""||Get_ID=="null"){
 			alert("로그인이 필요합니다.")
 			$('#login').modal('show')
 		}else{

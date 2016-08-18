@@ -271,7 +271,7 @@ color: black !important;
 			nhn.husky.EZCreator.createInIFrame({
 				oAppRef : oEditors,
 				elPlaceHolder : "ir1",
-				sSkinURI : "/smarteditor/SmartEditor2Skin.html",
+				sSkinURI : "/smarteditor/SmartEditor2Skin2_m.html",
 				fCreator : "createSEditor2"
 			});
 		</script>

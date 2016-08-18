@@ -128,7 +128,13 @@
 	
 	//댓글 추가
 	function addComment() {
+		var Get_ID = "<%=session.getAttribute("Get_ID")%>";
+
 		 //댓글에 넣기 위한 변수들
+		if(Get_ID==""||Get_ID=="null"){
+			alert("로그인이 필요합니다.")
+			$('#login').modal('show')
+		}else{
 		var CD_ID = document.addForm.CD_ID.value;
 		var CS_ID = document.addForm.CS_ID.value;
 		 
@@ -146,7 +152,7 @@
 		var params = "CD_ID="+encodeURIComponent(CD_ID)+"&"+"CS_ID="+encodeURIComponent(CS_ID)+"&"+"WB_ID="+encodeURIComponent(WB_ID)+"&"+
 		             "content="+encodeURIComponent(content)+"&"+"R_Time="+encodeURIComponent(R_Time);
 		new ajax.xhr.Request('/Reply/commentadd.jsp', params, addResult, 'POST');
-		
+		}
 	}
 	//상기 동일
 	function addResult(req) {

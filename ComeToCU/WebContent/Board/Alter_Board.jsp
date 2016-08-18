@@ -27,103 +27,7 @@
 
 <script type="text/javascript" src="/Reply/ajax.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {Board_Select(<%=request.getParameter("CS_ID")%>); });
-$(document).ready(function() {Board_Detail_Select(<%=request.getParameter("CD_ID")%>); });
 
-
-//submit 할 때 값을 넘겨주기 위해 전역변수 선언
-var BS = null;
-var BDS = null;
-
-//두번째 동적으로 할당된 selectbox의 값을 가져옴 
-//this.value로 함수를 호출했기 때문에 별 다른 변형없이바로 사용가능
-
-
-function Board_Detail_Select(BDS_Value) {
-	BDS = BDS_Value;
-}
-
-//ajax통신으로 뒤에 selectbox 동적 할당하기 위한 함수
-function Board_Select(BS_Value) {
-	BS = BS_Value;
-
-	//첫 카테고리 구분을 한 후 두번 째 카테고리가 초기화 될 수 있게끔 하는 작업
-	var Select_BoardList = document.getElementById("BoardList");
-	for (i = 0; i < Select_BoardList.options.length; i++)
-		Select_BoardList.options[i] = null;
-	Select_BoardList.options.length = 0;
-
-	//ajax통신으로 넘기기 위한 작업
-	var param = "id=" + encodeURIComponent(BS_Value);
-	new ajax.xhr.Request("/Write_Board/Board_Search.jsp", param,
-			loadBoardList, 'GET');
-}
-
-function loadBoardList(req) {
-	//연결
-	if (req.readyState == 4) {
-		//정상이면
-		if (req.status == 200) {
-			//object 받아옴
-			var xmlDoc = req.responseXML;
-			var code = xmlDoc.getElementsByTagName('code').item(0).firstChild.nodeValue;
-			if (code == 'success') {
-				var BoardList = eval("("
-						+ xmlDoc.getElementsByTagName('data').item(0).firstChild.nodeValue
-						+ ")");
-
-				//select box 초기 값을 바로 불러들이지 못하고 선택을 해야만 값을 받아올 수 있기 disabled된 카테고리하나 추가
-				var listDiv = document.getElementById('BoardList');
-				var BoardFirst = makeBoardFirst();
-
-				//select box(세부 카테고리)에서 동적으로 자료들 보여주기 위한 코드
-				listDiv.appendChild(BoardFirst);
-				for (var i = 0; i < BoardList.length; i++) {
-					var BoardDiv = makeBoardView(BoardList[i]);
-					listDiv.appendChild(BoardDiv);
-				}
-			} else if (code == 'error') {
-				var message = xmlDoc.getElementsByTagName('message')
-						.item(0).firstChild.nodeValue;
-				alert("에러 발생6:" + message);
-			}
-		} else {
-			alert("에러 발생7:" + req.status);
-		}
-	}
-}
-
-//값을 선택하게끔 하기 위한 함수
-function makeBoardFirst() {
-	//<option> </option> 을 만듬
-	var BoardFirst = document.createElement('option');
-
-	//<option selected="selected">
-	BoardFirst.setAttribute('selected', "selected");
-	//<option selected="selected" disabled="true">
-	BoardFirst.setAttribute('disabled', "true");
-
-	//<option selected="selected" disabled>세부 카테고리</option>
-	var html = "세부 카테고리";
-	BoardFirst.innerHTML = html;
-	return BoardFirst;
-
-}
-
-function makeBoardView(Board) {
-	//<option>
-	var BoardDiv = document.createElement('option');
-	//<option id="~"
-	BoardDiv.setAttribute('id', Board.id);
-	//<option id="~" value="~">~</option>
-	BoardDiv.setAttribute('value', Board.id);
-	var html = Board.CD_Contents.replace(/\n/g, '');
-	BoardDiv.innerHTML = html;
-	BoardDiv.Board = Board;
-	BoardDiv.className = "Board";
-	return BoardDiv;
-
-}
 	function submitContents(elClickedObj) {
 		// 에디터의 내용이 textarea에 적용된다.
 		oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
@@ -293,7 +197,7 @@ function makeBoardView(Board) {
 						<br>
 						<div class="row">
 
-							<textarea maxlength='100' name='ir1' id='ir1' rows='10'
+							<textarea maxlength='10000' name='ir1' id='ir1' rows='10'
 								cols='100'
 								style='width: device-width; min-width: 150px; height: 100px; display: none;'><%=WB_Contents %></textarea>
 
@@ -314,7 +218,7 @@ function makeBoardView(Board) {
 			nhn.husky.EZCreator.createInIFrame({
 				oAppRef : oEditors,
 				elPlaceHolder : "ir1",
-				sSkinURI : "/smarteditor/SmartEditor2Skin.html",
+				sSkinURI : "/smarteditor/SmartEditor2Skin2_m.html",
 				fCreator : "createSEditor2"
 			});
 		</script>

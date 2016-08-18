@@ -20,9 +20,59 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <title>컴투씨유</title>
-<head>
+
+<script type="text/javascript">
+
+function change(form)
+{
+if (form.url.selectedIndex !=0)
+parent.location = form.url.options[form.url.selectedIndex].value
+}
+function setCookie( name, value, expiredays )
+{
+var todayDate = new Date();
+todayDate.setDate( todayDate.getDate() + expiredays );
+document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+}
+function getCookie( name )
+{
+var nameOfCookie = name + "=";
+var x = 0;
+while ( x <= document.cookie.length )
+{
+var y = (x+nameOfCookie.length);
+if ( document.cookie.substring( x, y ) == nameOfCookie ) {
+if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 )
+endOfCookie = document.cookie.length;
+return unescape( document.cookie.substring( y, endOfCookie ) );
+}
+x = document.cookie.indexOf( " ", x ) + 1;
+if ( x == 0 )
+break;
+}
+return "";
+} 
+if ( getCookie( "Notice1" ) != "done" )
+{
+noticeWindow = window.open('/event/banner_event.html','Notice','top=0,left=0,toolbar=no,location=no,directories=no,status=no, menubar=no,scrollbars=no, resizable=no,width=346,height=392');
+
+//winddow.open의 ()의 것은 한줄에 계속 붙여써야 오류가 안남, 줄바뀌면 오류남
+noticeWindow.opener = self;
+
+}
+if ( getCookie( "Notice2" ) != "done" )
+{
+
+noticeWindow2 = window.open('/event/best_event.html','Notice2','top=0,left=500,toolbar=no,location=no,directories=no,status=no, menubar=no,scrollbars=no, resizable=no,width=346,height=392');
+
+noticeWindow2.opener = self;
+
+}
+
+</script>
+
+
 <meta name="description" content="대구가톨릭대학교 커뮤니티 사이트">
-</head>
 </head>
 <body style="background-color:#F6F6F6; color:#002266">
 	<br>

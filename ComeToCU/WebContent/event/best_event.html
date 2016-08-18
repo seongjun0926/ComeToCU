@@ -1,0 +1,55 @@
+
+<html>
+<head>
+<meta http-equiv='content-type' content='text/html; charset=euc-kr'>
+<title></title>
+<style>
+body, p {
+	font-size: 12pt;
+}
+</style>
+</head>
+<SCRIPT language="JavaScript">
+
+	function setCookie(name, value, expiredays) {
+		var todayDate = new Date();
+		todayDate.setDate(todayDate.getDate() + expiredays);
+		document.cookie = name + "=" + escape(value) + "; path=/; expires="
+				+ todayDate.toGMTString() + ";"
+	}
+
+	function closeWin() {
+		if (document.forms[0].Notice.checked)
+			setCookie("Notice2", "done", 1);
+		self.close();
+	}
+
+</script>
+</head>
+<body onunload="closeWin()" bgcolor='white' text='black' leftmargin='0'
+	marginwidth='0' topmargin='0' marginheight='0'>
+	<form name="myform2">
+
+		<table border='0' cellpadding='1' cellspacing='1' width='350' height='400' bgcolor='black'>
+			<tr>
+				<td bgcolor='white' align='center' valign='middle' colspan='3'>
+					<img src="/event/event_img/best_event.jpg" border="0" width="350"
+					height="400" align="middle">
+				</td>
+			</tr>
+			<tr>
+				<td height='20' bgcolor='black' align='center'
+					style='border-width: 1; border-color: white; height: 18; color: white;'><p>
+						<input type=CHECKBOX name="Notice2" value=""> 하루동안 이 창 열지
+						않음
+					</p></td>
+				<td height='20' bgcolor='black' align='center'
+					style='border-width: 1; border-color: white; height: 18; color: white;'><p>
+						<a href="javascript:window.close()">닫기</a>
+					</p></td>
+			</tr>
+		</table>
+	</form>
+
+</body>
+</html>
